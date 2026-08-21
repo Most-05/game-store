@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { BalanceContext } from "../BalanceContext"; // ยอดเงินกลางของทั้งเว็บ
 import style from "./ROVShop.module.css"; // ใช้ CSS Modules
@@ -9,22 +9,8 @@ function ROVShop() {
   // ใช้ยอดเงินกลางร่วมกับทั้งเว็บ แทนการถือ Coins ของตัวเองแยกต่างหาก
   const { balance, decreaseBalance } = useContext(BalanceContext);
 
-  // ใช้ useRef เพื่อเข้าถึง .navbar
-  const navbarRef = useRef(null);
-
-  useEffect(() => {
-    // เช็คว่า navbarRef.current ไม่เป็น null แล้วจึงซ่อน navbar
-    if (navbarRef.current) {
-      navbarRef.current.style.display = "none";
-    }
-
-    return () => {
-      // ฟังก์ชัน clean-up เพื่อแสดง navbar อีกครั้งเมื่อออกจากหน้านี้
-      if (navbarRef.current) {
-        navbarRef.current.style.display = "flex";
-      }
-    };
-  }, []); // useEffect จะทำงานหลังจากคอมโพเนนต์โหลดเสร็จ
+  // การซ่อนและแสดงเมนูจัดการด้วยคลาส open ใน CSS แล้ว
+  // ไม่ต้องไปสั่ง display ทับผ่าน ref อีก
 
   // เปิด Popup ยืนยันการซื้อ
   function confirmPurchase(product) {
@@ -64,7 +50,7 @@ function ROVShop() {
       <div className={style['menuicon']} onClick={() => setMenuOpen(!menuOpen)}>☰</div>
 
       {/* เมนู Sidebar */}
-      <div ref={navbarRef} className={`${style.sidebar} ${menuOpen ? style.open : ""}`}>
+      <div className={`${style.sidebar} ${menuOpen ? style.open : ""}`}>
         <button className={style['close-btn']} onClick={() => setMenuOpen(false)}>✖</button>
         <Link to="/Home" onClick={() => setMenuOpen(false)}>Home</Link>
         <Link to="/ROVShop" onClick={() => setMenuOpen(false)}>Shop</Link>
