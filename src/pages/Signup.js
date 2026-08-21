@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Form, Row, Button } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styles from './singup.module.css';  // นำเข้าไฟล์ CSS Module
 
 export default function SignUp() {
@@ -56,6 +56,11 @@ export default function SignUp() {
         <div className={styles.signupbody1}>
             <div className={`${styles.main} container m-auto`}>
             <div className={styles.signup}>
+                <div className={styles.brand}>
+                    <h1>สมัครสมาชิก</h1>
+                    <p>สร้างบัญชีเพื่อเริ่มเลือกซื้อไอเทมในเกม</p>
+                </div>
+
                 <Form noValidate validated={validated} onSubmit={onSubmit}>
                     <Row>
                         <Form.Group controlId="username">
@@ -131,6 +136,13 @@ export default function SignUp() {
                     <Button variant="primary" type="submit" className={styles.button}>
                         Sign Up
                     </Button>
+
+                    {/* ทางกลับไปหน้าเข้าสู่ระบบ เดิมหน้านี้ไม่มีทางกลับเลย
+                        ผู้ใช้ที่กดเข้ามาแล้วเปลี่ยนใจต้องกดปุ่มย้อนกลับของเบราว์เซอร์เอง */}
+                    <p className={styles.switchLine}>
+                        มีบัญชีอยู่แล้ว?
+                        <Link to="/">เข้าสู่ระบบ</Link>
+                    </p>
                 </Form>
             </div>
         </div>
