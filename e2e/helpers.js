@@ -52,4 +52,19 @@ async function settle(page) {
   await page.waitForTimeout(400);
 }
 
-module.exports = { API, visibleText, captureDialogs, captureErrors, seedBalance, createUser, settle };
+/**
+ * เปิดหน้าโดยไม่รอ event load
+ *
+ * page.goto ของ Playwright รอ event load เป็นค่าเริ่มต้น ซึ่งจะเกิดก็ต่อเมื่อ
+ * ทรัพยากรทุกชิ้นบนหน้าโหลดเสร็จ รวมถึงรูปจากเว็บนอกด้วย
+ * หน้าร้าน ROV มีรูปจากโดเมนภายนอกเกือบยี่สิบรูป ถ้ามีรูปไหนโหลดไม่ขึ้น
+ * goto จะค้างจนหมดเวลา 30 วินาที ทั้งที่หน้าเว็บใช้งานได้ตั้งนานแล้ว
+ *
+ * รอแค่ domcontentloaded ก็พอสำหรับสิ่งที่เทสตรวจ
+ */
+async function visit(page, path) {
+  await page.goto(path, { waitUntil: 'domcontentloaded' });
+  await page.waitForTimeout(400);
+}
+
+module.exports = { API, visibleText, captureDialogs, captureErrors, seedBalance, createUser, settle, visit };
