@@ -1,0 +1,117 @@
+/* Global styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+}
+
+
+
+/* Title styling */
+.line-title {
+    text-align: center;
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 40px;
+    position: relative;
+    padding-bottom: 10px;
+    color: #18f7b8;
+}
+
+.line-title::before,
+.line-title::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    border-radius: 2px;
+}
+
+.line-title::before {
+    width: 100%;
+    background-color: #f2f2f2;
+}
+
+.line-title::after {
+    width: 32px;
+    background-color: #e73700;
+}
+
+/* Game Section Styling */
+.game-section {
+    padding: 50px 20px;
+    background-color: #1e1e20; 
+
+}
+
+.game-list {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+/* Game Item Styling */
+.game-item {
+    position: relative;
+    width: 280px;
+    height: 400px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all 0.6s ease-in-out;
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+.game-item.active {
+    width: 450px;
+    height: 400px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    margin-top: 20px;
+}
+
+/* Description Styling */
+.game-desc {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    color: #18f7b8;
+    padding: 20px;
+    text-align: center;
+    transform: translateY(100%);
+    transition: transform 0.6s ease-in-out;
+}
+
+/* เมื่อเกมถูกขยาย (active) ให้แสดงรายละเอียด */
+.game-item.active .game-desc {
+    transform: translateY(0);
+}
+
+.game-desc h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.game-desc p {
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    .game-item {
+        width: 220px;
+        height: 300px;
+    }
+
+    .game-item.active {
+        width: 350px;
+        height: 300px;
+    }
+}
