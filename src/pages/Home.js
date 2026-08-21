@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from 'react';
 import Typed from 'typed.js';
 import './home.css';
 import Gamestore from './Gamestore.js';
-import ARKHome from './ARKHome.js';
 import AddFunds from './AddFunds.js';
 
 function Home({ balance }) {
