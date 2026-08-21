@@ -1,70 +1,83 @@
-# Getting Started with Create React App
+# GameStore — ARK · ROV · Fortnite
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A React storefront for in-game items, bringing three game shops together in one
+app with a shared account, wallet and checkout flow.
 
-## Available Scripts
+Built as a personal portfolio project (Feb–Mar 2025).
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+**Three game stores, one app**
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+| Store | Pages |
+|---|---|
+| **ARK: Survival Evolved** | Home + six category pages — Dino Packs, Blueprints, Equipment, Structures, Artifacts, Caves |
+| **RoV (Arena of Valor)** | Home + skin shop |
+| **Fortnite** | Home + cart + item cards |
 
-### `npm test`
+**Shared across all three**
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Login and signup screens — the app opens on the login page
+- A wallet balance held in React Context, shared by every page
+- Add Funds page to top the balance up
+- Cart and checkout, with the balance checked before a purchase goes through
 
-### `npm run build`
+## Built with
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- React 19
+- React Router 7
+- React Bootstrap
+- `react-use-cart` for cart state
+- Create React App
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Running locally
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+npm install
+npm start
+```
 
-### `npm run eject`
+The app starts at http://localhost:3000 and opens on the login screen.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Project layout
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```
+src/
+├── App.js              # every route is declared here
+├── BalanceContext.js   # wallet balance shared across pages
+├── components/
+│   └── Header.js
+└── pages/
+    ├── ARKHome.js  +  DinoPackPage / BlueprintPage / EquipmentPage
+    │                  / StructuresPage / ArtifactsPage / CavePage
+    ├── ROVHome.js  +  ROVShop.js
+    ├── FortniteHome.js  +  FortniteCart.js  +  FortniteItemcard.js
+    ├── login.js  +  Signup.js  +  AddFunds.js  +  CheckoutPage.js
+    └── Gamestore.js    # game picker
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+`src/pages/ARK/`, `src/pages/ROV/` and `src/pages/Fortnite/` hold earlier drafts
+that are no longer wired up — the live versions are the files directly under
+`src/pages/`, as the imports in `App.js` show.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Notes
 
-## Learn More
+This is a front-end project with no back end: accounts, balances and purchases
+live in React state and reset on reload. Item artwork belongs to the respective
+game publishers and is used here for a non-commercial student project.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+---
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## เกี่ยวกับโปรเจกต์นี้ (ภาษาไทย)
 
-### Code Splitting
+เว็บร้านขายไอเทมเกม เขียนด้วย React รวม 3 ร้านไว้ในเว็บเดียว — **ARK, RoV และ Fortnite**
+ใช้ระบบล็อกอิน ยอดเงิน ตะกร้า และหน้าชำระเงินร่วมกัน
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+ทำเป็นโปรเจกต์ส่วนตัวช่วง กุมภาพันธ์–มีนาคม 2568
 
-### Analyzing the Bundle Size
+**วิธีรัน:** `npm install` แล้ว `npm start` เปิดที่ http://localhost:3000
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+**หมายเหตุ:** เป็นงานฝั่งหน้าบ้านอย่างเดียว ยังไม่มีหลังบ้าน ข้อมูลบัญชีและยอดเงิน
+เก็บใน state ของ React รีเฟรชแล้วค่าจะกลับไปเริ่มใหม่
