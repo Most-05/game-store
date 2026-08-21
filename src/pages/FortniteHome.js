@@ -17,7 +17,7 @@ const FortniteHome = () => {
     return (
         <section>
             <div>
-            <Link to="/Home" style={{fontSize: '1.5em',fontWeight:'bold', color: '#333', textDecoration: 'none', margin:'110px',paddingTop:'110px'}}> หนัาหลัก </Link>
+            <Link to="/Home" style={{fontSize: '1.5em',fontWeight:'bold', color: '#333', textDecoration: 'none', margin:'110px',paddingTop:'110px'}}> หน้าหลัก </Link>
                 <div style={{ textAlign: 'center' }}>
                     <img src={fortnite} alt="Fortnite Logo" style={{ display: 'block', margin: 'auto', width: '300px', height: 'auto', paddingTop: '15px' }} />
                     <h1 className="mt-3">ร้าน Emmy Gift Shop</h1>
