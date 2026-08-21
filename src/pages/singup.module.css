@@ -1,0 +1,114 @@
+/* General Body Styles */
+
+.signupbody1{
+        margin: 100;
+    padding: 100;
+    display: 200;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: 'Jost', sans-serif;
+    background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+    overflow-x: hidden;  
+}
+
+/* Main Container */
+.main {
+    width: 100%;  /* ให้ความกว้างเต็มหน้าจอ */
+    max-width: 500px;  /* ขยายกรอบให้กว้างสุดที่ 800px */
+    height: auto;
+    background: url("https://doc-08-2c-docs.googleusercontent.com/docs/securesc/68c90smiglihng9534mvqmq1946dmis5/fo0picsp1nhiucmc0l25s29respgpr4j/1631524275000/03522360960922298374/03522360960922298374/1Sx0jhdpEpnNIydS4rnN4kHSJtU1EyWka?e=view&authuser=0&nonce=gcrocepgbb17m&user=03522360960922298374&hash=tfhgbs86ka6divo3llbvp93mg4csvb38") no-repeat center/cover;
+    border-radius: 10px;
+    box-shadow: 5px 20px 50px #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    overflow: hidden;
+    padding: 40px;  /* เพิ่ม padding เพื่อให้เนื้อหาภายในไม่ชิดขอบ */
+    font-family: 'Bebas Neue', sans-serif !important;
+}
+
+/* Signup Section */
+.signup {
+    position: relative;
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: 'Bebas Neue', sans-serif !important;
+}
+
+/* Label Styling */
+label {
+    color: #fff;
+    font-size: 1.5em;  /* ขยายขนาดฟอนต์เล็กน้อย */
+    margin-bottom: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .5s ease-in-out;
+}
+
+/* Input Field Styling */
+input {
+    width: 100%;  /* ให้ช่องกรอกข้อมูลเต็มความกว้าง */
+    height: 40px;  /* ขนาดความสูงช่องกรอก */
+    background: #e0dede;
+    display: block;
+    margin: 10px 0;
+    padding: 12px;
+    border: 1px solid #ccc; /* ขอบกรอบรอบช่องกรอกข้อมูล */
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+/* Button Styling */
+button {
+    width: 100%;  /* ให้ปุ่มกว้างเต็มฟอร์ม */
+    height: 45px;
+    margin: 10px 0;
+    color: #fff;
+    background: #573b8a;
+    font-size: 1.1em;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    transition: .2s ease-in;
+    cursor: pointer;
+}
+
+/* Button Hover Effect */
+button:hover {
+    background: #6d44b8;
+}
+
+/* Responsive for Mobile Screens */
+@media (max-width: 480px) {
+    .main {
+        width: 90%;  /* ให้ขนาดความกว้างเท่ากับ 90% ของขนาดหน้าจอ */
+        height: auto;
+        padding: 20px;
+    }
+
+    .signup label {
+        font-size: 1.2em;  /* ลดขนาดฟอนต์สำหรับมือถือ */
+    }
+
+    input, button {
+        width: 90%;  /* ปรับความกว้างของช่องกรอกและปุ่มให้เหมาะสม */
+    }
+}
+
+/* Viewport Settings to prevent zoom */
+html, body {
+    touch-action: manipulation;
+    -ms-touch-action: manipulation;
+    font-size: 16px; /* กำหนดขนาดตัวอักษรที่เหมาะสม */
+}
+
+@viewport {
+    width: device-width;
+    zoom: 1;
+}
