@@ -1,0 +1,56 @@
+/* นำเข้าฟอนต์จาก Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@400;700&display=swap'); /* ฟอนต์ Sarabun */
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@400;700&display=swap'); /* ฟอนต์ Kanit */
+
+/* #add-funds CSS */
+#add-funds {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    text-align: center;
+    font-family: 'Sarabun', sans-serif; 
+    color: #18f7b8;
+    background-color: #1e1e20; 
+}
+
+#add-funds h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    font-family: 'Sarabun', sans-serif; 
+}
+
+#add-funds p {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: #18f7b8;
+    font-family: 'Sarabun', sans-serif; 
+}
+
+#add-funds input {
+    padding: 10px;
+    font-size: 1.2rem;
+    width: 50%;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-family: 'Sarabun', sans-serif; 
+}
+
+#add-funds button {
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    font-family: 'Sarabun', sans-serif; 
+    width: 100px;
+}
+
+#add-funds button:hover {
+    background-color: #45a049;
+}
