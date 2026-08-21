@@ -1,0 +1,8 @@
+.fixed-background {
+    background-image: url('./photo/fortnite-background-scaled.jpg'); 
+    background-size: cover; 
+    background-repeat: no-repeat;
+    background-position: center center; 
+    background-attachment: fixed; 
+  }
+  
