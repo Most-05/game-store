@@ -39,4 +39,17 @@ async function createUser(request, user) {
   return request.post(`${API}/add_user`, { data: user });
 }
 
-module.exports = { API, visibleText, captureDialogs, captureErrors, seedBalance, createUser };
+/**
+ * รอให้หน้าเรนเดอร์เสร็จแบบไม่ต้องรอรูปจากเว็บนอก
+ *
+ * ใช้ networkidle ไม่ได้กับหน้าร้าน ROV และ Fortnite เพราะสองหน้านี้ดึงรูปสินค้า
+ * จากโดเมนภายนอกหลายสิบรูป (garenanow, isanook, 4gamers ฯลฯ)
+ * ถ้ารูปไหนโหลดช้าหรือโหลดไม่ขึ้น networkidle จะไม่มีวันเกิดและเทสจะ timeout
+ * รอแค่ DOM พร้อมก็พอ เพราะสิ่งที่เราตรวจคือข้อความบนหน้า ไม่ใช่รูป
+ */
+async function settle(page) {
+  await page.waitForLoadState('domcontentloaded');
+  await page.waitForTimeout(400);
+}
+
+module.exports = { API, visibleText, captureDialogs, captureErrors, seedBalance, createUser, settle };
