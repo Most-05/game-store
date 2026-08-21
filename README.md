@@ -3,7 +3,8 @@
 A React storefront for in-game items, bringing three game shops together in one
 app with a shared account, wallet and checkout flow.
 
-Built as a personal portfolio project (Feb–Mar 2025).
+Built as a personal portfolio project (Feb–Mar 2025), restored and repaired in
+August 2026 — see [Restoration notes](#restoration-notes-august-2026).
 
 ---
 
@@ -14,15 +15,17 @@ Built as a personal portfolio project (Feb–Mar 2025).
 | Store | Pages |
 |---|---|
 | **ARK: Survival Evolved** | Home + six category pages — Dino Packs, Blueprints, Equipment, Structures, Artifacts, Caves |
-| **RoV (Arena of Valor)** | Home + skin shop |
+| **RoV (Arena of Valor)** | Home + skin shop with a slide-out menu |
 | **Fortnite** | Home + cart + item cards |
 
 **Shared across all three**
 
 - Login and signup screens — the app opens on the login page
-- A wallet balance held in React Context, shared by every page
+- One wallet balance held in React Context and mirrored to `localStorage`,
+  shared by all three stores
 - Add Funds page to top the balance up
 - Cart and checkout, with the balance checked before a purchase goes through
+- A 404 page for any URL that matches no route
 
 ## Built with
 
@@ -31,15 +34,45 @@ Built as a personal portfolio project (Feb–Mar 2025).
 - React Bootstrap
 - `react-use-cart` for cart state
 - Create React App
+- Playwright for end-to-end tests
 
 ## Running locally
 
+The app needs two processes: the React dev server and the backend API.
+
 ```bash
 npm install
-npm start
+
+npm run server     # terminal 1 — mock backend on :8082
+npm start          # terminal 2 — React app on :3000
 ```
 
 The app starts at http://localhost:3000 and opens on the login screen.
+Sign up for a new account, or use a seeded one:
+
+| Username | Password |
+|---|---|
+| `mos` | `1234` |
+| `preecha` | `12345` |
+
+Without the backend running, signup and login fail with
+`Error during signup. Please try again.` — everything else still works.
+
+## Testing
+
+```bash
+npm run test:e2e          # run the Playwright suite (50 tests)
+npm run test:e2e:report   # open the HTML report
+```
+
+The suite covers every route, every internal link, the signup and login flows,
+the wallet, and all three shops. Playwright starts the dev server itself if one
+is not already running, but the **backend must be started separately**.
+
+`e2e/helpers.js` holds the shared helpers. Two are worth knowing about: `visit`
+and `settle` deliberately avoid waiting for the `load` event, because the ROV
+and Fortnite pages hotlink dozens of images from external sites — if any of them
+stalls, a normal `page.goto` hangs until it times out.
 
 ## Project layout
 
@@ -55,18 +88,35 @@ src/
     ├── ROVHome.js  +  ROVShop.js
     ├── FortniteHome.js  +  FortniteCart.js  +  FortniteItemcard.js
     ├── login.js  +  Signup.js  +  AddFunds.js  +  CheckoutPage.js
+    ├── NotFound.js     # 404
     └── Gamestore.js    # game picker
+
+mock-server/            # stand-in backend, see mock-server/README.md
+e2e/                    # Playwright tests
 ```
 
 `src/pages/ARK/`, `src/pages/ROV/` and `src/pages/Fortnite/` hold earlier drafts
 that are no longer wired up — the live versions are the files directly under
 `src/pages/`, as the imports in `App.js` show.
 
+## Restoration notes (August 2026)
+
+The original backend (`my-app-server/server.js`, Express + MySQL) was lost; only
+its `package.json` and a users table dump survived. `mock-server/` replaces it
+with a dependency-free Node server so the app runs end to end again.
+
+Writing the Playwright suite surfaced a number of defects that were then fixed —
+among them a missing `CartProvider` that made the Fortnite cart throw
+`addItem is not a function`, a checkout that never deducted the balance, a ROV
+menu whose CSS classes were never defined, and a route typo
+(`/FortnightHome` vs `/FortniteHome`) that left the Fortnite page blank.
+The commit history covers each one individually.
+
 ## Notes
 
-This is a front-end project with no back end: accounts, balances and purchases
-live in React state and reset on reload. Item artwork belongs to the respective
-game publishers and is used here for a non-commercial student project.
+Item artwork belongs to the respective game publishers and is used here for a
+non-commercial student project. The mock backend is for local development only —
+it stores passwords as MD5 hashes and does not verify the tokens it issues.
 
 ---
 
@@ -76,8 +126,41 @@ game publishers and is used here for a non-commercial student project.
 ใช้ระบบล็อกอิน ยอดเงิน ตะกร้า และหน้าชำระเงินร่วมกัน
 
 ทำเป็นโปรเจกต์ส่วนตัวช่วง กุมภาพันธ์–มีนาคม 2568
+แล้วนำกลับมากู้คืนและซ่อมบั๊กในเดือนสิงหาคม 2569
 
-**วิธีรัน:** `npm install` แล้ว `npm start` เปิดที่ http://localhost:3000
+### วิธีรัน
 
-**หมายเหตุ:** เป็นงานฝั่งหน้าบ้านอย่างเดียว ยังไม่มีหลังบ้าน ข้อมูลบัญชีและยอดเงิน
-เก็บใน state ของ React รีเฟรชแล้วค่าจะกลับไปเริ่มใหม่
+ต้องเปิดสองอย่างคู่กัน
+
+```bash
+npm install
+
+npm run server     # หน้าต่างที่ 1 — backend จำลองที่พอร์ต 8082
+npm start          # หน้าต่างที่ 2 — เว็บที่พอร์ต 3000
+```
+
+เปิดที่ http://localhost:3000 จะเจอหน้าเข้าสู่ระบบก่อน
+สมัครใหม่ได้ หรือใช้บัญชีตั้งต้น `mos` / `1234` และ `preecha` / `12345`
+
+ถ้าไม่เปิด backend หน้าสมัครกับหน้าล็อกอินจะใช้ไม่ได้
+ขึ้นข้อความว่า `Error during signup. Please try again.` ส่วนหน้าอื่นยังใช้ได้ปกติ
+
+### วิธีรันเทส
+
+```bash
+npm run test:e2e          # รันเทส Playwright ทั้ง 50 ตัว
+npm run test:e2e:report   # เปิดรายงานผลแบบ HTML
+```
+
+เทสครอบคลุมทุกหน้า ทุกลิงก์ภายในเว็บ ระบบสมัครและเข้าสู่ระบบ ระบบยอดเงิน
+และร้านค้าทั้งสามร้าน
+
+### เรื่องการกู้คืน
+
+backend ตัวจริงหายไปจากเครื่อง เหลือแค่ `package.json` กับไฟล์ SQL ของตาราง users
+จึงเขียน `mock-server/` ขึ้นมาแทนเพื่อให้เว็บกลับมาใช้งานได้ครบ
+
+ตอนเขียนชุดเทสพบบั๊กหลายจุดแล้วไล่แก้ทีละตัว เช่น ขาด `CartProvider`
+ทำให้ตะกร้า Fortnite พังทั้งระบบ หน้า Checkout ไม่เคยหักเงินจริง
+เมนูร้าน ROV ไม่มี CSS เลยกดใช้ไม่ได้ และ route ของหน้า Fortnite สะกดผิด
+จนเปิดหน้าไม่ขึ้น รายละเอียดของแต่ละจุดดูได้จากประวัติคอมมิต
