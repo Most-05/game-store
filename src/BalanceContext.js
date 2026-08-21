@@ -14,12 +14,17 @@ export const BalanceProvider = ({ children }) => {
     };
 
     // ฟังก์ชันสำหรับการลดยอดเงิน
+    // คืนค่า true เมื่อหักเงินสำเร็จ และ false เมื่อยอดเงินไม่พอ
+    // เดิมฟังก์ชันนี้เงียบไปเฉย ๆ เมื่อเงินไม่พอ ผู้เรียกจึงแยกไม่ออกว่าหักสำเร็จหรือไม่
+    // แล้วไปแจ้งผู้ใช้ว่าซื้อสำเร็จทั้งที่เงินไม่ถูกหัก
     const decreaseBalance = (amount) => {
-        const newBalance = balance - amount;
-        if (newBalance >= 0) {
-            setBalance(newBalance);
-            localStorage.setItem('balance', newBalance); // อัปเดตใน localStorage
+        if (!(amount > 0) || balance < amount) {
+            return false;
         }
+        const newBalance = balance - amount;
+        setBalance(newBalance);
+        localStorage.setItem('balance', newBalance); // อัปเดตใน localStorage
+        return true;
     };
 
     // ใช้ useEffect เพื่อให้ยอดเงินที่ดึงมาเก็บไว้ใน localStorage ทุกครั้งที่มีการเปลี่ยนแปลง
