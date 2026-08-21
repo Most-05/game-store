@@ -1,5 +1,5 @@
 const { test, expect } = require('@playwright/test');
-const { visibleText, captureErrors, captureDialogs, settle } = require('./helpers');
+const { visibleText, captureErrors, captureDialogs, settle, visit } = require('./helpers');
 
 // ทุก route ที่ประกาศไว้ใน src/App.js พร้อมข้อความที่ต้องเจอบนหน้านั้น
 const routes = [
@@ -25,7 +25,7 @@ test.describe('ทุกหน้าต้องเรนเดอร์เน�
   for (const { path, mustSee } of routes) {
     test(`${path} ต้องไม่ใช่หน้าว่าง และต้องมีข้อความ "${mustSee}"`, async ({ page }) => {
       captureDialogs(page);
-      await page.goto(path);
+      await visit(page, path);
       await settle(page);
       const text = await visibleText(page);
       expect(text.length, `หน้า ${path} ว่างเปล่า ไม่มีข้อความเลย`).toBeGreaterThan(10);
@@ -36,7 +36,7 @@ test.describe('ทุกหน้าต้องเรนเดอร์เน�
 
 test('URL ที่ไม่มี route ต้องบอกผู้ใช้ ไม่ใช่ปล่อยหน้าขาว', async ({ page }) => {
   captureDialogs(page);
-  await page.goto('/route-ที่ไม่มีอยู่จริง-12345');
+  await visit(page, '/route-ที่ไม่มีอยู่จริง-12345');
   await settle(page);
   const text = await visibleText(page);
   expect(text.length, 'ไม่มี catch-all route ผู้ใช้เลยเจอหน้าขาวโดยไม่รู้สาเหตุ').toBeGreaterThan(0);
@@ -45,7 +45,7 @@ test('URL ที่ไม่มี route ต้องบอกผู้ใช้
 test('หน้าแรกต้องโหลดได้โดยไม่มี error หลุดออกมาที่ console', async ({ page }) => {
   const errors = captureErrors(page);
   captureDialogs(page);
-  await page.goto('/Home');
+  await visit(page, '/Home');
   await settle(page);
   const real = errors.filter((e) => !/favicon|ERR_/.test(e));
   expect(real, `เจอ error: ${real.join(' | ')}`).toHaveLength(0);

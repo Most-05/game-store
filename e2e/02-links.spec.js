@@ -1,5 +1,5 @@
 const { test, expect } = require('@playwright/test');
-const { visibleText, captureDialogs, settle } = require('./helpers');
+const { visibleText, captureDialogs, settle, visit } = require('./helpers');
 
 // หน้าที่มีเมนู/ลิงก์ให้กด — เทสว่าลิงก์ทุกอันพาไปหน้าที่มีเนื้อหาจริง
 const pagesWithLinks = ['/Home', '/game', '/ARKHome', '/dino-pack', '/ROVHome', '/ROVShop', '/FortniteHome'];
@@ -8,7 +8,7 @@ test.describe('ลิงก์ทุกอันต้องไม่พาไ�
   for (const from of pagesWithLinks) {
     test(`ลิงก์ในหน้า ${from}`, async ({ page }) => {
       captureDialogs(page);
-      await page.goto(from);
+      await visit(page, from);
       await settle(page);
 
       // เก็บ href ภายในเว็บทั้งหมด (ข้าม anchor #, ลิงก์นอก, และ href ว่าง)
@@ -21,13 +21,13 @@ test.describe('ลิงก์ทุกอันต้องไม่พาไ�
       const broken = [];
 
       for (const href of unique) {
-        await page.goto(href);
+        await visit(page, href);
         await settle(page);
         const text = await visibleText(page);
         // ลิงก์เสียมีสองแบบ คือพาไปหน้าว่าง กับพาไปตกที่หน้า 404
         // ต้องเช็คแบบที่สองด้วย ไม่งั้นพอเพิ่มหน้า 404 เข้ามาแล้วเทสจะผ่านทั้งที่ลิงก์ยังเสีย
         if (text.length <= 10 || text.includes('ไม่พบหน้าที่คุณเรียก')) broken.push(href);
-        await page.goto(from);
+        await visit(page, from);
         await settle(page);
       }
 
@@ -45,7 +45,7 @@ test('กดการ์ดเกมในหน้า /game ต้องเข�
   ];
 
   for (const g of expected) {
-    await page.goto('/game');
+    await visit(page, '/game');
     await settle(page);
     await page.locator('.game-item').nth(g.index).click();
     await page.waitForURL(g.url, { timeout: 5000 });
@@ -71,7 +71,7 @@ test.describe('ปุ่มกลับหน้าหลักต้องไ�
   for (const { page: from, label } of homeButtons) {
     test(`ปุ่ม "${label}" ในหน้า ${from}`, async ({ page }) => {
       captureDialogs(page);
-      await page.goto(from);
+      await visit(page, from);
       await settle(page);
 
       await page.getByText(label, { exact: false }).first().click();

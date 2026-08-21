@@ -1,5 +1,5 @@
 const { test, expect } = require('@playwright/test');
-const { API, visibleText, captureDialogs, createUser } = require('./helpers');
+const { API, visibleText, captureDialogs, createUser, visit } = require('./helpers');
 
 const unique = () => 'e2e' + Date.now() + Math.floor(Math.random() * 1000);
 
@@ -13,7 +13,7 @@ test('สมัครสมาชิกใหม่ผ่านหน้าเ�
   const dialogs = captureDialogs(page);
   const name = unique();
 
-  await page.goto('/signup');
+  await visit(page, '/signup');
   await page.fill('#username', name);
   await page.fill('#password', '1234');
   await page.fill('#firstname', 'Test');
@@ -34,7 +34,7 @@ test('สมัครด้วยชื่อซ้ำต้องขึ้น�
     user_name: name, user_pwd: '1234', first_name: 'A', last_name: 'B', email: 'a@b.com',
   });
 
-  await page.goto('/signup');
+  await visit(page, '/signup');
   await page.fill('#username', name);
   await page.fill('#password', '1234');
   await page.fill('#firstname', 'A');
@@ -52,7 +52,7 @@ test('ล็อกอินด้วยรหัสถูกต้องแล�
     user_name: name, user_pwd: 'pass1234', first_name: 'Mos', last_name: 'H', email: 'm@h.com',
   });
 
-  await page.goto('/');
+  await visit(page, '/');
   await page.fill('#username', name);
   await page.fill('#password', 'pass1234');
   await page.click('button[type="submit"]');
@@ -69,7 +69,7 @@ test('ล็อกอินสำเร็จแล้วต้องเห็�
     user_name: name, user_pwd: 'pass1234', first_name: 'Mos', last_name: 'H', email: 'm@h.com',
   });
 
-  await page.goto('/');
+  await visit(page, '/');
   await page.fill('#username', name);
   await page.fill('#password', 'pass1234');
   await page.click('button[type="submit"]');
@@ -85,7 +85,7 @@ test('ล็อกอินรหัสผิดต้องขึ้นข้�
     user_name: name, user_pwd: 'correct', first_name: 'A', last_name: 'B', email: 'a@b.com',
   });
 
-  await page.goto('/');
+  await visit(page, '/');
   await page.fill('#username', name);
   await page.fill('#password', 'wrong-password');
   await page.click('button[type="submit"]');

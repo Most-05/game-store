@@ -1,11 +1,11 @@
 const { test, expect } = require('@playwright/test');
-const { visibleText, captureDialogs, seedBalance, settle } = require('./helpers');
+const { visibleText, captureDialogs, seedBalance, settle, visit } = require('./helpers');
 
 test('เติมเงินแล้วยอดต้องเพิ่มขึ้นจริง', async ({ page }) => {
   const dialogs = captureDialogs(page);
   await seedBalance(page, 1000);
 
-  await page.goto('/add-funds');
+  await visit(page, '/add-funds');
   await page.fill('input[type="number"]', '500');
   await page.fill('input[type="text"]', '0812345678');
   await page.click('button:has-text("เติมเงิน")');
@@ -19,7 +19,7 @@ test('เติมเงินเสร็จต้องไม่เด้ง�
   const dialogs = captureDialogs(page);
   await seedBalance(page, 1000);
 
-  await page.goto('/add-funds');
+  await visit(page, '/add-funds');
   await page.fill('input[type="number"]', '500');
   await page.fill('input[type="text"]', '0812345678');
   await page.click('button:has-text("เติมเงิน")');
@@ -34,7 +34,7 @@ test('เบอร์โทรไม่ครบ 10 หลักต้องเ�
   const dialogs = captureDialogs(page);
   await seedBalance(page, 1000);
 
-  await page.goto('/add-funds');
+  await visit(page, '/add-funds');
   await page.fill('input[type="number"]', '500');
   await page.fill('input[type="text"]', '123');
   await page.click('button:has-text("เติมเงิน")');
@@ -48,7 +48,7 @@ test('เติมเงินติดลบไม่ควรทำให้�
   const dialogs = captureDialogs(page);
   await seedBalance(page, 1000);
 
-  await page.goto('/add-funds');
+  await visit(page, '/add-funds');
   await page.fill('input[type="number"]', '-800');
   await page.fill('input[type="text"]', '0812345678');
   await page.click('button:has-text("เติมเงิน")');
@@ -62,7 +62,7 @@ test('ซื้อไอเทม ARK แล้วยอดเงินต้อ
   const dialogs = captureDialogs(page);
   await seedBalance(page, 10000);
 
-  await page.goto('/dino-pack');
+  await visit(page, '/dino-pack');
   await settle(page);
   await page.locator('text=Giga').first().click();          // Giga ราคา 5000
   await page.waitForURL(/checkout/i, { timeout: 5000 });
@@ -77,7 +77,7 @@ test('เงินไม่พอต้องซื้อไม่ได้', as
   const dialogs = captureDialogs(page);
   await seedBalance(page, 100);
 
-  await page.goto('/dino-pack');
+  await visit(page, '/dino-pack');
   await settle(page);
   await page.locator('text=Giga').first().click();          // Giga ราคา 5000 แต่มีอยู่ 100
   await page.waitForURL(/checkout/i, { timeout: 5000 });
@@ -93,7 +93,7 @@ test('ซื้อของจากหมวด Blueprint แล้วต้อ
   const dialogs = captureDialogs(page);
   await seedBalance(page, 100000);
 
-  await page.goto('/blueprint');
+  await visit(page, '/blueprint');
   await settle(page);
   await page.locator('[class*="Item"]').first().click();
   await page.waitForURL(/checkout/i, { timeout: 5000 });
