@@ -75,6 +75,20 @@
   background-color: var(--surface-3);
 }
 
+/* กล่องแทนที่เมื่อรูปโหลดไม่ขึ้น
+   ใช้สัดส่วนเดียวกับรูปจริง การ์ดจึงสูงเท่ากันเหมือนเดิม
+   ไม่ทำให้แถวเบี้ยวตอนมีรูปเสีย */
+.image-fallback {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--surface-3);
+  color: var(--text-dim);
+  font-size: 0.85rem;
+}
+
 .product-name {
   margin: 14px 16px 4px;
   font-size: 1rem;

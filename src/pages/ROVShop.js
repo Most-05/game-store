@@ -6,6 +6,8 @@ import style from "./ROVShop.module.css"; // ใช้ CSS Modules
 function ROVShop() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
+  // เก็บ id ของสินค้าที่รูปโหลดไม่ขึ้น เพื่อสลับไปแสดงกล่องแทนที่
+  const [brokenImages, setBrokenImages] = useState({});
   // ใช้ยอดเงินกลางร่วมกับทั้งเว็บ แทนการถือ Coins ของตัวเองแยกต่างหาก
   const { balance, decreaseBalance } = useContext(BalanceContext);
 
@@ -68,7 +70,20 @@ function ROVShop() {
             key={product.id}
             onClick={() => confirmPurchase(product)}
           >
-            <img src={product.image} alt={product.name} />
+            {/* รูปสกินทุกใบดึงมาจากเว็บภายนอก ซึ่งเจ้าของเว็บนั้นย้ายหรือลบรูปได้
+                ตลอดเวลาโดยเราไม่รู้ตัว ถ้ารูปไหนโหลดไม่ขึ้นให้แสดงกล่องแทน
+                พร้อมข้อความบอก ไม่ปล่อยให้เป็นช่องว่างเปล่าที่ดูเหมือนเว็บพัง */}
+            {brokenImages[product.id] ? (
+              <div className={style['image-fallback']}>ไม่มีรูปตัวอย่าง</div>
+            ) : (
+              <img
+                src={product.image}
+                alt={product.name}
+                onError={() =>
+                  setBrokenImages((prev) => ({ ...prev, [product.id]: true }))
+                }
+              />
+            )}
             <h3 className={style['product-name']}>{product.name}</h3>
             <p className={style['product-price']}>{product.price}</p>
           </div>
