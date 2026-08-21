@@ -4,12 +4,7 @@ import { BalanceContext } from "../BalanceContext"; // นำเข้าคอ�
 import styles from "./ARKHome.module.css"; // นำเข้า CSS Module
 
 const ARKHome = () => {
-  const { balance, decreaseBalance } = useContext(BalanceContext); // ดึงยอดเงินจากคอนเท็กซ์
-
-  // ฟังก์ชันสำหรับลดยอดเงิน
-  const handleDecreaseBalance = () => {
-    decreaseBalance(100); // ลด 100 Coins เมื่อคลิก
-  };
+  const { balance } = useContext(BalanceContext); // ดึงยอดเงินจากคอนเท็กซ์
 
   return (
     <div className={styles.ARKHome1} id="header">
