@@ -23,6 +23,7 @@ import Cart from './pages/FortniteCart';
 import Itemcard from './pages/FortniteItemcard';
 import Login from './pages/login';
 import Signup from './pages/Signup';
+import NotFound from './pages/NotFound';
 
 
 function App() {
@@ -52,6 +53,7 @@ function App() {
           <Route path="/Cart" element={<Cart />} />
           <Route path="/Itemcard" element={<Itemcard />} />
 
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
       </CartProvider>
