@@ -26,7 +26,8 @@ const CheckoutPage = () => {
     setIsPurchased(true); // เปิด Modal
     setTimeout(() => {
       alert(`คุณได้ซื้อ ${itemName} เรียบร้อยแล้ว! ราคา ${price} coin`);
-      navigate('/dino-pack', { state: { itemName, price } });
+      // กลับไปหน้าหมวดที่ผู้ใช้กดซื้อมา ไม่ใช่ยัดกลับไป dino-pack เสมอ
+      navigate(-1);
     }, 100);
 
     setTimeout(() => {
