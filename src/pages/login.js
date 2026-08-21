@@ -80,6 +80,14 @@ export default function Login() {
     return (
         <div className={styles.loginBody}>
             <div className={styles.loginMain}>
+                {/* หัวกล่อง เดิมหน้านี้ไม่มีชื่อร้านอยู่เลย ทั้งที่เป็นหน้าแรกสุด
+                    ที่ผู้ใช้เห็น เปิดเว็บมาเจอแค่ช่องกรอกลอย ๆ
+                    ไม่มีอะไรบอกว่ากำลังจะล็อกอินเข้าอะไร */}
+                <div className={styles.brand}>
+                    <h1>Game Store</h1>
+                    <p>เข้าสู่ระบบเพื่อเลือกซื้อไอเทมในเกม</p>
+                </div>
+
                 <Form noValidate validated={validated} onSubmit={onLogin}>
                     <Row>
                         <Form.Group controlId="username">
