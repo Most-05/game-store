@@ -55,3 +55,29 @@ test('กดการ์ดเกมในหน้า /game ต้องเข�
     expect(text, `กดการ์ดเกมใบที่ ${g.index + 1} แล้วหน้าไม่ขึ้นเนื้อหา`).toContain(g.mustSee);
   }
 });
+
+// ปุ่มกลับหน้าหลักในหน้าเกมแต่ละเกม ต้องพากลับไปหน้ารวมของเว็บ
+// ไม่ใช่เตะผู้ใช้กลับไปหน้าเข้าสู่ระบบที่ route "/"
+//
+// ต้องตัดสินจาก URL ไม่ใช่จากข้อความบนหน้า เพราะคำว่า Enter password ในหน้า Login
+// เป็น placeholder ของช่องกรอก ซึ่งไม่นับเป็น innerText เทสที่ดูข้อความจึงผ่านทั้งที่ยังบั๊ก
+const homeButtons = [
+  { page: '/ARKHome', label: 'HOME' },
+  { page: '/ROVHome', label: 'Home' },
+  { page: '/FortniteHome', label: 'หน้าหลัก' },
+];
+
+test.describe('ปุ่มกลับหน้าหลักต้องไม่เตะผู้ใช้ไปหน้า Login', () => {
+  for (const { page: from, label } of homeButtons) {
+    test(`ปุ่ม "${label}" ในหน้า ${from}`, async ({ page }) => {
+      captureDialogs(page);
+      await page.goto(from);
+      await settle(page);
+
+      await page.getByText(label, { exact: false }).first().click();
+      await settle(page);
+
+      expect(new URL(page.url()).pathname, `กดปุ่มกลับหน้าหลักในหน้า ${from} แล้วโดนพาไปหน้า Login`).not.toBe('/');
+    });
+  }
+});
