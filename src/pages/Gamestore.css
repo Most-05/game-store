@@ -11,12 +11,12 @@
 /* Title styling */
 .line-title {
     text-align: center;
-    font-size: 32px;
-    font-weight: bold;
-    margin-bottom: 40px;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 700;
+    margin-bottom: 36px;
     position: relative;
-    padding-bottom: 10px;
-    color: #18f7b8;
+    padding-bottom: 14px;
+    color: var(--text);
 }
 
 .line-title::before,
@@ -24,94 +24,167 @@
     content: "";
     position: absolute;
     bottom: 0;
-    left: 0;
     height: 3px;
     border-radius: 2px;
 }
 
+/* เส้นคั่นใต้หัวข้อ วางไว้กึ่งกลางแทนที่จะลากยาวเต็มความกว้าง
+   เดิมเส้นขาวลากยาว 100% ตัดหน้าออกเป็นสองส่วนแรงเกินไป */
 .line-title::before {
-    width: 100%;
-    background-color: #f2f2f2;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    background-color: var(--border-strong);
 }
 
 .line-title::after {
-    width: 32px;
-    background-color: #e73700;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    background-color: var(--accent);
 }
 
 /* Game Section Styling */
 .game-section {
-    padding: 50px 20px;
-    background-color: #1e1e20; 
+    padding: 72px 24px;
+    background-color: var(--bg);
 
 }
 
+/* วางการ์ดด้วย grid แทน flex เพื่อให้ทุกใบกว้างเท่ากันเสมอ
+   และลดจำนวนคอลัมน์เองเมื่อจอแคบลง */
 .game-list {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+    max-width: var(--maxw);
+    margin: 0 auto;
 }
 
 /* Game Item Styling */
 .game-item {
     position: relative;
-    width: 280px;
-    height: 400px;
+    height: 380px;
     background-size: cover;
     background-position: center;
-    border-radius: 16px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
     cursor: pointer;
-    transition: all 0.6s ease-in-out;
     overflow: hidden;
-    margin-top: 10px;
+
+    /* ย้ายมาเปลี่ยนเฉพาะ transform กับ border ไม่ใช่ all
+       การใส่ transition: all ทำให้เบราว์เซอร์ต้องเฝ้าดูทุกคุณสมบัติ
+       รวมถึงความกว้างความสูงซึ่งบังคับให้คำนวณ layout ใหม่ทุกเฟรม */
+    transition:
+        transform 0.35s var(--ease),
+        border-color 0.35s var(--ease),
+        box-shadow 0.35s var(--ease);
 }
 
+/* ฉากมืดไล่ระดับจากขอบล่าง ทำให้ชื่อเกมอ่านออกเสมอ
+   ไม่ว่ารูปปกจะสว่างหรือมืด */
+.game-item::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.92) 0%,
+        rgba(0, 0, 0, 0.55) 32%,
+        rgba(0, 0, 0, 0.05) 62%
+    );
+    transition: opacity 0.35s var(--ease);
+}
+
+/* ตอนเอาเมาส์ชี้ ยกการ์ดขึ้นเล็กน้อยพร้อมเรืองแสงขอบ
+   เดิมการ์ดขยายความกว้างจาก 280px เป็น 450px ซึ่งดันการ์ดใบอื่นกระเด็น
+   ทั้งแถว เป็นการตอบสนองที่กระตุกและอ่านยาก */
+.game-item:hover,
 .game-item.active {
-    width: 450px;
-    height: 400px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-    margin-top: 20px;
+    transform: translateY(-8px);
+    border-color: var(--accent);
+    box-shadow: 0 0 0 1px var(--accent-glow), 0 18px 40px rgba(0, 0, 0, 0.55);
+}
+
+/* ชื่อเกม แสดงตลอดเวลา ไม่ต้องรอเอาเมาส์ชี้
+   เดิมชื่อเกมซ่อนอยู่ในกล่องคำอธิบายที่โผล่เฉพาะตอน hover
+   คนที่ใช้มือถือซึ่งไม่มี hover จึงไม่มีทางรู้เลยว่าการ์ดใบไหนคือเกมอะไร */
+.game-title {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
+    padding: 20px;
+    font-size: 1.15rem;
+    font-weight: 700;
+    line-height: 1.35;
+    color: #fff;
+    text-align: left;
+    transition: transform 0.35s var(--ease), opacity 0.25s var(--ease);
 }
 
 /* Description Styling */
 .game-desc {
     position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: rgba(0, 0, 0, 0.7);
-    color: #18f7b8;
+    inset: auto 0 0 0;
+    z-index: 3;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.75));
+    color: var(--text);
     padding: 20px;
-    text-align: center;
+    text-align: left;
     transform: translateY(100%);
-    transition: transform 0.6s ease-in-out;
+    transition: transform 0.35s var(--ease);
 }
 
-/* เมื่อเกมถูกขยาย (active) ให้แสดงรายละเอียด */
+/* เมื่อเอาเมาส์ชี้ คำอธิบายเลื่อนขึ้นมาแทนที่ชื่อเกม */
+.game-item:hover .game-desc,
 .game-item.active .game-desc {
     transform: translateY(0);
 }
 
+.game-item:hover .game-title,
+.game-item.active .game-title {
+    opacity: 0;
+    transform: translateY(8px);
+}
+
 .game-desc h3 {
-    font-size: 20px;
-    margin-bottom: 10px;
+    font-size: 1.05rem;
+    margin-bottom: 8px;
+    color: var(--accent);
 }
 
 .game-desc p {
-    font-size: 14px;
-    line-height: 1.5;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: var(--text-dim);
+}
+
+/* คนที่ตั้งค่าเครื่องให้ลดการเคลื่อนไหว ควรได้หน้าที่นิ่ง
+   ไม่มีการ์ดเลื่อนขึ้นลงหรือคำอธิบายไถลเข้าออก */
+@media (prefers-reduced-motion: reduce) {
+
+    .game-item,
+    .game-desc,
+    .game-title,
+    .game-item::after {
+        transition: none;
+    }
+
+    .game-item:hover,
+    .game-item.active {
+        transform: none;
+    }
 }
 
 /* Media Queries */
 @media (max-width: 768px) {
-    .game-item {
-        width: 220px;
-        height: 300px;
+    .game-section {
+        padding: 48px 18px;
     }
 
-    .game-item.active {
-        width: 350px;
+    .game-item {
         height: 300px;
     }
 }
