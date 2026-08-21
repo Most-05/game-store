@@ -60,6 +60,10 @@ function Game({ balance }) {
                         onMouseLeave={handleMouseLeave}
                         onClick={() => handleClick(index)}
                     >
+                        {/* ชื่อเกมแสดงตลอดเวลา ไม่ได้อยู่ในกล่องคำอธิบายที่ซ่อนไว้
+                            คนที่ใช้มือถือซึ่งไม่มีการเอาเมาส์ชี้จะได้รู้ว่าการ์ดใบไหนคือเกมอะไร */}
+                        <p className="game-title">{game.name}</p>
+
                         <div className={`game-desc ${expandedIndex === index ? 'show' : ''}`}>
                             <h3>{game.name}</h3>
                             <p>{game.description}</p>
