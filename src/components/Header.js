@@ -10,8 +10,10 @@ function Header() {
     
     const location = useLocation();  // ✅ ดึง pathname ของ URL ปัจจุบัน
     
-    // ✅ ซ่อน Header ถ้าไม่ได้อยู่ที่หน้า "/"
-    if (location.pathname !== "/Home") {
+    // ซ่อน Header ถ้าไม่ได้อยู่หน้า Home
+    // เทียบแบบไม่สนตัวพิมพ์ เพราะ React Router แมตช์ route แบบไม่สนตัวพิมพ์อยู่แล้ว
+    // login.js พาไป /home ตัวเล็ก แต่ route ประกาศเป็น /Home
+    if (location.pathname.toLowerCase() !== "/home") {
         return null;
     }
 
