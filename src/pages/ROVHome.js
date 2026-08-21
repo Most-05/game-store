@@ -6,7 +6,7 @@ function Home() {
   return (
     <>
       <nav className={styles.navbar2}>
-        <Link to="/">Home</Link>
+        <Link to="/Home">Home</Link>
         <Link to="/ROVShop">Shop</Link>
       </nav>
 

@@ -64,7 +64,7 @@ function ROVShop() {
       {/* เมนู Sidebar */}
       <div ref={navbarRef} className={`${style.sidebar} ${menuOpen ? style.open : ""}`}>
         <button className={style['close-btn']} onClick={() => setMenuOpen(false)}>✖</button>
-        <Link to="/" onClick={() => setMenuOpen(false)}>Home</Link>
+        <Link to="/Home" onClick={() => setMenuOpen(false)}>Home</Link>
         <Link to="/ROVShop" onClick={() => setMenuOpen(false)}>Shop</Link>
         <Link to="/" onClick={() => setMenuOpen(false)}>Login</Link>
       </div>
