@@ -2,53 +2,94 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
 
 .header {
-    padding: 15px;
-    box-sizing: border-box;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-radius: 8px;
-    margin: 20px;
-    height: 100px;
-    
     position: sticky;
     top: 0;
     z-index: 1000;
-     background-color: #1e1e20; 
-    box-shadow: white;
-    font-family: 'Montserrat', sans-serif;  /* ใช้ฟอนต์ Montserrat */
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    box-sizing: border-box;
+    padding: 0 28px;
+    height: 68px;
+
+    /* โปร่งแสงนิดหน่อยแล้วเบลอฉากหลัง เนื้อหาที่เลื่อนผ่านใต้แถบ
+       จะยังเห็นราง ๆ ทำให้รู้สึกว่าแถบลอยอยู่เหนือหน้าจริง ๆ */
+    background-color: rgba(23, 23, 28, 0.82);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+
+    font-family: 'Montserrat', sans-serif;
 }
 
 .logo h1 {
-    font-size: 24px;
+    margin: 0;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--accent);
 }
 
 nav {
     display: flex;
-    gap: 15px;
+    align-items: center;
+    gap: 4px;
 }
 
 nav a,
 nav .nav-item {
     text-decoration: none;
-    color: #18f7b8;  /* สีเขียว */
-    font-size: 16px;
-    padding: 8px 16px;
-    border-radius: 4px;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    color: var(--text-dim);
+    font-size: 14px;
+    font-weight: 500;
+    padding: 8px 14px;
+    border-radius: var(--radius-sm);
+    transition: background-color 0.2s var(--ease), color 0.2s var(--ease);
 }
 
-/* เมนูเมื่อ hover */
 nav a:hover,
 nav .nav-item:hover {
-    background-color: #444;  /* พื้นหลังสีเทา */
-    color: #ffffff;  /* สีตัวอักษรเป็นสีขาวเมื่อ hover */
+    background-color: var(--surface-3);
+    color: var(--text);
 }
 
-/* สไตล์เมื่อเมนูถูกคลิก (active) */
-.active {
-    background-color: #fc1dc0;  /* สีชมพูสว่าง */
-    color: #fff;  /* ตัวอักษรเป็นสีขาว */
-    font-weight: bold;
+/* เมนูที่กำลังถูกเลือก
+
+   ขอบเขตต้องเขียนเป็น nav .active ไม่ใช่ .active เปล่า ๆ
+   เพราะชื่อคลาส active ถูกใช้กับการ์ดเกมในหน้า Gamestore ด้วย
+   ถ้าเขียนแบบไม่จำกัดขอบเขต สีของเมนูจะรั่วไปทาบการ์ดเกมตอนเอาเมาส์ชี้ */
+nav .active {
+    background-color: var(--accent-soft);
+    color: var(--accent);
+    font-weight: 600;
 }
 
+/* ป้ายยอดเงิน */
+.coin {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 14px;
+    margin-left: 4px;
+    border: 1px solid var(--border-strong);
+    border-radius: 999px;
+    background-color: var(--surface-2);
+    color: var(--accent);
+    font-size: 14px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 640px) {
+    .header {
+        padding: 0 16px;
+        height: 60px;
+    }
+
+    nav a,
+    nav .nav-item {
+        padding: 8px 10px;
+        font-size: 13px;
+    }
+}
