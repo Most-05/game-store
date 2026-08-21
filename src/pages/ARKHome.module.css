@@ -1,0 +1,715 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+html {
+  scroll-behavior: smooth;
+}
+
+.ARKHome1 {
+  font-family: 'Bebas Neue', sans-serif;
+  background-color: #1e1e20; 
+}
+.ARKHome2 {
+  font-family: 'Bebas Neue', sans-serif;
+  background-color: #1e1e20; 
+}
+.ARKHome3 {
+  font-family: 'Bebas Neue', sans-serif;
+  background-color: #1e1e20; 
+}
+.ARKHome4 {
+  font-family: 'Bebas Neue', sans-serif;
+  background-color: #1e1e20; 
+}
+.ARKHome5 {
+  font-family: 'Bebas Neue', sans-serif;
+  background-color: #1e1e20; 
+}
+.structuresPageBody{
+  font-family: 'Bebas Neue', sans-serif;
+  background-color: #1e1e20; 
+}
+.equipmentPageBody{
+  font-family: 'Bebas Neue', sans-serif;
+  background-color: #1e1e20; 
+}
+.checkoutbody{
+  font-family: 'Bebas Neue', sans-serif;
+  background-color: #1e1e20; 
+}
+
+.Header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100px;
+  padding: 0 20px;
+  background-color: #1e1e20;
+  color: white;
+  font-size: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  box-sizing: border-box;
+  overflow: hidden;
+  font-family: 'Bebas Neue', sans-serif !important;
+}
+
+.Content {
+  padding-top: 100px;
+}
+
+.Header a {
+  text-decoration: none;
+  color: white;
+  font-family: 'Bebas Neue', sans-serif !important;
+  font-size: 23px;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: stretch;
+  gap: 0;
+}
+
+.Ad1 {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top:100px;
+}
+
+.Ad1 img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+  border-radius: 12px;
+}
+
+.Ad1 img:hover {
+  transform: scale(0.99);
+}
+.Ad2 {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top:100px;
+}
+
+.Ad2 img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+  border-radius: 12px;
+}
+
+.Ad2 img:hover {
+  transform: scale(0.99);
+}
+
+.shopSection {
+  margin-left: 0px;
+  margin-top: 20px;
+  color: white;
+  font-size: 20px;
+  font-family: 'Bebas Neue', sans-serif !important;
+}
+
+
+
+.shopGrid {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+  font-family: 'Bebas Neue', sans-serif !important;
+}
+
+.shopItem1, .shopItem2, .shopItem3 {
+  background-color: #121214;
+  padding: 10px;
+  border-radius: 12px;
+  width: 450px;
+  height: 300px;
+  text-decoration: none;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.shopItem4, .shopItem5, .shopItem6 {
+  background-color: #121214;
+  padding: 10px;
+  border-radius: 12px;
+  width: 450px;
+  height: 300px;
+  text-decoration: none;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.shopItem1 img, .shopItem2 img, .shopItem3 img {
+  width: 100%;
+  height: 230px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.shopItem1:hover, .shopItem2:hover, .shopItem3:hover {
+  transform: scale(1.05);
+  background-color: gray;
+}
+/* ส่วนของรูปภาพ */
+.shopItem4 img, .shopItem5 img ,.shopItem6 img {
+  width: 100%;
+  height: 230px;           /* กำหนดความสูงตายตัว */
+  object-fit: cover;       /* ให้ภาพไม่บิดเบี้ยว */
+  border-radius: 8px;
+  margin-bottom: 10px;     /* เพิ่มช่องว่างระหว่างภาพกับข้อความ */
+}
+
+/* เพิ่มเอฟเฟกต์ hover */
+.shopItem4:hover, .shopItem5:hover, .shopItem6:hover {
+  transform: scale(1.05);
+  background-color: gray ;
+}
+
+/* ข้อความอยู่ด้านล่างของรูป */
+.itemName {
+  margin-top: auto;        /* ดันข้อความให้อยู่ล่างสุด */
+  font-weight: bold;
+  text-align: center;
+  padding-top: 10px;       /* เพิ่มระยะห่างเล็กน้อย */
+  font-family: 'Bebas Neue', sans-serif !important;
+  font-size: 20px;
+}
+
+.gamestore{
+  display: flex;              /* ใช้ Flexbox */
+  justify-content: center;    /* จัดให้อยู่ตรงกลางในแนวนอน */
+  align-items: center;        /* จัดให้อยู่ตรงกลางในแนวตั้ง */
+  margin-top: 10px;
+}
+
+
+
+
+/* ส่วนหน้าไดโนเสาร์ */
+
+
+.shopSection2 {
+  margin-left: 40px ;  
+  color:white;
+  font-size: 20px;
+  display: flex;
+}
+.shopSection3 {
+  margin-left: 40px ;  
+  color:white;
+  font-size: 20px;
+  display: flex;
+} 
+.shopSection4{
+  margin-left: 40px ;  
+  color:white;
+  font-size: 20px;
+  display: flex;
+}
+.shopSection5{
+  margin-left: 40px ;  
+  color:white;
+  font-size: 20px;
+  display: flex;
+}
+.shopSection6{
+  margin-left: 40px ;  
+  color:white;
+  font-size: 20px;
+  display: flex;
+}
+.dinopack {
+  color:white;
+  font-size: 20px;
+  font-family: 'Bebas Neue', sans-serif;
+}
+.blueprint {
+  margin-left: 40px ;  
+  color:white;
+  font-size: 20px;
+  font-family: 'Bebas Neue', sans-serif;
+}
+.blueprint h1 {
+  margin-top: 30px;
+}
+.equip {
+  margin-left: 40px ;  
+  color:white;
+  font-size: 20px;
+  font-family: 'Bebas Neue', sans-serif;
+
+}
+.equip h1 {
+  margin-top: 30px;
+}
+.art {
+  margin-left: 40px ;  
+  color:white;
+  font-size: 20px;
+  font-family: 'Bebas Neue', sans-serif;
+
+}
+.art h1{
+  margin-top: 30px;
+
+}
+.cave {
+  margin-left: 40px ;  
+  color:white;
+  font-size: 20px;
+  font-family: 'Bebas Neue', sans-serif;
+
+}
+.cave h1{
+  margin-top: 30px;
+
+}
+.struct {
+  margin-left: 40px ;  
+  color:white;
+  font-size: 20px;
+  font-family: 'Bebas Neue', sans-serif;
+}
+.struct h1{
+  margin-top: 30px;
+}
+
+.dinoItem1 {
+  background-color: #121214;
+  padding: 10px;
+  border-radius: 12px;
+  width: 40%;
+  height: 300px;
+  text-decoration: none;
+  color: white;
+  display: flex;           /* ใช้ Flexbox */
+  flex-direction: column;  /* จัดเรียงแนวตั้ง */
+  align-items: center;     /* จัดให้อยู่กึ่งกลางแนวนอน */
+  justify-content: space-between; /* กระจายเนื้อหาให้เต็มพื้นที่ */
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  margin-right: 30px;
+  margin-left: 60px;
+  box-sizing: border-box;  /* ทำให้ padding ไม่ล้นกรอบ */
+  margin-top: 20px;
+}
+.dinoItem1:hover {
+  transform: scale(1.05);
+  background-color: gray;
+}
+
+/* ส่วนของรูปภาพ */
+.dinoItem1 img {
+  width: 100%;
+  height: 200px;          /* ลดขนาดรูปให้มีที่ว่างสำหรับข้อความ */
+  object-fit: cover;      /* ให้ภาพไม่บิดเบี้ยว */
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+/* จัดข้อความให้อยู่ในกรอบ */
+.dinoItem1 h3, .dinoItem1 p {
+  margin: 5px 0;
+  text-align: center;
+}
+
+
+
+
+.structItem1 {
+  background-color: #121214;
+  padding: 10px;
+  border-radius: 12px;
+  width: 40%;
+  height: 300px;
+  text-decoration: none;
+  color: white;
+  display: flex;           /* ใช้ Flexbox */
+  flex-direction: row;     /* จัดเรียงแนวนอน */
+  align-items: center;     /* จัดให้อยู่กลางแนวตั้ง */
+  justify-content: flex-start; /* เริ่มจากด้านซ้าย */
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  margin-right: 30px;
+  margin-left: 60px;
+  box-sizing: border-box;
+  margin-top: 20px;
+  padding: 20px;
+}
+
+.structItem1:hover {
+  transform: scale(1.05);
+  background-color: gray;
+}
+
+/* ส่วนของรูปภาพ */
+.structItem1 img {
+  width: 30%;              /* ขนาดภาพ */
+  height: auto;
+  object-fit: cover;       /* ไม่ให้ภาพบิดเบี้ยว */
+  border-radius: 8px;
+  margin-right: 20px;      /* เว้นระยะระหว่างภาพกับข้อความ */
+}
+
+/* จัดข้อความให้อยู่ขวาของภาพ */
+.structItem1 .text-content {
+  display: flex;
+  flex-direction: column;  /* จัดข้อความเป็นแนวตั้ง */
+  justify-content: center; /* จัดให้อยู่ตรงกลางแนวตั้ง */
+  align-items: flex-start; /* ชิดซ้าย */
+  flex: 1;                 /* ขยายเต็มพื้นที่ที่เหลือ */
+}
+
+.structItem1h3 {
+  margin: 0;               /* ลบ margin บนล่างเพื่อให้ชิดกัน */
+  text-align: left;
+}
+
+.structItem1 p {
+  clear: both;           /* ทำให้ <p> ลงบรรทัดใหม่ */
+  margin-left: 20px;
+  text-align: left;
+}
+
+
+.ARTItem {
+  background-color: #121214;
+  padding: 10px;
+  border-radius: 12px;
+  width: 40%;
+  height: 300px;
+  text-decoration: none;
+  color: white;
+  display: flex;           /* ใช้ Flexbox */
+  flex-direction: row;     /* จัดเรียงแนวนอน */
+  align-items: center;     /* จัดให้อยู่กลางแนวตั้ง */
+  justify-content: flex-start; /* เริ่มจากด้านซ้าย */
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  margin-right: 30px;
+  margin-left: 60px;
+  box-sizing: border-box;
+  margin-top: 20px;
+  padding: 20px;
+}
+
+.ARTItem:hover {
+  transform: scale(1.05);
+  background-color: gray;
+}
+
+/* ส่วนของรูปภาพ */
+.ARTItem img {
+  width: 30%;              /* ขนาดภาพ */
+  height: auto;
+  object-fit: cover;       /* ไม่ให้ภาพบิดเบี้ยว */
+  border-radius: 8px;
+  margin-right: 20px;      /* เว้นระยะระหว่างภาพกับข้อความ */
+}
+
+/* จัดข้อความให้อยู่ขวาของภาพ */
+.ARTItem .text-content {
+  display: flex;
+  flex-direction: column;  /* จัดข้อความเป็นแนวตั้ง */
+  justify-content: center; /* จัดให้อยู่ตรงกลางแนวตั้ง */
+  align-items: flex-start; /* ชิดซ้าย */
+  flex: 1;                 /* ขยายเต็มพื้นที่ที่เหลือ */
+}
+
+.ARTItem h3 {
+  margin: 0;               /* ลบ margin บนล่างเพื่อให้ชิดกัน */
+  text-align: left;
+}
+
+.ARTItem p {
+  clear: both;           /* ทำให้ <p> ลงบรรทัดใหม่ */
+  margin-left: 20px;
+  text-align: left;
+}
+.ARTItem6 {
+  background-color: #121214;
+  padding: 10px;
+  border-radius: 12px;
+  width: 40%;
+  height: 300px;
+  text-decoration: none;
+  color: white;
+  display: flex;           /* ใช้ Flexbox */
+  flex-direction: row;     /* จัดเรียงแนวนอน */
+  align-items: center;     /* จัดให้อยู่กลางแนวตั้ง */
+  justify-content: flex-start; /* เริ่มจากด้านซ้าย */
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  margin-right: 30px;
+  margin-left: 60px;
+  box-sizing: border-box;
+  margin-top: 20px;
+  padding: 20px;
+}
+
+.ARTItem6:hover {
+  transform: scale(1.05);
+  background-color: gray;
+}
+
+/* ส่วนของรูปภาพ */
+.ARTItem6 img {
+  width: 30%;              /* ขนาดภาพ */
+  height: auto;
+  object-fit: cover;       /* ไม่ให้ภาพบิดเบี้ยว */
+  border-radius: 8px;
+  margin-right: 20px;      /* เว้นระยะระหว่างภาพกับข้อความ */
+}
+
+/* จัดข้อความให้อยู่ขวาของภาพ */
+.ARTItem6 .text-content {
+  display: flex;
+  flex-direction: column;  /* จัดข้อความเป็นแนวตั้ง */
+  justify-content: center; /* จัดให้อยู่ตรงกลางแนวตั้ง */
+  align-items: flex-start; /* ชิดซ้าย */
+  flex: 1;                 /* ขยายเต็มพื้นที่ที่เหลือ */
+}
+
+.ARTItem6 h3 {
+  margin: 0;               /* ลบ margin บนล่างเพื่อให้ชิดกัน */
+  text-align: left;
+}
+
+.ARTItem6 p {
+  clear: both;           /* ทำให้ <p> ลงบรรทัดใหม่ */
+  margin-left: 20px;
+  text-align: left;
+}
+.ARTItem4 {
+  background-color: #121214;
+  padding: 10px;
+  border-radius: 12px;
+  width: 40%;
+  height: 300px;
+  text-decoration: none;
+  color: white;
+  display: flex;           /* ใช้ Flexbox */
+  flex-direction: row;     /* จัดเรียงแนวนอน */
+  align-items: center;     /* จัดให้อยู่กลางแนวตั้ง */
+  justify-content: flex-start; /* เริ่มจากด้านซ้าย */
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  margin-right: 30px;
+  margin-left: 60px;
+  box-sizing: border-box;
+  margin-top: 20px;
+  padding: 20px;
+}
+
+.ARTItem4:hover {
+  transform: scale(1.05);
+  background-color: gray;
+}
+
+/* ส่วนของรูปภาพ */
+.ARTItem4 img {
+  width: 30%;              /* ขนาดภาพ */
+  height: auto;
+  object-fit: cover;       /* ไม่ให้ภาพบิดเบี้ยว */
+  border-radius: 8px;
+  margin-right: 20px;      /* เว้นระยะระหว่างภาพกับข้อความ */
+}
+
+/* จัดข้อความให้อยู่ขวาของภาพ */
+.ARTItem4 .text-content {
+  display: flex;
+  flex-direction: column;  /* จัดข้อความเป็นแนวตั้ง */
+  justify-content: center; /* จัดให้อยู่ตรงกลางแนวตั้ง */
+  align-items: flex-start; /* ชิดซ้าย */
+  flex: 1;                 /* ขยายเต็มพื้นที่ที่เหลือ */
+}
+
+.ARTItem4 h3 {
+  margin: 0;               /* ลบ margin บนล่างเพื่อให้ชิดกัน */
+  text-align: left;
+}
+
+.ARTItem4 p {
+  clear: both;           /* ทำให้ <p> ลงบรรทัดใหม่ */
+  margin-left: 20px;
+  text-align: left;
+}
+
+
+
+
+
+.checkout {
+  background-color:#121214;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 500px;
+  margin: 20px auto;
+  box-shadow: 0 4px 10px rgba(230, 230, 230, 0.1);
+}
+
+.checkout h1 {
+  color: white;
+  font-family: 'Bebas Neue', sans-serif !important;
+}
+
+.dinoDetails {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.dinoDetails img {
+  border-radius: 8px;
+  width: 400px;
+  height: 350px;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.3s ease;
+}
+
+.dinoDetails img:hover {
+  transform: scale(1.05);
+}
+
+.dinoDetails h3 {
+  color: white;
+  margin-top: 10px;
+  font-size: 1.5rem;
+  font-family: 'Bebas Neue', sans-serif !important;
+}
+
+p {
+  color: white;
+  font-size: 1.125rem;
+  font-family: 'Bebas Neue', sans-serif !important;
+}
+
+/* ปุ่มวางเรียงซ้าย-ขวา */
+.buttonGroup {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 20px;
+  font-family: 'Bebas Neue', sans-serif !important;
+}
+
+/* ปุ่ม Buy Now */
+.purchaseBtn {
+  background-color: #10b981; /* สีเขียว */
+  font-family: 'Bebas Neue', sans-serif;
+  padding: 12px 24px;
+  font-size: 1.125rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  flex: 1;
+  font-family: 'Bebas Neue', sans-serif !important;
+}
+
+.purchaseBtn:hover {
+  background-color: #059669;
+}
+
+.purchaseBtn:focus {
+  outline: none;
+}
+
+/* ปุ่ม BACK สีแดง */
+.backBtn{
+  background-color: #ef4444; /* สีแดง */
+  font-family: 'Bebas Neue', sans-serif;
+  padding: 12px 24px;
+  font-size: 1.125rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  flex: 1;
+}
+
+.backBtn:hover {
+  background-color: #dc2626;
+}
+
+.backBtn:focus {
+  outline: none;
+}
+
+/* ✅ แก้ปุ่มให้เรียงแนวตั้งในหน้าจอเล็ก */
+@media (max-width: 600px) {
+  .checkout {
+    padding: 15px;
+  }
+
+  .buttonGroup{
+    flex-direction: column; /* เรียงแนวตั้ง */
+  }
+
+  .purchaseBtn,
+  .backBtn {
+    width: 100%;
+  }
+}
+
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modalContent {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.checkmark {
+  font-size: 50px;
+  color: green;
+  margin-bottom: 10px;
+}
+
+/* Fade In Effect */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
