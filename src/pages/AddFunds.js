@@ -21,8 +21,8 @@ function AddFunds() {
     const amountValue = parseFloat(amount);
     const isValidPhone = /^[0-9]{10}$/.test(phoneNumber);
 
-    if (isNaN(amountValue)) {
-      alert("กรุณากรอกจำนวนเงินที่ถูกต้อง");
+    if (isNaN(amountValue) || amountValue <= 0) {
+      alert("กรุณากรอกจำนวนเงินที่ถูกต้อง (ต้องมากกว่า 0)");
     } else if (!isValidPhone) {
       alert("กรุณากรอกหมายเลขโทรศัพท์ที่ถูกต้อง (10 หลัก)");
     } else {
@@ -32,11 +32,7 @@ function AddFunds() {
       localStorage.setItem("balance", newBalance);
 
       // แจ้งผลการเติมเงิน
-      if (amountValue > 0) {
-        alert(`เติมเงินสำเร็จ ${amountValue} บาท`);
-      } else {
-        alert(`หักเงินสำเร็จ ${Math.abs(amountValue)} บาท`);
-      }
+      alert(`เติมเงินสำเร็จ ${amountValue} บาท`);
 
       navigate("/Home");
     }
@@ -45,7 +41,7 @@ function AddFunds() {
   // ฟังก์ชันในการจัดการกรอกจำนวนเงิน
   const handleAmountChange = (e) => {
     const value = e.target.value;
-    if (/^(-?\d*\.?\d*)$/.test(value)) {
+    if (/^(\d*\.?\d*)$/.test(value)) {
       setAmount(value);
     }
   };
