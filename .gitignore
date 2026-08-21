@@ -26,3 +26,12 @@ yarn-error.log*
 .env
 .env.*
 !.env.example
+
+# ผลลัพธ์จากการรันเทส Playwright
+/test-results
+/playwright-report
+/blob-report
+/playwright/.cache
+
+# ฐานข้อมูลผู้ใช้ของ mock backend (สร้างใหม่ได้เอง)
+/mock-server/users.json
