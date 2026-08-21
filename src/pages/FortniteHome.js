@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import Itemcard from "./FortniteItemcard";
 import data from "./Fortnitedata";
-import { Button, Modal } from "react-bootstrap"; 
+import { Button, Modal } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import fortnite from './Fortnitephoto/FortniteLogo.png'
 
 const FortniteHome = () => {
@@ -16,7 +17,7 @@ const FortniteHome = () => {
     return (
         <section>
             <div>
-            <a href="/" style={{fontSize: '1.5em',fontWeight:'bold', color: '#333', textDecoration: 'none', margin:'110px',paddingTop:'110px'}}> หนัาหลัก </a>
+            <Link to="/Home" style={{fontSize: '1.5em',fontWeight:'bold', color: '#333', textDecoration: 'none', margin:'110px',paddingTop:'110px'}}> หนัาหลัก </Link>
                 <div style={{ textAlign: 'center' }}>
                     <img src={fortnite} alt="Fortnite Logo" style={{ display: 'block', margin: 'auto', width: '300px', height: 'auto', paddingTop: '15px' }} />
                     <h1 className="mt-3">ร้าน Emmy Gift Shop</h1>
