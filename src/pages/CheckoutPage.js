@@ -41,7 +41,7 @@ const CheckoutPage = () => {
       <h1 className="text-3xl font-bold mb-4">Checkout</h1>
       <div className={styles.dinoDetails}>
         <img
-          src={`/image/${itemName.toLowerCase().replace(" ", "")}.jpg`}
+          src={`/image/${itemName.toLowerCase().replace(/\s+/g, "")}.jpg`}
           alt={itemName}
           className="w-full h-40 object-cover rounded-md mb-4"
         />
