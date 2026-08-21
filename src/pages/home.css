@@ -1,64 +1,80 @@
 /* home.css */
 
 /* เพิ่มฟอนต์จาก Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@400;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@400;700&display=swap');
 
-/* การตั้งค่าในส่วนของ home */
+/* ส่วนต้อนรับ
+
+   เดิมตั้ง height: 100vh ไว้ ทำให้ส่วนนี้สูงเต็มจอพอดีเสมอ
+   แล้วจัดข้อความไว้กึ่งกลาง เกิดเป็นช่องว่างดำสนิทด้านบนราว 370px
+   และด้านล่างอีกราว 300px ผู้ใช้ต้องเลื่อนผ่านความว่างเปล่านาน
+   กว่าจะเจอรายการเกม
+
+   เปลี่ยนมาใช้ padding กำหนดระยะหายใจแทน ความสูงจึงยืดตามเนื้อหาจริง */
 .home {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    background-color :w;
-    font-family: 'Sarabun', sans-serif; /* ใช้ Sarabun เป็นฟอนต์หลัก */
-    background-color: #1e1e20; 
+    padding: 88px 24px 96px;
+    font-family: 'Sarabun', sans-serif;
+
+    /* แสงเรืองสีแบรนด์จาง ๆ ด้านบน สร้างมิติให้พื้นมืดโดยไม่ต้องใช้เงา
+       ซึ่งบนพื้นมืดแทบมองไม่เห็นอยู่แล้ว */
+    background:
+        radial-gradient(120% 80% at 50% 0%, var(--accent-soft) 0%, transparent 60%),
+        var(--bg);
 }
 
-/* การตั้งค่าของ home-content */
 .home-content {
+    width: 100%;
+    max-width: 860px;
     text-align: center;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    color: black;
+    color: var(--text);
 }
 
-/* การตั้งค่าฟอนต์สำหรับ h1 โดยใช้ Kanit */
+/* หัวข้อหลัก ตัวอักษรที่ Typed.js พิมพ์ทีละตัวจะโผล่ตรงนี้ */
 .home-content h1 {
-    font-family: 'Kanit', sans-serif; 
-    font-size: 3.2rem;
+    font-family: 'Kanit', sans-serif;
+    font-size: clamp(2rem, 5vw, 3.4rem);
     font-weight: 700;
-    margin-bottom: 1rem;
-    white-space: nowrap;
-    overflow: hidden;
-    position: relative;
-    color: #18f7b8;
+    line-height: 1.2;
+    margin: 0 0 20px;
+    color: var(--accent);
+
+    /* กันหัวข้อกระตุกตอน Typed.js พิมพ์ทีละตัว
+       เพราะความสูงบรรทัดจะคงที่ตั้งแต่ตัวอักษรตัวแรก */
+    min-height: 1.2em;
 }
 
-/* การตั้งค่าฟอนต์สำหรับ h3 โดยใช้ Sarabun */
 .home-content h3 {
-    font-family: 'Sarabun', sans-serif; 
-    font-size: 2rem;
+    font-family: 'Sarabun', sans-serif;
+    font-size: clamp(0.95rem, 1.6vw, 1.15rem);
+    font-weight: 400;
+    line-height: 1.7;
+    margin: 0 auto 12px;
+    max-width: 62ch;
+    color: var(--text-dim);
+}
+
+/* บรรทัดโปรโมชัน เน้นด้วยกรอบแคปซูลให้เด่นกว่าคำอธิบายทั่วไป */
+.home-content h3:last-of-type {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 10px 22px;
+    border: 1px solid var(--border-strong);
+    border-radius: 999px;
+    background-color: var(--surface-2);
+    color: var(--text);
     font-weight: 700;
-    margin-bottom: 1rem;
-    color: rgb(255, 255, 255);
 }
 
-/* การตั้งค่าฟอนต์สำหรับ p โดยใช้ Sarabun */
-.home-content p {
-    font-family: 'Sarabun', sans-serif; 
-    font-size: 1.6rem;
-    background-color: white;
-    color: black;
-}
-
-/* กฎการเคลื่อนไหวของข้อความ */
-@keyframes marquee {
-    0% {
-        transform: translateX(100%);
+@media (max-width: 640px) {
+    .home {
+        padding: 56px 18px 64px;
     }
-    100% {
-        transform: translateX(-100%);
+
+    .home-content h3:last-of-type {
+        padding: 10px 16px;
     }
 }
