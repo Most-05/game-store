@@ -1,23 +1,26 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useCart } from 'react-use-cart';
 import { Button, Modal } from "react-bootstrap";
+import { BalanceContext } from '../BalanceContext'; // ยอดเงินกลางของทั้งเว็บ
 
 const Cart = () => {
     const { isEmpty, totalUniqueItems, items, cartTotal, removeItem, emptyCart } = useCart();
     const [showModal, setShowModal] = useState(false);
     const CheckOut = () => setShowModal(true);
     const handleClose = () => setShowModal(false);
-    const [money] = useState(500);
+    // ใช้ยอดเงินกลางร่วมกับทั้งเว็บ แทนเลข 500 ที่เคยฝังไว้ตายตัว
+    const { balance, decreaseBalance } = useContext(BalanceContext);
     const showAlert = () => {
-
-        if(money-cartTotal >= 0){
-            alert("คุณสั่งซื้อสำเร็จแล้ว \nเงินคงเหลือ " + (money-cartTotal) + " บาท");
+        if (decreaseBalance(cartTotal)) {
+            alert("คุณสั่งซื้อสำเร็จแล้ว \nเงินคงเหลือ " + (balance - cartTotal) + " บาท");
+            emptyCart();   // ซื้อแล้วต้องล้างตะกร้า ไม่งั้นกดสั่งซื้อซ้ำได้ไม่จำกัด
+            handleClose();
+        } else {
+            alert(
+                "จำนวนเงินไม่เพียงพอ กรุณาไปเติมเงิน\nราคารวม " +
+                cartTotal + " บาท แต่คุณมีอยู่ " + balance + " บาท"
+            );
         }
-        else
-        {
-            alert("จำนวนเงินไม่เพียงพอ กรุณาไปเติมเงิน");
-        }
-
     };
 
     if (isEmpty) return <h1 className='text-center'>ตะกร้าของคุณยังว่าง</h1>;
@@ -72,11 +75,11 @@ const Cart = () => {
                             <Modal.Footer className='d-flex justify-content-between '>
                                 <div>
                                     <h5>ราคารวม: {cartTotal} บาท</h5>
-                                    <h5>เงินคงเหลือ: 500 บาท</h5>
+                                    <h5>เงินคงเหลือ: {balance} บาท</h5>
                                 </div>
                                 <div className='d-flex justify-content-start'>
                                     <Button variant="secondary" onClick={handleClose}> ปิด </Button>
-                                    <Button variant="secondary" style={{ marginLeft: '15px' }} value={money} onClick={showAlert}> สั่งซื้อ </Button>
+                                    <Button variant="secondary" style={{ marginLeft: '15px' }} onClick={showAlert}> สั่งซื้อ </Button>
                                 </div>
                             </Modal.Footer>
                         </Modal>
