@@ -599,10 +599,25 @@ html {
   font-family: 'Bebas Neue', sans-serif !important;
 }
 
-p {
+/* เดิมกฎนี้เขียนเป็น p { } เปล่า ๆ ซึ่งเป็นตัวเลือกระดับแท็ก
+   CSS Module จึงไม่เปลี่ยนชื่อให้ และมันหลุดออกไปมีผลกับ p ทุกตัวทั้งเว็บ
+   ซ้ำยังใส่ !important ไว้ด้วย หน้าอื่นจึงเขียนทับไม่ได้เลย
+   ข้อความในย่อหน้าทุกหน้าจึงกลายเป็นฟอนต์ Bebas Neue ตัวพิมพ์ใหญ่ล้วน
+
+   จำกัดขอบเขตให้อยู่แค่ในหน้าของร้าน ARK ซึ่งเป็นที่ที่ตั้งใจให้ใช้จริง
+   พอจำกัดขอบเขตแล้วความเฉพาะเจาะจงก็สูงพอ ไม่ต้องพึ่ง !important อีก */
+.ARKHome1 p,
+.ARKHome2 p,
+.ARKHome3 p,
+.ARKHome4 p,
+.ARKHome5 p,
+.structuresPageBody p,
+.equipmentPageBody p,
+.checkoutbody p,
+.checkout p {
   color: white;
   font-size: 1.125rem;
-  font-family: 'Bebas Neue', sans-serif !important;
+  font-family: 'Bebas Neue', sans-serif;
 }
 
 /* ปุ่มวางเรียงซ้าย-ขวา */
