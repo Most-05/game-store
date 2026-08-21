@@ -35,16 +35,83 @@
   color: white;
 }
 
+/* ส่วนหัวของหน้าร้าน ROV
+
+   รูปพื้นหลังเป็นไฟล์ GIF ขนาดราวสองเมกะไบต์ที่ดึงมาจากเว็บภายนอก
+   ระหว่างที่ยังโหลดไม่เสร็จ พื้นที่ตรงนี้จะว่างเปล่าเป็นสีขาว
+   และเพราะตัวอักษรเป็นสีขาว ข้อความต้อนรับจึงอ่านไม่ออกเลยจนกว่ารูปจะมา
+   ซึ่งบนเน็ตช้าอาจกินเวลาหลายวินาที และถ้ารูปโหลดไม่ขึ้นเลยก็จะขาวตลอดไป
+
+   แก้ด้วยการใส่สีพื้นเข้มไว้ใต้รูป และคลุมด้วยฉากมืดไล่ระดับอีกชั้น
+   ข้อความจึงอ่านออกตั้งแต่วินาทีแรก ไม่ว่ารูปจะมาถึงหรือไม่ */
 .header1 {
-  background: url("https://cdnb.artstation.com/p/assets/images/images/040/905/881/original/danny-li-.gif?1630222941") center/cover no-repeat;
-  height: 100vh;
+  position: relative;
+  background-color: var(--bg);
+  background-image: url("https://cdnb.artstation.com/p/assets/images/images/040/905/881/original/danny-li-.gif?1630222941");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: white;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+  gap: 12px;
+  padding: 24px;
+  text-align: center;
+  color: #fff;
   font-family: 'Bebas Neue', sans-serif;
+}
+
+/* ฉากมืดคลุมรูป ให้ข้อความอ่านออกเสมอไม่ว่าตรงนั้นของรูปจะสว่างแค่ไหน */
+.header1::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.55) 0%,
+    rgba(0, 0, 0, 0.35) 45%,
+    rgba(0, 0, 0, 0.75) 100%
+  );
+}
+
+/* ยกข้อความขึ้นมาอยู่เหนือฉากมืด */
+.header1 > * {
+  position: relative;
+  z-index: 1;
+}
+
+.header1 h1 {
+  margin: 0;
+  font-size: clamp(2rem, 5.5vw, 3.6rem);
+  letter-spacing: 0.02em;
+}
+
+.header1 p {
+  margin: 0;
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* ปุ่มพาเข้าร้าน เดิมหน้านี้มีแต่ข้อความต้อนรับ
+   ทางเข้าร้านซ่อนอยู่ในแถบเมนูเล็ก ๆ ด้านบนเท่านั้น */
+.enterShop {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 12px 30px;
+  border-radius: 999px;
+  background-color: var(--accent);
+  color: #06231a;
+  font-size: 1.15rem;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  transition: background-color 0.2s var(--ease), transform 0.15s var(--ease);
+}
+
+.enterShop:hover {
+  background-color: var(--accent-strong);
+  transform: translateY(-2px);
 }
 
 .navbar2 {
@@ -70,10 +137,14 @@
   transition: 0.5s;
 }
 
+/* ตอนเอาเมาส์ชี้ เดิมเปลี่ยนขนาดตัวอักษรจาก 20px เป็น 1.8rem
+   ซึ่งทำให้ความกว้างของลิงก์เปลี่ยน แถบเมนูจึงยืดหดและตัวหนังสือ
+   กระโดดไปมาทุกครั้งที่เมาส์ผ่าน เปลี่ยนเป็นเปลี่ยนสีกับพื้นหลังแทน
+   ซึ่งไม่กระทบการจัดวาง */
 .navbar2 a:hover {
-  color: red;
-  font-size: 1.8rem;
-  font-weight: bold; 
+  color: var(--accent);
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
 }
 
 
