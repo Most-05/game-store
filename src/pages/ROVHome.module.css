@@ -117,6 +117,12 @@
 .navbar2 {
   font-family: 'Bebas Neue', sans-serif;
   position: fixed;
+  /* ต้องระบุ z-index ไว้ เพราะ .header1 ที่อยู่หลัง nav ใน DOM
+     ถูกตั้งเป็น position: relative เพื่อวางฉากมืดคลุมรูปพื้นหลัง
+     เมื่อทั้งคู่เป็นองค์ประกอบที่ถูกจัดตำแหน่งและไม่มีใครระบุ z-index
+     เบราว์เซอร์จะวาดตัวที่อยู่หลังใน DOM ทับตัวที่อยู่ก่อน
+     .header1 จึงทาบทับแถบเมนูจนกดลิงก์ในแถบไม่ได้เลย */
+  z-index: 50;
   top: 20px;
   left: 50%;
   transform: translateX(-50%);
