@@ -1,11 +1,13 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import { Link } from "react-router-dom";
+import { BalanceContext } from "../BalanceContext"; // ยอดเงินกลางของทั้งเว็บ
 import style from "./ROVShop.module.css"; // ใช้ CSS Modules
 
 function ROVShop() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
-  const [coins, setCoins] = useState(50000); // เริ่มต้นที่ 50,000 Coins
+  // ใช้ยอดเงินกลางร่วมกับทั้งเว็บ แทนการถือ Coins ของตัวเองแยกต่างหาก
+  const { balance, decreaseBalance } = useContext(BalanceContext);
 
   // ใช้ useRef เพื่อเข้าถึง .navbar
   const navbarRef = useRef(null);
@@ -37,16 +39,16 @@ function ROVShop() {
   // เมื่อกดยืนยันซื้อสินค้า
   function handleConfirm() {
     if (selectedProduct) {
-      const price = parseInt(selectedProduct.price.replace("฿", "").replace(",", ""), 10);
+      // ตัดสัญลักษณ์เงินและลูกน้ำทุกตัวออกก่อนแปลงเป็นตัวเลข
+      const price = parseInt(selectedProduct.price.replace(/[฿,]/g, ""), 10);
 
-      if (coins >= price) {
-        setCoins(coins - price); // หัก Coins
+      if (decreaseBalance(price)) {
         setSelectedProduct(null);
         setTimeout(() => {
           alert(`คุณได้ซื้อ ${selectedProduct.name} เรียบร้อยแล้ว!`);
         }, 100);
       } else {
-        alert("Coins ไม่เพียงพอ!");
+        alert(`Coins ไม่เพียงพอ\nราคา ${price} แต่คุณมีอยู่ ${balance}`);
       }
     }
   }
@@ -55,7 +57,7 @@ function ROVShop() {
     <div className={style['shop-container']}>
       {/* แสดง Coins ที่มุมขวาบน */}
       <div className={style['coins-display']}>
-        💰 Coins: {coins.toLocaleString()}
+        💰 Coins: {balance.toLocaleString()}
       </div>
 
       {/* ปุ่ม ☰ ที่มุมซ้าย */}
