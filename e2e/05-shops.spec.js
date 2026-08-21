@@ -99,4 +99,23 @@ test.describe('ร้าน ROV', () => {
     const after = await visibleText(page);
     expect(after).toBe(before);
   });
+
+
+  test('ปุ่ม ☰ ต้องเปิดเมนูสไลด์ได้ และปุ่ม ✖ ต้องปิดได้', async ({ page }) => {
+    captureDialogs(page);
+    await visit(page, '/ROVShop');
+    await settle(page);
+
+    const sidebar = page.locator('[class*="sidebar"]').first();
+    const homeLink = sidebar.getByText('Home', { exact: true });
+
+    // ตอนแรกเมนูต้องซ่อนอยู่นอกจอ
+    await expect(homeLink).not.toBeInViewport();
+
+    await page.locator('[class*="menuicon"]').first().click();
+    await expect(homeLink, 'กดปุ่ม ☰ แล้วเมนูไม่เลื่อนเข้ามา').toBeInViewport({ timeout: 5000 });
+
+    await sidebar.getByText('✖').click();
+    await expect(homeLink, 'กดปุ่ม ✖ แล้วเมนูไม่ยอมปิด').not.toBeInViewport({ timeout: 5000 });
+  });
 });
