@@ -2,55 +2,106 @@
 @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@400;700&display=swap'); /* ฟอนต์ Sarabun */
 @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@400;700&display=swap'); /* ฟอนต์ Kanit */
 
-/* #add-funds CSS */
+/* ส่วนเติมเงิน
+
+   เดิมตั้ง height: 100vh เหมือนส่วนต้อนรับ ทำให้ฟอร์มที่มีของอยู่ไม่กี่ชิ้น
+   กินพื้นที่เต็มจอ เกิดช่องว่างเปล่ารอบ ๆ อีกหลายร้อยพิกเซล
+   ใช้ padding กำหนดระยะหายใจแทน */
 #add-funds {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    height: 100vh;
+    padding: 72px 24px 96px;
     text-align: center;
-    font-family: 'Sarabun', sans-serif; 
-    color: #18f7b8;
-    background-color: #1e1e20; 
+    font-family: 'Sarabun', sans-serif;
+    color: var(--text);
+    background-color: var(--bg);
 }
 
 #add-funds h1 {
-    font-size: 2.5rem;
-    margin-bottom: 20px;
-    font-family: 'Sarabun', sans-serif; 
+    font-family: 'Kanit', sans-serif;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--text);
 }
 
+/* บรรทัดยอดเงินคงเหลือ ทำเป็นแคปซูลให้อ่านเป็นก้อนเดียว
+   และใช้เลขความกว้างเท่ากันทุกตัว ยอดจะได้ไม่ขยับตอนตัวเลขเปลี่ยน */
 #add-funds p {
-    font-size: 1.5rem;
-    margin-bottom: 20px;
-    color: #18f7b8;
-    font-family: 'Sarabun', sans-serif; 
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 28px;
+    padding: 8px 18px;
+    border: 1px solid var(--border-strong);
+    border-radius: 999px;
+    background-color: var(--surface-2);
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--accent);
+    font-family: 'Sarabun', sans-serif;
+    font-variant-numeric: tabular-nums;
 }
 
-#add-funds input {
-    padding: 10px;
-    font-size: 1.2rem;
-    width: 50%;
-    margin-bottom: 20px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    font-family: 'Sarabun', sans-serif; 
-}
-
+/* กล่องฟอร์ม รวมช่องกรอกกับปุ่มไว้บนพื้นผิวที่ยกขึ้นมาหนึ่งชั้น
+   ให้เห็นชัดว่าทั้งสามชิ้นเป็นของชุดเดียวกัน */
+#add-funds input,
 #add-funds button {
-    padding: 10px 20px;
-    font-size: 1.2rem;
+    width: 100%;
+    max-width: 340px;
+    box-sizing: border-box;
+    font-family: 'Sarabun', sans-serif;
+}
+
+/* เดิมช่องกรอกกว้าง 50% ของหน้าจอ บนจอ 1440px จึงยาว 720px
+   ทั้งที่กรอกแค่จำนวนเงินกับเบอร์โทร ยาวเกินจำเป็นจนดูไม่สมส่วนกับปุ่ม */
+#add-funds input {
+    padding: 12px 16px;
+    margin-bottom: 14px;
+    font-size: 1rem;
+    color: var(--text);
+    background-color: var(--surface-2);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-sm);
+    transition: border-color 0.2s var(--ease), background-color 0.2s var(--ease);
+}
+
+#add-funds input::placeholder {
+    color: var(--text-dim);
+}
+
+#add-funds input:focus {
+    outline: none;
+    border-color: var(--accent);
+    background-color: var(--surface-3);
+}
+
+/* ปุ่มกว้างเท่าช่องกรอก เดิมกว้าง 100px ตายตัว เล็กกว่าช่องกรอกเจ็ดเท่า
+   จนดูเหมือนคนละส่วนกัน */
+#add-funds button {
+    margin-top: 6px;
+    padding: 13px 20px;
+    font-size: 1rem;
+    font-weight: 700;
     cursor: pointer;
-    background-color: #4CAF50;
-    color: white;
+    color: #06231a;
+    background-color: var(--accent);
     border: none;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-    font-family: 'Sarabun', sans-serif; 
-    width: 100px;
+    border-radius: var(--radius-sm);
+    transition: background-color 0.2s var(--ease), transform 0.15s var(--ease);
 }
 
 #add-funds button:hover {
-    background-color: #45a049;
+    background-color: var(--accent-strong);
+}
+
+#add-funds button:active {
+    transform: translateY(1px);
+}
+
+@media (max-width: 640px) {
+    #add-funds {
+        padding: 48px 18px 64px;
+    }
 }
