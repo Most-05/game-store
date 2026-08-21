@@ -1,0 +1,54 @@
+/* header.css */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+
+.header {
+    padding: 15px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 8px;
+    margin: 20px;
+    height: 100px;
+    
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+     background-color: #1e1e20; 
+    box-shadow: white;
+    font-family: 'Montserrat', sans-serif;  /* ใช้ฟอนต์ Montserrat */
+}
+
+.logo h1 {
+    font-size: 24px;
+}
+
+nav {
+    display: flex;
+    gap: 15px;
+}
+
+nav a,
+nav .nav-item {
+    text-decoration: none;
+    color: #18f7b8;  /* สีเขียว */
+    font-size: 16px;
+    padding: 8px 16px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* เมนูเมื่อ hover */
+nav a:hover,
+nav .nav-item:hover {
+    background-color: #444;  /* พื้นหลังสีเทา */
+    color: #ffffff;  /* สีตัวอักษรเป็นสีขาวเมื่อ hover */
+}
+
+/* สไตล์เมื่อเมนูถูกคลิก (active) */
+.active {
+    background-color: #fc1dc0;  /* สีชมพูสว่าง */
+    color: #fff;  /* ตัวอักษรเป็นสีขาว */
+    font-weight: bold;
+}
+
