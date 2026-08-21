@@ -15,7 +15,7 @@ const ARKHome = () => {
     <div className={styles.ARKHome1} id="header">
       <div className={styles.Header}>
         <h1 className="text-4xl font-bold mb-4">ARK Survival Evolved</h1>
-        <Link to="/">HOME</Link>
+        <Link to="/Home">HOME</Link>
         <a href="#header"> MENU</a>
         <a href="#store-section" className="cursor-pointer hover:underline">SHOP</a>
         {/* แสดงยอดเงินที่มี */}
