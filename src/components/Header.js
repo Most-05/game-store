@@ -30,9 +30,9 @@ function Header() {
             </div>
             <nav>
                 <a
-                    href=""
+                    href="#home"
                     onClick={() => {
-                        window.location.hash = 'Home';
+                        window.location.hash = 'home';
                         setActiveTab('Home');
                     }}
                     className={activeTab === 'Home' ? 'active' : ''}
