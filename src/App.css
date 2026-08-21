@@ -1,62 +1,16 @@
-.App {
-  text-align: center;
-}
+/* สไตล์ส่วนกลางของแอป
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
+   ไฟล์นี้เดิมมีของเหลือจากแม่แบบ Create React App ปนอยู่หลายอย่าง
+   ทั้งโลโก้หมุน คลาส .App-header ที่ไม่มีใครใช้ และคลาส .container พื้นขาว
+   ซึ่งขัดกับธีมมืดของเว็บ ลบออกให้เหลือเฉพาะที่ใช้จริง
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: #18f7b8;
-
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
+   ส่วนกฎ .header ที่เคยอยู่ในไฟล์นี้ถูกย้ายไปรวมไว้ที่ components/header.css
+   ที่เดียว เพราะการประกาศคลาสเดียวกันสองไฟล์ทำให้ไฟล์ที่โหลดทีหลัง
+   เขียนทับอีกไฟล์แบบเงียบ ๆ แก้ที่ไฟล์หนึ่งแล้วไม่เห็นผลโดยไม่รู้สาเหตุ */
 
 body {
-  font-family: sans-serif;
+  /* ฟอนต์และสีพื้นตั้งไว้ที่ index.css ซึ่งเป็นที่รวมค่ากลางของเว็บ
+     ตรงนี้เหลือไว้แค่การรีเซ็ตระยะขอบ */
   margin: 0;
   padding: 0;
-  /* background-color: white; */
-  /* เปลี่ยนสีพื้นหลังเป็นสีฟ้าอ่อน */
-}
-
-/*ตรงนี้คือHeaderของ Gamestore*/
-.header {
-  background-color: #1e1e20;
-  color: #18f7b8;
-  padding: 10px;
-  text-align: center;
-}
-
-.container {
-  width: 80%;
-  margin: 20px auto;
-  padding: 20px;
-  background-color: white;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
