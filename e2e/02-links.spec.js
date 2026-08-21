@@ -24,7 +24,9 @@ test.describe('ลิงก์ทุกอันต้องไม่พาไ�
         await page.goto(href);
         await settle(page);
         const text = await visibleText(page);
-        if (text.length <= 10) broken.push(href);
+        // ลิงก์เสียมีสองแบบ คือพาไปหน้าว่าง กับพาไปตกที่หน้า 404
+        // ต้องเช็คแบบที่สองด้วย ไม่งั้นพอเพิ่มหน้า 404 เข้ามาแล้วเทสจะผ่านทั้งที่ลิงก์ยังเสีย
+        if (text.length <= 10 || text.includes('ไม่พบหน้าที่คุณเรียก')) broken.push(href);
         await page.goto(from);
         await settle(page);
       }
@@ -47,6 +49,8 @@ test('กดการ์ดเกมในหน้า /game ต้องเข�
     await settle(page);
     await page.locator('.game-item').nth(g.index).click();
     await page.waitForURL(g.url, { timeout: 5000 });
+    // การ์ดหน่วงเวลา 300ms ก่อนเปลี่ยนหน้า ต้องรอให้หน้าปลายทางเรนเดอร์เสร็จก่อนค่อยอ่านข้อความ
+    await expect(page.getByText(g.mustSee, { exact: false }).first()).toBeVisible({ timeout: 10000 });
     const text = await visibleText(page);
     expect(text, `กดการ์ดเกมใบที่ ${g.index + 1} แล้วหน้าไม่ขึ้นเนื้อหา`).toContain(g.mustSee);
   }
