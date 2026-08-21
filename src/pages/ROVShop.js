@@ -65,8 +65,8 @@ function ROVShop() {
       <div ref={navbarRef} className={`${style.sidebar} ${menuOpen ? style.open : ""}`}>
         <button className={style['close-btn']} onClick={() => setMenuOpen(false)}>✖</button>
         <Link to="/" onClick={() => setMenuOpen(false)}>Home</Link>
-        <Link to="/shop" onClick={() => setMenuOpen(false)}>Shop</Link>
-        <Link to="/login" onClick={() => setMenuOpen(false)}>Login</Link>
+        <Link to="/ROVShop" onClick={() => setMenuOpen(false)}>Shop</Link>
+        <Link to="/" onClick={() => setMenuOpen(false)}>Login</Link>
       </div>
 
       <h1>We've gathered together some of the coolest Skins for you.</h1>
