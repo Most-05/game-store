@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import Game from './pages/Gamestore';
 import AddFunds from './pages/AddFunds';
 import { BalanceProvider } from './BalanceContext';
+import { CartProvider } from 'react-use-cart';
 import './App.css';
 import ARKHome from './pages/ARKHome';
 import DinoPackPage from './pages/DinoPackPage';
@@ -27,6 +28,7 @@ import Signup from './pages/Signup';
 function App() {
   return (
     <BalanceProvider>
+      <CartProvider>
       <Router>
         <Header />
         <Routes>
@@ -52,6 +54,7 @@ function App() {
 
         </Routes>
       </Router>
+      </CartProvider>
     </BalanceProvider>
   );
 }
