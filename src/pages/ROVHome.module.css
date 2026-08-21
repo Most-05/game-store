@@ -1,11 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 
-body, html {
-  font-family: 'Bebas Neue', sans-serif;
-  margin: 0;
-  padding: 0;
-  text-align: center;
-}
+/* เดิมตรงนี้เขียนว่า
+
+     body, html { font-family: 'Bebas Neue'; margin: 0; padding: 0; text-align: center; }
+
+   ซึ่งเป็นบั๊กที่ลามไปทั้งเว็บ เพราะ CSS Module จะเปลี่ยนชื่อให้เฉพาะ
+   ตัวเลือกที่เป็นคลาสเท่านั้น ส่วนตัวเลือกที่เป็นชื่อแท็กอย่าง body กับ html
+   จะหลุดออกไปเป็นกฎระดับโลกตามเดิม และเพราะ App.js เรียกใช้หน้า ROVHome
+   ตั้งแต่ตอนโหลด กฎนี้จึงมีผลกับทุกหน้าตลอดเวลา แม้ผู้ใช้จะไม่เคยเปิดหน้า ROV เลย
+
+   ผลที่ตามมาคือ Bebas Neue เป็นฟอนต์ประเภทหัวข้อที่ไม่มีตัวพิมพ์เล็ก
+   ข้อความภาษาอังกฤษทั้งเว็บจึงกลายเป็นตัวพิมพ์ใหญ่บีบแคบไปหมด
+   เช่น Fortnite กลายเป็น FORTNITE และ Current Balance กลายเป็น CURRENT BALANCE
+   ทั้งที่โค้ดเขียนตัวพิมพ์เล็กไว้ ส่วน text-align: center ก็ทำให้ข้อความ
+   ทุกหน้าถูกจัดกึ่งกลางโดยไม่มีใครสั่ง
+
+   ย้ายฟอนต์ไปไว้ที่คลาสของหน้า ROV เอง ซึ่งอยู่ข้างล่างนี้แล้ว
+   ส่วน margin กับ padding ตั้งไว้ที่ index.css ซึ่งเป็นที่รวมค่ากลางอยู่แล้ว */
 
 
 
@@ -37,6 +48,7 @@ body, html {
 }
 
 .navbar2 {
+  font-family: 'Bebas Neue', sans-serif;
   position: fixed;
   top: 20px;
   left: 50%;
