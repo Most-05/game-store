@@ -38,7 +38,7 @@ function AddFunds() {
         alert(`หักเงินสำเร็จ ${Math.abs(amountValue)} บาท`);
       }
 
-      navigate("/");
+      navigate("/Home");
     }
   };
 
