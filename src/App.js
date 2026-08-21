@@ -19,7 +19,6 @@ import ROVHome from './pages/ROVHome'
 import ROVShop from './pages/ROVShop';
 import FortniteHome from './pages/FortniteHome';
 import Cart from './pages/FortniteCart';
-import Itemcard from './pages/FortniteItemcard';
 import Login from './pages/login';
 import Signup from './pages/Signup';
 import NotFound from './pages/NotFound';
@@ -49,7 +48,6 @@ function App() {
           <Route path="/ROVShop" element={<ROVShop />} />
           <Route path="/FortniteHome" element={<FortniteHome />} />
           <Route path="/Cart" element={<Cart />} />
-          <Route path="/Itemcard" element={<Itemcard />} />
 
           <Route path="*" element={<NotFound />} />
         </Routes>
