@@ -1,5 +1,5 @@
 const { test, expect } = require('@playwright/test');
-const { visibleText, captureDialogs, seedBalance } = require('./helpers');
+const { visibleText, captureDialogs, seedBalance, settle } = require('./helpers');
 
 test('เติมเงินแล้วยอดต้องเพิ่มขึ้นจริง', async ({ page }) => {
   const dialogs = captureDialogs(page);
@@ -25,7 +25,7 @@ test('เติมเงินเสร็จต้องไม่เด้ง�
   await page.click('button:has-text("เติมเงิน")');
   await expect.poll(() => dialogs.join(' '), { timeout: 10000 }).toContain('เติมเงินสำเร็จ');
 
-  await page.waitForLoadState('networkidle');
+  await settle(page);
   const text = await visibleText(page);
   expect(text, 'เติมเงินเสร็จแล้วโดนเด้งไปหน้า Login ทั้งที่เพิ่งเติมเงินเสร็จ').not.toContain('Enter password');
 });
@@ -63,7 +63,7 @@ test('ซื้อไอเทม ARK แล้วยอดเงินต้อ
   await seedBalance(page, 10000);
 
   await page.goto('/dino-pack');
-  await page.waitForLoadState('networkidle');
+  await settle(page);
   await page.locator('text=Giga').first().click();          // Giga ราคา 5000
   await page.waitForURL(/checkout/i, { timeout: 5000 });
   await page.click('button:has-text("BUY NOW")');
@@ -78,7 +78,7 @@ test('เงินไม่พอต้องซื้อไม่ได้', as
   await seedBalance(page, 100);
 
   await page.goto('/dino-pack');
-  await page.waitForLoadState('networkidle');
+  await settle(page);
   await page.locator('text=Giga').first().click();          // Giga ราคา 5000 แต่มีอยู่ 100
   await page.waitForURL(/checkout/i, { timeout: 5000 });
   await page.click('button:has-text("BUY NOW")');
@@ -94,12 +94,12 @@ test('ซื้อของจากหมวด Blueprint แล้วต้อ
   await seedBalance(page, 100000);
 
   await page.goto('/blueprint');
-  await page.waitForLoadState('networkidle');
+  await settle(page);
   await page.locator('[class*="Item"]').first().click();
   await page.waitForURL(/checkout/i, { timeout: 5000 });
   await page.click('button:has-text("BUY NOW")');
   await expect.poll(() => dialogs.join(' '), { timeout: 10000 }).toContain('เรียบร้อยแล้ว');
 
-  await page.waitForLoadState('networkidle');
+  await settle(page);
   expect(page.url(), 'ซื้อของจากหมวด Blueprint แต่ระบบเด้งไปหน้า dino-pack').not.toContain('dino-pack');
 });
