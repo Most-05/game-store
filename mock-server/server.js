@@ -80,7 +80,9 @@ function readBody(req) {
     });
 }
 
-const server = http.createServer(async (req, res) => {
+// ตัวจัดการคำขอทั้งหมด แยกออกมาเป็นฟังก์ชันเพื่อให้เอาไปใช้ซ้ำได้สองทาง
+// คือเปิดเป็นเซิร์ฟเวอร์เดี่ยวที่พอร์ต 8082 กับเสียบเข้า dev server ผ่าน src/setupProxy.js
+async function handler(req, res) {
     // preflight ของ CORS — เบราว์เซอร์ยิงมาก่อนทุก POST ที่เป็น application/json
     if (req.method === 'OPTIONS') {
         res.writeHead(204, {
@@ -170,9 +172,17 @@ const server = http.createServer(async (req, res) => {
     }
 
     send(res, 404, { message: 'Not found' });
-});
+}
 
-server.listen(PORT, () => {
-    console.log(`Mock backend ready at http://localhost:${PORT}`);
-    console.log(`ฐานข้อมูลผู้ใช้: ${DB_FILE}`);
-});
+// export ให้ src/setupProxy.js เอา handler ไปเสียบกับ dev server ของ CRA ได้
+// จะได้ไม่ต้องเปิดเซิร์ฟเวอร์แยกอีกหน้าต่าง
+module.exports = { handler, PORT };
+
+// เปิดเป็นเซิร์ฟเวอร์เดี่ยวเฉพาะตอนถูกสั่งรันตรง ๆ ด้วย node server.js เท่านั้น
+// ถ้าถูก require เข้าไปจากที่อื่นจะไม่ยึดพอร์ต
+if (require.main === module) {
+    http.createServer(handler).listen(PORT, () => {
+        console.log(`Mock backend ready at http://localhost:${PORT}`);
+        console.log(`ฐานข้อมูลผู้ใช้: ${DB_FILE}`);
+    });
+}

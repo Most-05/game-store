@@ -38,14 +38,15 @@ August 2026 — see [Restoration notes](#restoration-notes-august-2026).
 
 ## Running locally
 
-The app needs two processes: the React dev server and the backend API.
+One command is enough. The mock backend is mounted onto the dev server
+by `src/setupProxy.js`, which CRA loads automatically.
 
 ```bash
 npm install
-
-npm run server     # terminal 1 — mock backend on :8082
-npm start          # terminal 2 — React app on :3000
+npm start          # React app + mock backend on :3000
 ```
+
+`npm run server` still works if you want the backend standalone on :8082.
 
 The app starts at http://localhost:3000 and opens on the login screen.
 Sign up for a new account, or use a seeded one:
@@ -130,20 +131,18 @@ it stores passwords as MD5 hashes and does not verify the tokens it issues.
 
 ### วิธีรัน
 
-ต้องเปิดสองอย่างคู่กัน
+สั่งคำสั่งเดียวจบ backend จำลองถูกเสียบเข้ากับ dev server ด้วย src/setupProxy.js
+ซึ่ง CRA โหลดให้เองอัตโนมัติ
 
 ```bash
 npm install
-
-npm run server     # หน้าต่างที่ 1 — backend จำลองที่พอร์ต 8082
-npm start          # หน้าต่างที่ 2 — เว็บที่พอร์ต 3000
+npm start          # เว็บพร้อม backend จำลอง ที่พอร์ต 3000
 ```
+
+ถ้าอยากเปิด backend แยกต่างหากที่พอร์ต 8082 ยังสั่ง `npm run server` ได้เหมือนเดิม
 
 เปิดที่ http://localhost:3000 จะเจอหน้าเข้าสู่ระบบก่อน
 สมัครใหม่ได้ หรือใช้บัญชีตั้งต้น `mos` / `1234` และ `preecha` / `12345`
-
-ถ้าไม่เปิด backend หน้าสมัครกับหน้าล็อกอินจะใช้ไม่ได้
-ขึ้นข้อความว่า `Error during signup. Please try again.` ส่วนหน้าอื่นยังใช้ได้ปกติ
 
 ### วิธีรันเทส
 

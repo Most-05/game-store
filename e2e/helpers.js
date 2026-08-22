@@ -1,6 +1,6 @@
 // ตัวช่วยที่ใช้ร่วมกันในทุกไฟล์เทส
 
-const API = 'http://localhost:8082';
+const API = 'http://localhost:3000';
 
 /** ข้อความที่มองเห็นจริงบนหน้า ใช้ตรวจว่าหน้า "ว่างเปล่า" หรือไม่ */
 async function visibleText(page) {

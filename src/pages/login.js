@@ -45,7 +45,7 @@ export default function Login() {
     };
 
     const getAuthenToken = async () => {
-        const response = await fetch("http://localhost:8082/api/authen_request", {
+        const response = await fetch("/api/authen_request", {
             method: "POST",
             headers: {
                 Accept: "application/json",
@@ -61,7 +61,7 @@ export default function Login() {
 
     const getAcessToken = async (authToken) => {
         var baseString = username + "&" + password;
-        const response = await fetch("http://localhost:8082/api/access_request", {
+        const response = await fetch("/api/access_request", {
             method: "POST",
             headers: {
                 Accept: "application/json",

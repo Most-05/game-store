@@ -25,7 +25,7 @@ export default function SignUp() {
 
     const doSignUp = async () => {
         try {
-            const response = await fetch("http://localhost:8082/add_user", {
+            const response = await fetch("/add_user", {
                 method: "POST",
                 headers: {
                     Accept: "application/json",
