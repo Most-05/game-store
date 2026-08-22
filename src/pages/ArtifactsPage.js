@@ -4,6 +4,13 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { BalanceContext } from "../BalanceContext"; // ยอดเงินกลางของทั้งเว็บ
 import styles from "./ARKHome.module.css"; // นำเข้า CSS Module
 
+const artifacts = [
+  { name: "ArtifactofMassive", label: "Artifact of Massive", price: 5000, image: "/image/ArtifactofMassive.jpg" },
+  { name: "ArtifactCunning", label: "Artifact of Cunning", price: 5000, image: "/image/ArtifactCunning.jpg" },
+  { name: "ArtifactofChaos", label: "Artifact of Chaos", price: 5000, image: "/image/ArtifactofChaos.jpg" },
+  { name: "ArtifactGrowth", label: "Artifact of Growth", price: 5000, image: "/image/ArtifactGrowth.jpg" },
+];
+
 const ArtifactsPage = () => {
   const navigate = useNavigate();
   const { balance } = useContext(BalanceContext);
@@ -19,53 +26,44 @@ const ArtifactsPage = () => {
   }
 
   return (
-     <div className={styles.ARKHome2} >
-    <div className={`${styles.minHeightScreen} ${styles.bgGray} ${styles.flex} ${styles.flexCol} ${styles.itemsCenter} ${styles.p6}`} id="header">
+    <div className={styles.ARKHome2} id="header">
       <div className={styles.Header}>
-        <h1 className={styles.title}>ARK Survival Evolved</h1>
-        <Link to="/ARKHome" className={styles.link}>HOME</Link>
-        <a href="#header" className={styles.link}>MENU</a>
-        <a href="#store-section" className={styles.link}>Shop</a>
-        <p className={styles.coin}>Coins: {balance} 🪙</p>
+        <h1 className="text-4xl font-bold mb-4">ARK Survival Evolved</h1>
+        <Link to="/ARKHome">HOME</Link>
+        <a href="#header">MENU</a>
+        <a href="#store-section">Shop</a>
+        <p>Coins: {balance} 🪙</p>
       </div>
 
       <div className={styles.container}>
-        <div className={styles.ad1}>
+        <div className={styles.Ad1} id="Ad1" ref={ad1Ref}>
           <img src="/image/wallpaper1.jpg" alt="ARK Screenshot" />
         </div>
       </div>
 
       <div className={styles.art}>
-        <h1 className={styles.artTitle}>Artifacts</h1>
-        <div className={styles.shopSection6} id="store-section">
-          <div className={styles.ARTItem6} onClick={() => handlePurchase("ArtifactofMassive", 5000)}>
-            <img src="/image/ArtifactofMassive.jpg" alt="ArtifactofMassive" className={styles.artImage} />
-            <h3 className={styles.artName}>Artifact of Massive</h3>
-            <p className={styles.artPrice}>Price: 5000 Coins</p>
-          </div>
+        <h1 className="text-2xl font-semibold">Artifacts</h1>
 
-          <div className={styles.ARTItem6} onClick={() => handlePurchase("ArtifactCunning", 5000)}>
-            <img src="/image/ArtifactCunning.jpg" alt="ArtifactCunning" className={styles.artImage} />
-            <h3 className={styles.artName}>Artifact of Cunning</h3>
-            <p className={styles.artPrice}>Price: 5000 Coins</p>
-          </div>
+        <div className={styles.shopSection6} id="store-section">
+          {artifacts.slice(0, 2).map((item) => (
+            <div key={item.name} className={styles.ARTItem6} onClick={() => handlePurchase(item.name, item.price)}>
+              <img src={item.image} alt={item.label} className="w-full h-40 object-cover rounded-md mb-4" />
+              <h3 className="text-xl font-semibold">{item.label}</h3>
+              <p className="text-lg">Price: {item.price} Coins</p>
+            </div>
+          ))}
         </div>
 
         <div className={styles.shopSection6}>
-          <div className={styles.ARTItem6} onClick={() => handlePurchase("ArtifactofChaos", 5000)}>
-            <img src="/image/ArtifactofChaos.jpg" alt="ArtifactofChaos" className={styles.artImage} />
-            <h3 className={styles.artName}>Artifact of Chaos</h3>
-            <p className={styles.artPrice}>Price: 5000 Coins</p>
-          </div>
-
-          <div className={styles.ARTItem6} onClick={() => handlePurchase("ArtifactGrowth", 5000)}>
-            <img src="/image/ArtifactGrowth.jpg" alt="ArtifactGrowth" className={styles.artImage} />
-            <h3 className={styles.artName}>Artifact of Growth</h3>
-            <p className={styles.artPrice}>Price: 5000 Coins</p>
-          </div>
+          {artifacts.slice(2).map((item) => (
+            <div key={item.name} className={styles.ARTItem6} onClick={() => handlePurchase(item.name, item.price)}>
+              <img src={item.image} alt={item.label} className="w-full h-40 object-cover rounded-md mb-4" />
+              <h3 className="text-xl font-semibold">{item.label}</h3>
+              <p className="text-lg">Price: {item.price} Coins</p>
+            </div>
+          ))}
         </div>
       </div>
-    </div>
     </div>
   );
 };
