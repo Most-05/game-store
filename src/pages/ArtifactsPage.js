@@ -1,10 +1,12 @@
-import React, { useRef } from "react";
+import React, { useContext, useRef } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate, useLocation } from "react-router-dom";
+import { BalanceContext } from "../BalanceContext"; // ยอดเงินกลางของทั้งเว็บ
 import styles from "./ARKHome.module.css"; // นำเข้า CSS Module
 
 const ArtifactsPage = () => {
   const navigate = useNavigate();
+  const { balance } = useContext(BalanceContext);
 
   const handlePurchase = (itemName, price) => {
     navigate("/checkout", { state: { itemName, price } });
@@ -24,7 +26,7 @@ const ArtifactsPage = () => {
         <Link to="/ARKHome" className={styles.link}>HOME</Link>
         <a href="#header" className={styles.link}>MENU</a>
         <a href="#store-section" className={styles.link}>Shop</a>
-        <p className={styles.coin}>Coin🪙: 10000</p>
+        <p className={styles.coin}>Coins: {balance} 🪙</p>
       </div>
 
       <div className={styles.container}>
