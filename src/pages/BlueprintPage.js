@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate, useLocation } from "react-router-dom";
 import { BalanceContext } from "../BalanceContext"; // นำเข้าคอนเท็กซ์ยอดเงิน
+import { cardButtonProps } from "./arkCardProps";
 import styles from "./ARKHome.module.css"; // ใช้ CSS Module
 
 const BlueprintPage = () => {
@@ -42,13 +43,13 @@ const BlueprintPage = () => {
       <div className={styles.blueprint}>
         <h1>Blueprint</h1>
         <div className={styles.shopSection3} id="store-section">
-          <div className={styles.ARTItem} onClick={() => handlePurchase("Flak Chestpiece", 10000)}>
+          <div className={styles.ARTItem} {...cardButtonProps(() => handlePurchase("Flak Chestpiece", 10000))}>
             <img src="/image/FlakChestpiece.jpg" alt="Flak Chestpiece" />
             <h3>Blueprint: Flak Chestpiece</h3>
             <p>Price: 10000 Coins</p>
           </div>
 
-          <div className={styles.ARTItem} onClick={() => handlePurchase("Flak Leggings", 25000)}>
+          <div className={styles.ARTItem} {...cardButtonProps(() => handlePurchase("Flak Leggings", 25000))}>
             <img src="/image/FlakLeggings.jpg" alt="FlakLeggings" />
             <h3>Blueprint: Flak Leggings</h3>
             <p>Price: 25000 Coins</p>
@@ -56,13 +57,13 @@ const BlueprintPage = () => {
         </div>
 
         <div className={styles.shopSection3}>
-          <div className={styles.ARTItem} onClick={() => handlePurchase("Flak Gauntlets", 60000)}>
+          <div className={styles.ARTItem} {...cardButtonProps(() => handlePurchase("Flak Gauntlets", 60000))}>
             <img src="/image/FlakGauntlets.jpg" alt="FlakGauntlets" />
             <h3>Blueprint: Flak Gauntlets</h3>
             <p>Price: 60000 Coins</p>
           </div>
 
-          <div className={styles.ARTItem} onClick={() => handlePurchase("Flak Boots", 45000)}>
+          <div className={styles.ARTItem} {...cardButtonProps(() => handlePurchase("Flak Boots", 45000))}>
             <img src="/image/FlakBoots.jpg" alt="FlakBoots" />
             <h3>Blueprint: Flak Boots</h3>
             <p>Price: 45000 Coins</p>

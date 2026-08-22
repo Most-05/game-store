@@ -2,6 +2,7 @@ import React, { useContext, useRef } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate, useLocation } from "react-router-dom";
 import { BalanceContext } from "../BalanceContext"; // ยอดเงินกลางของทั้งเว็บ
+import { cardButtonProps } from "./arkCardProps";
 import styles from "./ARKHome.module.css"; // นำเข้า CSS Module
 
 const artifacts = [
@@ -46,7 +47,7 @@ const ArtifactsPage = () => {
 
         <div className={styles.shopSection6} id="store-section">
           {artifacts.slice(0, 2).map((item) => (
-            <div key={item.name} className={styles.ARTItem6} onClick={() => handlePurchase(item.name, item.price)}>
+            <div key={item.name} className={styles.ARTItem6} {...cardButtonProps(() => handlePurchase(item.name, item.price))}>
               <img src={item.image} alt={item.label} />
               <h3>{item.label}</h3>
               <p>Price: {item.price} Coins</p>
@@ -56,7 +57,7 @@ const ArtifactsPage = () => {
 
         <div className={styles.shopSection6}>
           {artifacts.slice(2).map((item) => (
-            <div key={item.name} className={styles.ARTItem6} onClick={() => handlePurchase(item.name, item.price)}>
+            <div key={item.name} className={styles.ARTItem6} {...cardButtonProps(() => handlePurchase(item.name, item.price))}>
               <img src={item.image} alt={item.label} />
               <h3>{item.label}</h3>
               <p>Price: {item.price} Coins</p>

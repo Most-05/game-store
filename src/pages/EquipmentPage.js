@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate, useLocation } from "react-router-dom";
 import { BalanceContext } from "../BalanceContext"; // นำเข้าคอนเท็กซ์ยอดเงิน
+import { cardButtonProps } from "./arkCardProps";
 import styles from "./ARKHome.module.css"; // ใช้ CSS Module
 
 const EquipmentPage = () => {
@@ -43,13 +44,13 @@ const EquipmentPage = () => {
         <h1>Equipment</h1>
         <div className={styles.shopSection4} id="store-section">
   
-          <div className={styles.ARTItem4} onClick={() => handlePurchase("metalpick", 5000)}>
+          <div className={styles.ARTItem4} {...cardButtonProps(() => handlePurchase("metalpick", 5000))}>
             <img src="/image/metalpick.jpg" alt="metalpick" />
             <h3>Ascendant metal pick</h3>
             <p>Price: 5000 Coins</p>
           </div>
   
-          <div className={styles.ARTItem4} onClick={() => handlePurchase("actionshotgun", 5000)}>
+          <div className={styles.ARTItem4} {...cardButtonProps(() => handlePurchase("actionshotgun", 5000))}>
             <img src="/image/actionshotgun.jpg" alt="actionshotgun" />
             <h3>Action Shotgun</h3>
             <p>Price: 5000 Coins</p>
@@ -59,13 +60,13 @@ const EquipmentPage = () => {
   
         <div className={styles.shopSection2}>
   
-          <div className={styles.ARTItem4} onClick={() => handlePurchase("longneckrifle", 60000)}>
+          <div className={styles.ARTItem4} {...cardButtonProps(() => handlePurchase("longneckrifle", 60000))}>
             <img src="/image/longneckrifle.jpg" alt="longneckrifle" />
             <h3>Ascendant Longneck Rifle</h3>
             <p>Price: 60000 Coins</p>
           </div>
   
-          <div className={styles.ARTItem4} onClick={() => handlePurchase("fabricatedsniperrifle", 45000)}>
+          <div className={styles.ARTItem4} {...cardButtonProps(() => handlePurchase("fabricatedsniperrifle", 45000))}>
             <img src="/image/fabricatedsniperrifle.jpg" alt="fabricatedsniperrifle" />
             <h3>Ascendant Fabricated Sniper Rifle</h3>
             <p>Price: 45000 Coins</p>

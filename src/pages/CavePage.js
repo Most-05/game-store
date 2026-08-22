@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate, useLocation } from "react-router-dom";
 import { BalanceContext } from "../BalanceContext"; // นำเข้าคอนเท็กซ์ยอดเงิน
+import { cardButtonProps } from "./arkCardProps";
 import styles from "./ARKHome.module.css"; // ใช้ CSS Module
 
 const CavePage = () => {
@@ -46,7 +47,7 @@ const CavePage = () => {
         <div className={styles.shopSection2} id="store-section">
           {[{ name: "Pearl Cave", price: 10000, image: "/image/Pearlcave.jpg" }, { name: "Ice Cave", price: 25000, image: "/image/Icecave.jpg" }]
             .map((item) => (
-              <div key={item.name} className={styles.dinoItem1} onClick={() => handlePurchase(item.name, item.price)}>
+              <div key={item.name} className={styles.dinoItem1} {...cardButtonProps(() => handlePurchase(item.name, item.price))}>
                 <img src={item.image} alt={item.name} />
                 <h3>{item.name}</h3>
                 <p>Price: {item.price} Coins</p>
@@ -58,7 +59,7 @@ const CavePage = () => {
         <div className={styles.shopSection2}>
           {[{ name: "Luna Cave", price: 60000, image: "/image/Lunacave.jpg" }, { name: "Church Cave", price: 45000, image: "/image/Churchcave.jpg" }]
             .map((item) => (
-              <div key={item.name} className={styles.dinoItem1} onClick={() => handlePurchase(item.name, item.price)}>
+              <div key={item.name} className={styles.dinoItem1} {...cardButtonProps(() => handlePurchase(item.name, item.price))}>
                 <img src={item.image} alt={item.name} />
                 <h3>{item.name}</h3>
                 <p>Price: {item.price} Coins</p>

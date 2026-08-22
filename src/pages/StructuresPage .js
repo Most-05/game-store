@@ -2,6 +2,7 @@ import React, { useContext, useRef } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate, useLocation } from "react-router-dom";
 import { BalanceContext } from "../BalanceContext"; // ยอดเงินกลางของทั้งเว็บ
+import { cardButtonProps } from "./arkCardProps";
 import styles from "./ARKHome.module.css"; // นำเข้า CSS Module
 
 // รายการสินค้าเก็บเป็นข้อมูลชุดเดียว ราคาที่แสดงกับราคาที่หักเงินจึงมาจากตัวเลขเดียวกัน
@@ -52,7 +53,7 @@ const StructuresPage = () => {
 
         <div className={styles.shopSection5} id="store-section">
           {structures.slice(0, 2).map((item) => (
-            <div key={item.name} className={styles.structItem1} onClick={() => handlePurchase(item.name, item.price)}>
+            <div key={item.name} className={styles.structItem1} {...cardButtonProps(() => handlePurchase(item.name, item.price))}>
               <img src={item.image} alt={item.label} />
               <h3>{item.label}</h3>
               <p>Price: {item.price} Coins</p>
@@ -62,7 +63,7 @@ const StructuresPage = () => {
 
         <div className={styles.shopSection5}>
           {structures.slice(2).map((item) => (
-            <div key={item.name} className={styles.structItem1} onClick={() => handlePurchase(item.name, item.price)}>
+            <div key={item.name} className={styles.structItem1} {...cardButtonProps(() => handlePurchase(item.name, item.price))}>
               <img src={item.image} alt={item.label} />
               <h3>{item.label}</h3>
               <p>Price: {item.price} Coins</p>
