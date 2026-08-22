@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import Itemcard from "./FortniteItemcard";
 import data from "./Fortnitedata";
-import { Button, Modal } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import fortnite from './Fortnitephoto/FortniteLogo.png'
+import styles from './FortniteShop.module.css';
 
 const FortniteHome = () => {
     const [showModal, setShowModal] = useState(false);
@@ -12,56 +13,60 @@ const FortniteHome = () => {
     const handleClose = () => setShowModal(false);
     const handleShow = () => setShowModal(true);
 
-    console.warn(data.productData);
-    
     return (
-        <section>
-            <div>
-            <Link to="/Home" style={{fontSize: '1.5em',fontWeight:'bold', color: '#333', textDecoration: 'none', margin:'110px',paddingTop:'110px'}}> หน้าหลัก </Link>
-                <div style={{ textAlign: 'center' }}>
-                    <img src={fortnite} alt="Fortnite Logo" style={{ display: 'block', margin: 'auto', width: '300px', height: 'auto', paddingTop: '15px' }} />
-                    <h1 className="mt-3">ร้าน Emmy Gift Shop</h1>
-                    <h2 className="mt-5">Item Shop วันนี้</h2>
-                </div>
-                <section className="py-4 container">
-                <div className="d-flex justify-content-between" style={{ paddingBottom: '20px' }}>
-                <Button variant="primary" onClick={handleShow}>
-                    รายละเอียดในการสั่งซื้อ
-                    </Button>
-                        <Modal show={showModal} onHide={handleClose} size="lg">
-                            <Modal.Header closeButton>
-                                <Modal.Title>รายละเอียดในการสั่งซื้อ</Modal.Title>
-                            </Modal.Header>
-                            <Modal.Body>
-                                <h5>ต้องแอดเพื่อนในเกม ดังชื่อในเกมต่อไปนี้</h5>
-                                <ul>
-                                    {name.map((name, index) => (
-                                    <li key={index} style={{paddingTop:'10px',paddingBottom:'10px'}}>{name}</li>
-                                    ))}
-                                </ul>
-                                <h6>โดยที่คนที่เพิ่งแอดเพื่อน จะต้องแจ้งชื่อในเกมให้แอดมินทราบ</h6>
-                                <h6>หลังจากที่แอดมินแอดเพื่อนแล้ว จะต้องรอ 2 วัน(หลังจากได้ทำการแอดเพื่อน) จะสามารถสั่งซื้อ Gift ได้</h6>
-                            </Modal.Body>
-                        </Modal>
-                        <h5> จำนวนเงิน :  </h5>
-                </div>
-                    <div className="row justify-content-center">
-                        {data.productData.map((item, index) => (
-                            <Itemcard 
-                                img={item.img} 
-                                title={item.title} 
-                                desc={item.desc} 
-                                pricefn={item.pricefn}
-                                price={item.price} 
-                                item={item}  
-                                key={index}  
-                            />
-                        ))}
-                    </div>
+        <div className={styles.page}>
+            <div className={styles.topbar}>
+                <Link to="/Home" className={styles.backLink}>← หน้าหลัก</Link>
+                <span className={styles.balance}>จำนวนเงิน : </span>
+            </div>
 
-                </section>
-            </div> 
-        </section>
+            <header className={styles.hero}>
+                {/* โลโก้เป็น PNG ตัวอักษรสีดำบนพื้นโปร่ง เดิมวางบนพื้นขาวจึงอ่านออก
+                    พอเปลี่ยนเป็นธีมมืดต้องกลับสีให้เป็นตัวอักษรขาว ไม่งั้นหายไปทั้งอัน
+                    การกลับสีทำในไฟล์สไตล์ ที่นี่แค่ผูกคลาสให้ */}
+                <img src={fortnite} alt="Fortnite" className={styles.logo} />
+                <h1 className={styles.shopName}>ร้าน Emmy Gift Shop</h1>
+                <p className={styles.tagline}>Item Shop วันนี้</p>
+            </header>
+
+            <hr className={styles.divider} />
+
+            <div className={styles.toolbar}>
+                <button type="button" className={styles.ghostButton} onClick={handleShow}>
+                    รายละเอียดในการสั่งซื้อ
+                </button>
+            </div>
+
+            <Modal show={showModal} onHide={handleClose} size="lg">
+                <Modal.Header closeButton>
+                    <Modal.Title>รายละเอียดในการสั่งซื้อ</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <h5>ต้องแอดเพื่อนในเกม ดังชื่อในเกมต่อไปนี้</h5>
+                    <ul>
+                        {name.map((n, index) => (
+                            <li key={index} style={{paddingTop:'10px',paddingBottom:'10px'}}>{n}</li>
+                        ))}
+                    </ul>
+                    <h6>โดยที่คนที่เพิ่งแอดเพื่อน จะต้องแจ้งชื่อในเกมให้แอดมินทราบ</h6>
+                    <h6>หลังจากที่แอดมินแอดเพื่อนแล้ว จะต้องรอ 2 วัน(หลังจากได้ทำการแอดเพื่อน) จะสามารถสั่งซื้อ Gift ได้</h6>
+                </Modal.Body>
+            </Modal>
+
+            <div className={styles.grid}>
+                {data.productData.map((item, index) => (
+                    <Itemcard
+                        img={item.img}
+                        title={item.title}
+                        desc={item.desc}
+                        pricefn={item.pricefn}
+                        price={item.price}
+                        item={item}
+                        key={index}
+                    />
+                ))}
+            </div>
+        </div>
     );
 };
 
