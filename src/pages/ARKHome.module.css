@@ -25,6 +25,15 @@
   color: var(--text);
 }
 
+/* แถบเมนูบนของร้าน ARK
+
+   เดิมสูง 100px ตายตัวและกินความกว้างเต็มจอ พอเปิดบนจอกว้าง ชื่อร้านกับ
+   ป้ายยอดเงินจะถูกดันไปติดขอบซ้ายสุดกับขวาสุด ห่างจากเมนูตรงกลางมาก
+   จนตากวาดไม่ถึงกัน จำกัดความกว้างเนื้อหาด้วย --maxw เหมือนหน้าอื่นของเว็บ
+   แต่ยังให้พื้นหลังกินเต็มจอเหมือนเดิม
+
+   เอา !important ออกได้ เพราะไม่มีกฎไหนแย่งฟอนต์กับมันอยู่แล้ว
+   ตัวคลาสเองก็เฉพาะเจาะจงพอ */
 .Header {
   position: fixed;
   top: 0;
@@ -34,26 +43,46 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 100px;
-  padding: 0 20px;
-  background-color: #1e1e20;
-  color: white;
+  gap: 16px;
+  height: 84px;
+  /* ระยะขอบซ้ายขวาคิดจากที่ว่างที่เหลือหลังหักความกว้างเนื้อหาสูงสุดออก
+     ผลคือของข้างในถูกจำกัดอยู่ในกรอบ --maxw เท่ากับหน้าอื่นของเว็บ
+     แต่แผ่นพื้นหลังยังกินเต็มจอเหมือนเดิม และไม่ต้องไปเพิ่มกล่องครอบใน JSX
+     ทั้งเจ็ดหน้า ส่วน max() กันไม่ให้ระยะขอบน้อยกว่า 24px ตอนจอแคบ */
+  padding: 0 max(24px, calc((100vw - var(--maxw)) / 2));
+  border-bottom: 1px solid var(--border);
+  background-color: rgba(16, 16, 19, 0.85);
+  backdrop-filter: blur(10px);
+  color: var(--text);
   font-size: 20px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
   box-sizing: border-box;
   overflow: hidden;
-  font-family: 'Bebas Neue', sans-serif !important;
+  font-family: 'Bebas Neue', sans-serif;
+}
+
+/* ชื่อร้านกับป้ายยอดเงินเป็น h1 กับ p ซึ่งมี margin ติดมาจากค่าเริ่มต้น
+   ของเบราว์เซอร์ ทำให้วางไม่ตรงกลางแนวตั้งพอดีกับลิงก์เมนู */
+.Header h1,
+.Header p {
+  margin: 0;
 }
 
 .Content {
-  padding-top: 100px;
+  padding-top: 84px;
 }
 
 .Header a {
   text-decoration: none;
-  color: white;
-  font-family: 'Bebas Neue', sans-serif !important;
+  color: var(--text-dim);
+  font-family: 'Bebas Neue', sans-serif;
   font-size: 23px;
+  transition: color 0.2s var(--ease);
+}
+
+/* เดิมลิงก์เมนูเป็นสีขาวเท่ากับชื่อร้าน ไม่มีอะไรบอกว่ากดได้
+   และไม่มีการตอบสนองตอนเอาเมาส์ชี้เลย */
+.Header a:hover {
+  color: var(--accent);
 }
 
 .container {
@@ -69,7 +98,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top:100px;
+  margin-top: 84px;
 }
 
 .Ad1 img {
@@ -88,7 +117,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top:100px;
+  margin-top: 84px;
 }
 
 .Ad2 img {
