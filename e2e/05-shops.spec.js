@@ -16,7 +16,7 @@ test.describe('ร้าน Fortnite', () => {
     captureDialogs(page);
     await visit(page, '/FortniteHome');
     await settle(page);
-    const title = await page.locator('.card-title').first().innerText();
+    const title = await page.locator('[data-testid="fortnite-item-title"]').first().innerText();
     await page.locator('button:has-text("เพิ่มลงตะกร้า")').first().click();
     await expect(page.locator('button:has-text("อยู่ในตะกร้าแล้ว")').first()).toBeVisible();
 
