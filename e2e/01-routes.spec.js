@@ -40,6 +40,12 @@ test('URL ที่ไม่มี route ต้องบอกผู้ใช้
   await settle(page);
   const text = await visibleText(page);
   expect(text.length, 'ไม่มี catch-all route ผู้ใช้เลยเจอหน้าขาวโดยไม่รู้สาเหตุ').toBeGreaterThan(0);
+
+  // หน้า 404 เคยเอา location.pathname มาแสดงดิบ ๆ ซึ่งเป็นค่าที่ถูกเข้ารหัส
+  // แบบ percent-encoding ไว้ ภาษาไทยจึงกลายเป็น %E0%B8%A1%E0%B8%81... ยาวเหยียด
+  // อ่านไม่ออกเลยว่าตัวเองพิมพ์ URL อะไรผิด
+  expect(text, 'หน้า 404 แสดง URL เป็นรหัส %E0%B8... แทนที่จะเป็นภาษาไทย').not.toContain('%E0%B8');
+  expect(text, 'หน้า 404 ไม่ได้บอกว่า URL ไหนที่หาไม่เจอ').toContain('route-ที่ไม่มีอยู่จริง-12345');
 });
 
 test('หน้าแรกต้องโหลดได้โดยไม่มี error หลุดออกมาที่ console', async ({ page }) => {
