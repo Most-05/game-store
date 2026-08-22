@@ -56,6 +56,40 @@ test.describe('ร้าน Fortnite', () => {
     const stored = await page.evaluate(() => localStorage.getItem('balance'));
     expect(Number(stored), 'สั่งซื้อของ Fortnite แล้วเงินในบัญชีไม่ถูกหัก').toBeLessThan(99999);
   });
+
+  // สามเทสข้างล่างนี้คุมของที่เพิ่มเข้ามาตอนตกแต่งหน้าร้าน
+  // เป็นเรื่องที่มองจากภาพนิ่งแล้วดูปกติ แต่พังได้ง่ายถ้าไปแก้โครงหน้าทีหลัง
+
+  test('หน้าร้าน Fortnite ต้องแสดงยอดเงินจริง ไม่ใช่ป้ายเปล่า', async ({ page }) => {
+    captureDialogs(page);
+    await seedBalance(page, 12345);
+    await visit(page, '/FortniteHome');
+    await settle(page);
+
+    const text = await visibleText(page);
+    expect(text, 'ป้ายจำนวนเงินในหน้าร้าน Fortnite ไม่มีตัวเลขตามหลัง').toContain('12345');
+  });
+
+  test('ปุ่มไปตะกร้าในหน้าร้าน Fortnite ต้องพาไปหน้าตะกร้าได้', async ({ page }) => {
+    captureDialogs(page);
+    await visit(page, '/FortniteHome');
+    await settle(page);
+
+    await page.locator('a[href="/Cart"]').first().click();
+    await settle(page);
+    expect(new URL(page.url()).pathname, 'กดปุ่มตะกร้าแล้วไม่ได้ไปหน้าตะกร้า').toBe('/Cart');
+  });
+
+  test('ตะกร้าว่างต้องมีทางกลับไปเลือกของ ไม่ใช่หน้าตัน', async ({ page }) => {
+    captureDialogs(page);
+    await visit(page, '/Cart');
+    await settle(page);
+
+    await page.getByText('กลับไปเลือกของ', { exact: false }).first().click();
+    await settle(page);
+    expect(new URL(page.url()).pathname, 'ตะกร้าว่างไม่มีทางออก ต้องกดย้อนกลับของเบราว์เซอร์เอง')
+      .toMatch(/FortniteHome/i);
+  });
 });
 
 test.describe('ร้าน ROV', () => {
