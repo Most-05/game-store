@@ -495,14 +495,34 @@
    ค่าเริ่มต้นของ Bootstrap เป็นกล่องขาวตัวอักษรดำ ซึ่งบนธีมมืดคือแผ่นขาวจ้า
    เด้งใส่หน้าทั้งที่หน้าข้างหลังมืดสนิท */
 .modal {
-  border: 1px solid var(--border-strong);
-  border-radius: var(--radius-lg);
-  background-color: var(--surface-2);
-  color: var(--text);
+  /* Bootstrap 5.3 ไม่ได้ใส่สีลง .modal-content ตรง ๆ แต่อ่านจากตัวแปรของตัวเอง
+     ที่ประกาศไว้ที่กล่องแม่ ถ้าเขียนทับด้วย background-color เฉย ๆ จะแพ้
+     เพราะกฎของ Bootstrap มีน้ำหนักเท่ากันแต่ถูกโหลดทีหลัง
+     วิธีที่ได้ผลแน่นอนคือตั้งค่าตัวแปรของ Bootstrap เองที่ตัวกล่องเนื้อหา
+     ค่าที่ตั้งบนตัวเองย่อมชนะค่าที่ตกทอดมาจากกล่องแม่เสมอ */
+  --bs-modal-bg: var(--surface-2);
+  --bs-modal-color: var(--text);
+  --bs-modal-border-color: var(--border-strong);
+  --bs-modal-border-radius: var(--radius-lg);
+  --bs-modal-header-border-color: var(--border);
+  --bs-modal-footer-border-color: var(--border);
 }
 
 .modalHeader {
   border-bottom: 1px solid var(--border);
+}
+
+/* ปุ่มกากบาทปิดของ Bootstrap เป็นภาพ SVG สีดำฝังมาในสไตล์ของมันเอง
+   บนหัวป๊อปอัพที่เป็นพื้นเทาเข้มจะกลายเป็นดำบนเทาเข้ม คือแทบมองไม่เห็น
+   ต้องกลับสีให้เป็นขาว ใช้ :global เพราะเป็นคลาสของ Bootstrap ที่ CSS Module
+   ไม่ได้เปลี่ยนชื่อให้ และครอบไว้ใต้คลาสของเราเองแล้วจึงไม่รั่วไปหน้าอื่น */
+.modalHeader :global(.btn-close) {
+  filter: invert(1);
+  opacity: 0.75;
+}
+
+.modalHeader :global(.btn-close):hover {
+  opacity: 1;
 }
 
 .modalFooter {

@@ -48,19 +48,19 @@ const FortniteHome = () => {
                 </Link>
             </div>
 
-            <Modal show={showModal} onHide={handleClose} size="lg">
-                <Modal.Header closeButton>
-                    <Modal.Title>รายละเอียดในการสั่งซื้อ</Modal.Title>
+            <Modal show={showModal} onHide={handleClose} size="lg" contentClassName={styles.modal}>
+                <Modal.Header closeButton className={styles.modalHeader}>
+                    <Modal.Title className={styles.modalTitle}>รายละเอียดในการสั่งซื้อ</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <h5>ต้องแอดเพื่อนในเกม ดังชื่อในเกมต่อไปนี้</h5>
-                    <ul>
+                    <p className={styles.modalLead}>ต้องแอดเพื่อนในเกม ดังชื่อในเกมต่อไปนี้</p>
+                    <ul className={styles.nameList}>
                         {name.map((n, index) => (
-                            <li key={index} style={{paddingTop:'10px',paddingBottom:'10px'}}>{n}</li>
+                            <li key={index} className={styles.nameChip}>{n}</li>
                         ))}
                     </ul>
-                    <h6>โดยที่คนที่เพิ่งแอดเพื่อน จะต้องแจ้งชื่อในเกมให้แอดมินทราบ</h6>
-                    <h6>หลังจากที่แอดมินแอดเพื่อนแล้ว จะต้องรอ 2 วัน(หลังจากได้ทำการแอดเพื่อน) จะสามารถสั่งซื้อ Gift ได้</h6>
+                    <p className={styles.modalNote}>โดยที่คนที่เพิ่งแอดเพื่อน จะต้องแจ้งชื่อในเกมให้แอดมินทราบ</p>
+                    <p className={styles.modalNote}>หลังจากที่แอดมินแอดเพื่อนแล้ว จะต้องรอ 2 วัน(หลังจากได้ทำการแอดเพื่อน) จะสามารถสั่งซื้อ Gift ได้</p>
                 </Modal.Body>
             </Modal>
 
