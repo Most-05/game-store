@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { useCart } from 'react-use-cart';
-import { Button, Modal } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 import { Link } from 'react-router-dom';
 import { BalanceContext } from '../BalanceContext'; // ยอดเงินกลางของทั้งเว็บ
 import styles from './FortniteShop.module.css';
@@ -82,33 +82,35 @@ const Cart = () => {
                     </button>
                 </div>
 
-                <Modal show={showModal} onHide={handleClose} size="lg">
-                    <Modal.Header>
-                        <Modal.Title>Check Out</Modal.Title>
+                {/* ป๊อปอัพยืนยันก่อนสั่งซื้อ
+
+                    react-bootstrap วาง Modal ไว้นอกต้นไม้ของหน้านี้ คลาสจาก CSS Module
+                    จึงต้องส่งผ่าน contentClassName ให้โดยตรง ไม่งั้นได้กล่องขาวตามค่าเริ่มต้น */}
+                <Modal show={showModal} onHide={handleClose} size="lg" contentClassName={styles.modal}>
+                    <Modal.Header closeButton className={styles.modalHeader}>
+                        <Modal.Title className={styles.modalTitle}>Check Out</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <table className='table table-light table-hover m-0'>
-                            <tbody>
-                                {items.map((item, index) => (
-                                    <tr key={index}>
-                                        <td>
-                                            <img src={item.img} alt={item.title} style={{ height: '6rem' }} />
-                                        </td>
-                                        <td>{item.title}</td>
-                                        <td>{item.price} บาท</td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
+                        <ul className={styles.cartList}>
+                            {items.map((item, index) => (
+                                <li className={styles.cartRow} key={index}>
+                                    <img className={styles.cartThumb} src={item.img} alt={item.title} />
+                                    <div className={styles.cartInfo}>
+                                        <p className={styles.cartItemName}>{item.title}</p>
+                                        <p className={styles.cartItemPrice}>{item.price} บาท</p>
+                                    </div>
+                                </li>
+                            ))}
+                        </ul>
                     </Modal.Body>
-                    <Modal.Footer className='d-flex justify-content-between '>
+                    <Modal.Footer className={styles.modalFooter}>
                         <div>
-                            <h5>ราคารวม: {cartTotal} บาท</h5>
-                            <h5>เงินคงเหลือ: {balance} บาท</h5>
+                            <p className={styles.summaryTotal}>ราคารวม: {cartTotal} บาท</p>
+                            <p className={styles.summaryBalance}>เงินคงเหลือ: {balance} บาท</p>
                         </div>
-                        <div className='d-flex justify-content-start'>
-                            <Button variant="secondary" onClick={handleClose}> ปิด </Button>
-                            <Button variant="secondary" style={{ marginLeft: '15px' }} onClick={showAlert}> สั่งซื้อ </Button>
+                        <div className={styles.cartActions}>
+                            <button type="button" className={styles.ghostButton} onClick={handleClose}> ปิด </button>
+                            <button type="button" className={styles.primaryButton} onClick={showAlert}> สั่งซื้อ </button>
                         </div>
                     </Modal.Footer>
                 </Modal>

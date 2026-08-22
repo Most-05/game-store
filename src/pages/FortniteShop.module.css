@@ -531,7 +531,17 @@
   opacity: 1;
 }
 
-.modalFooter {
+/* ท้ายป๊อปอัพ ดันยอดสรุปไปซ้าย ปุ่มไปขวา จะได้แยกข้อมูลกับการกระทำออกจากกัน
+   ค่าเริ่มต้นของ Bootstrap ดันทุกอย่างไปชิดขวาหมด ยอดเงินเลยไปเบียดอยู่ข้างปุ่ม */
+/* เขียนชื่อคลาสซ้ำสองครั้งเพื่อเพิ่มน้ำหนักของกฎ กฎ .modal-footer ของ Bootstrap
+   สั่ง justify-content: flex-end ไว้ และถูกโหลดทีหลังกฎของเรา ถ้าน้ำหนักเท่ากัน
+   ของมันจะชนะเสมอ ยอดสรุปเลยไปเบียดอยู่ข้างปุ่มแทนที่จะอยู่คนละฝั่ง */
+.modalFooter.modalFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
   border-top: 1px solid var(--border);
 }
 
