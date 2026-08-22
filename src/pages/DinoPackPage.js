@@ -25,10 +25,10 @@ const DinoPackPage = () => {
   return (
     <div className={styles.ARKHome4} id="header">
       <div className={styles.Header}>
-        <h1 className="text-4xl font-bold mb-4">ARK Survival Evolved</h1>
+        <h1>ARK Survival Evolved</h1>
         <Link to="/ARKHome">HOME</Link>
         <a href="#Ad1"> MENU</a>
-        <a href="#dinopack" className="cursor-pointer hover:underline">SHOP</a>
+        <a href="#dinopack">SHOP</a>
         {/* แสดงยอดเงินที่อัปเดต */}
         <p>Coins: {balance} 🪙</p> {/* แสดงยอดเงินจาก context พร้อมอิโมจิ 🪙 */}
       </div>
@@ -40,46 +40,46 @@ const DinoPackPage = () => {
       </div>
 
       <div className={styles.dinopack}>
-        <h1 className="text-2xl font-semibold" id="dinopack">DinoPack</h1>
+        <h1 id="dinopack">DinoPack</h1>
         <div className={styles.shopSection2}>
           <div className={styles.dinoItem1} onClick={() => handlePurchase("Giga", 5000)}>
-            <img src="/image/giga.jpg" alt="Giga" className="w-full h-40 object-cover rounded-md mb-4" />
-            <h3 className="text-xl font-semibold">Giga</h3>
-            <p className="text-lg">Price: 5000 Coins</p>
+            <img src="/image/giga.jpg" alt="Giga" />
+            <h3>Giga</h3>
+            <p>Price: 5000 Coins</p>
           </div>
 
           <div className={styles.dinoItem1} onClick={() => handlePurchase("Triceratops", 3500)}>
-            <img src="/image/triceratops.jpg" alt="Triceratops" className="w-full h-40 object-cover rounded-md mb-4" />
-            <h3 className="text-xl font-semibold">Triceratops</h3>
-            <p className="text-lg">Price: 3500 Coins</p>
+            <img src="/image/triceratops.jpg" alt="Triceratops" />
+            <h3>Triceratops</h3>
+            <p>Price: 3500 Coins</p>
           </div>
         </div>
 
         <div className={styles.shopSection2}>
           <div className={styles.dinoItem1} onClick={() => handlePurchase("Deinonychus", 6000)}>
-            <img src="/image/deinonychus.jpg" alt="Deinonychus" className="w-full h-40 object-cover rounded-md mb-4" />
-            <h3 className="text-xl font-semibold">Deinonychus</h3>
-            <p className="text-lg">Price: 6000 Coins</p>
+            <img src="/image/deinonychus.jpg" alt="Deinonychus" />
+            <h3>Deinonychus</h3>
+            <p>Price: 6000 Coins</p>
           </div>
 
           <div className={styles.dinoItem1} onClick={() => handlePurchase("Reaper", 45000)}>
-            <img src="/image/REAPER.jpg" alt="Reaper" className="w-full h-40 object-cover rounded-md mb-4" />
-            <h3 className="text-xl font-semibold">Reaper</h3>
-            <p className="text-lg">Price: 45000 Coins</p>
+            <img src="/image/REAPER.jpg" alt="Reaper" />
+            <h3>Reaper</h3>
+            <p>Price: 45000 Coins</p>
           </div>
         </div>
 
         <div className={styles.shopSection2}>
           <div className={styles.dinoItem1} onClick={() => handlePurchase("Griffin", 6000)}>
-            <img src="/image/Griffin.jpg" alt="griffin" className="w-full h-40 object-cover rounded-md mb-4" />
-            <h3 className="text-xl font-semibold">Griffin</h3>
-            <p className="text-lg">Price: 6000 Coins</p>
+            <img src="/image/Griffin.jpg" alt="griffin" />
+            <h3>Griffin</h3>
+            <p>Price: 6000 Coins</p>
           </div>
 
           <div className={styles.dinoItem1} onClick={() => handlePurchase("Basilick", 6000)}>
-            <img src="/image/Basilick.jpg" alt="Bas" className="w-full h-40 object-cover rounded-md mb-4" />
-            <h3 className="text-xl font-semibold">Basilick</h3>
-            <p className="text-lg">Price: 6000 Coins</p>
+            <img src="/image/Basilick.jpg" alt="Bas" />
+            <h3>Basilick</h3>
+            <p>Price: 6000 Coins</p>
           </div>
         </div>
       </div>

@@ -25,7 +25,7 @@ const EquipmentPage = () => {
   return (
     <div className={styles.equipmentPageBody} id="header"> {/* ใช้คลาสที่กำหนดใน CSS Module */}
       <div className={styles.Header}>
-        <h1 className="text-4xl font-bold mb-4">ARK Survival Evolved</h1>
+        <h1>ARK Survival Evolved</h1>
         <Link to="/ARKHome">HOME</Link>
         <a href="#header"> MENU</a>
         <a href="#store-section">Shop</a>
@@ -40,19 +40,19 @@ const EquipmentPage = () => {
       </div>
 
       <div className={styles.equip}>
-        <h1 className="text-2xl font-semibold">Equipment</h1>
+        <h1>Equipment</h1>
         <div className={styles.shopSection4} id="store-section">
   
           <div className={styles.ARTItem4} onClick={() => handlePurchase("metalpick", 5000)}>
-            <img src="/image/metalpick.jpg" alt="metalpick" className="w-full h-40 object-cover rounded-md mb-4" />
-            <h3 className="text-xl font-semibold">Ascendant metal pick</h3>
-            <p className="text-lg">Price: 5000 Coins</p>
+            <img src="/image/metalpick.jpg" alt="metalpick" />
+            <h3>Ascendant metal pick</h3>
+            <p>Price: 5000 Coins</p>
           </div>
   
           <div className={styles.ARTItem4} onClick={() => handlePurchase("actionshotgun", 5000)}>
-            <img src="/image/actionshotgun.jpg" alt="actionshotgun" className="w-full h-40 object-cover rounded-md mb-4" />
-            <h3 className="text-xl font-semibold">Action Shotgun</h3>
-            <p className="text-lg">Price: 5000 Coins</p>
+            <img src="/image/actionshotgun.jpg" alt="actionshotgun" />
+            <h3>Action Shotgun</h3>
+            <p>Price: 5000 Coins</p>
           </div>
   
         </div>
@@ -60,15 +60,15 @@ const EquipmentPage = () => {
         <div className={styles.shopSection2}>
   
           <div className={styles.ARTItem4} onClick={() => handlePurchase("longneckrifle", 60000)}>
-            <img src="/image/longneckrifle.jpg" alt="longneckrifle" className="w-full h-40 object-cover rounded-md mb-4" />
-            <h3 className="text-xl font-semibold">Ascendant Longneck Rifle</h3>
-            <p className="text-lg">Price: 60000 Coins</p>
+            <img src="/image/longneckrifle.jpg" alt="longneckrifle" />
+            <h3>Ascendant Longneck Rifle</h3>
+            <p>Price: 60000 Coins</p>
           </div>
   
           <div className={styles.ARTItem4} onClick={() => handlePurchase("fabricatedsniperrifle", 45000)}>
-            <img src="/image/fabricatedsniperrifle.jpg" alt="fabricatedsniperrifle" className="w-full h-40 object-cover rounded-md mb-4" />
-            <h3 className="text-xl font-semibold">Ascendant Fabricated Sniper Rifle</h3>
-            <p className="text-lg">Price: 45000 Coins</p>
+            <img src="/image/fabricatedsniperrifle.jpg" alt="fabricatedsniperrifle" />
+            <h3>Ascendant Fabricated Sniper Rifle</h3>
+            <p>Price: 45000 Coins</p>
           </div>
   
         </div>

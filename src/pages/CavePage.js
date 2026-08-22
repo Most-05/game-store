@@ -25,10 +25,10 @@ const CavePage = () => {
   return (
     <div className={styles.ARKHome5} id="header">
       <div className={styles.Header}>
-        <h1 className="text-4xl font-bold mb-4">ARK Survival Evolved</h1>
+        <h1>ARK Survival Evolved</h1>
         <Link to="/ARKHome">HOME</Link>
         <a href="#header">MENU</a>
-        <a href="#store-section" className="cursor-pointer hover:underline">Shop</a>
+        <a href="#store-section">Shop</a>
         {/* แสดงยอดเงินที่อัปเดต */}
         <p>Coins: {balance} 🪙</p>
       </div>
@@ -40,16 +40,16 @@ const CavePage = () => {
       </div>
 
       <div className={styles.cave}>
-        <h1 className="text-2xl font-semibold">CAVE</h1>
+        <h1>CAVE</h1>
         
         {/* ร้านค้า */}
         <div className={styles.shopSection2} id="store-section">
           {[{ name: "Pearl Cave", price: 10000, image: "/image/Pearlcave.jpg" }, { name: "Ice Cave", price: 25000, image: "/image/Icecave.jpg" }]
             .map((item) => (
               <div key={item.name} className={styles.dinoItem1} onClick={() => handlePurchase(item.name, item.price)}>
-                <img src={item.image} alt={item.name} className="w-full h-40 object-cover rounded-md mb-4" />
-                <h3 className="text-xl font-semibold">{item.name}</h3>
-                <p className="text-lg">Price: {item.price} Coins</p>
+                <img src={item.image} alt={item.name} />
+                <h3>{item.name}</h3>
+                <p>Price: {item.price} Coins</p>
               </div>
             ))}
         </div>
@@ -59,9 +59,9 @@ const CavePage = () => {
           {[{ name: "Luna Cave", price: 60000, image: "/image/Lunacave.jpg" }, { name: "Church Cave", price: 45000, image: "/image/Churchcave.jpg" }]
             .map((item) => (
               <div key={item.name} className={styles.dinoItem1} onClick={() => handlePurchase(item.name, item.price)}>
-                <img src={item.image} alt={item.name} className="w-full h-40 object-cover rounded-md mb-4" />
-                <h3 className="text-xl font-semibold">{item.name}</h3>
-                <p className="text-lg">Price: {item.price} Coins</p>
+                <img src={item.image} alt={item.name} />
+                <h3>{item.name}</h3>
+                <p>Price: {item.price} Coins</p>
               </div>
             ))}
         </div>

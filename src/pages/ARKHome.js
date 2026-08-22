@@ -9,10 +9,10 @@ const ARKHome = () => {
   return (
     <div className={styles.ARKHome1} id="header">
       <div className={styles.Header}>
-        <h1 className="text-4xl font-bold mb-4">ARK Survival Evolved</h1>
+        <h1>ARK Survival Evolved</h1>
         <Link to="/Home">HOME</Link>
         <a href="#header"> MENU</a>
-        <a href="#store-section" className="cursor-pointer hover:underline">SHOP</a>
+        <a href="#store-section">SHOP</a>
         {/* แสดงยอดเงินที่มี */}
         <p>Coin: {balance} 🪙</p> {/* แสดงยอดเงินจาก context พร้อมอิโมจิ 🪙 */}
 
@@ -25,7 +25,7 @@ const ARKHome = () => {
       </div>
 
       <div className={styles.shopSection} id="store-section">
-        <h1 className="text1">Store</h1>
+        <h1>Store</h1>
 
         <div className={styles.shopGrid}>
           <Link to="/dino-pack" className={styles.shopItem1} state={{ scrollTo: "Ad1" }}>

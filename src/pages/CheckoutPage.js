@@ -36,18 +36,17 @@ const CheckoutPage = () => {
   };
 
   return (
-    <div className='checkout1'>
     <div className={styles.checkout}>
-      <h1 className="text-3xl font-bold mb-4">Checkout</h1>
+      <h1>Checkout</h1>
       <div className={styles.dinoDetails}>
         <img
           src={`/image/${itemName.toLowerCase().replace(/\s+/g, "")}.jpg`}
           alt={itemName}
-          className="w-full h-40 object-cover rounded-md mb-4"
+         
         />
-        <h3 className="text-2xl font-semibold">{itemName}</h3>
-        <p className="text-lg">Price: {price} Coins</p>
-        <p className="text-lg">ยอดเงินของคุณ: {balance} Coins</p>
+        <h3>{itemName}</h3>
+        <p>Price: {price} Coins</p>
+        <p>ยอดเงินของคุณ: {balance} Coins</p>
       </div>
 
       <div className={styles.buttonGroup}>
@@ -68,7 +67,6 @@ const CheckoutPage = () => {
           </div>
         </div>
       )}
-    </div>
     </div>
   );
 };

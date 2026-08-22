@@ -28,7 +28,7 @@ const ArtifactsPage = () => {
   return (
     <div className={styles.ARKHome2} id="header">
       <div className={styles.Header}>
-        <h1 className="text-4xl font-bold mb-4">ARK Survival Evolved</h1>
+        <h1>ARK Survival Evolved</h1>
         <Link to="/ARKHome">HOME</Link>
         <a href="#header">MENU</a>
         <a href="#store-section">Shop</a>
@@ -42,14 +42,14 @@ const ArtifactsPage = () => {
       </div>
 
       <div className={styles.art}>
-        <h1 className="text-2xl font-semibold">Artifacts</h1>
+        <h1>Artifacts</h1>
 
         <div className={styles.shopSection6} id="store-section">
           {artifacts.slice(0, 2).map((item) => (
             <div key={item.name} className={styles.ARTItem6} onClick={() => handlePurchase(item.name, item.price)}>
-              <img src={item.image} alt={item.label} className="w-full h-40 object-cover rounded-md mb-4" />
-              <h3 className="text-xl font-semibold">{item.label}</h3>
-              <p className="text-lg">Price: {item.price} Coins</p>
+              <img src={item.image} alt={item.label} />
+              <h3>{item.label}</h3>
+              <p>Price: {item.price} Coins</p>
             </div>
           ))}
         </div>
@@ -57,9 +57,9 @@ const ArtifactsPage = () => {
         <div className={styles.shopSection6}>
           {artifacts.slice(2).map((item) => (
             <div key={item.name} className={styles.ARTItem6} onClick={() => handlePurchase(item.name, item.price)}>
-              <img src={item.image} alt={item.label} className="w-full h-40 object-cover rounded-md mb-4" />
-              <h3 className="text-xl font-semibold">{item.label}</h3>
-              <p className="text-lg">Price: {item.price} Coins</p>
+              <img src={item.image} alt={item.label} />
+              <h3>{item.label}</h3>
+              <p>Price: {item.price} Coins</p>
             </div>
           ))}
         </div>
