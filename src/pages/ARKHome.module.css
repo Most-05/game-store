@@ -85,12 +85,22 @@
   color: var(--accent);
 }
 
+/* กรอบของแบนเนอร์หัวหน้า
+
+   เดิมไม่จำกัดความกว้าง แบนเนอร์จึงกินเต็มจอชนขอบทั้งสองข้าง
+   ผลข้างเคียงคือ border-radius: 12px ที่ตั้งไว้ให้รูปไม่มีทางเห็น
+   เพราะมุมโค้งถูกดันออกไปนอกจอ และแบนเนอร์ก็ไม่ตรงแนวกับตารางสินค้า
+   ข้างล่างที่อยู่ในกรอบ --maxw ทำให้หน้าดูเหมือนประกอบจากคนละชุด */
 .container {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-items: stretch;
   gap: 0;
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0 24px;
+  box-sizing: border-box;
 }
 
 .Ad1 {
