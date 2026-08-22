@@ -1,36 +1,28 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 
-.ARKHome1 {
+/* กล่องนอกสุดของแต่ละหน้าในร้าน ARK
+
+   แปดคลาสนี้เขียนแยกกันแปดชุด ทั้งที่มีเนื้อในเหมือนกันเป๊ะทุกบรรทัด
+   ตอนจะเปลี่ยนสีพื้นทีต้องไล่แก้ทั้งแปดที่ และพลาดที่ใดที่หนึ่งเมื่อไร
+   ก็จะได้หน้าที่สีพื้นไม่ตรงกับหน้าอื่นโดยไม่รู้ตัว รวมเป็นชุดเดียว
+
+   สีพื้นเดิมเขียนเป็น #1e1e20 ตรง ๆ ซึ่งใกล้เคียงกับ --bg ของเว็บ (#101013)
+   แต่ไม่เท่ากัน พอวางคู่กับแถบเมนูหลักที่ใช้ --bg จะเห็นเป็นรอยต่อสีจาง ๆ
+   เปลี่ยนมาใช้ตัวแปรกลาง สีจึงตรงกับทั้งเว็บและแก้ที่เดียวจบ
+
+   ฟอนต์ Bebas Neue เป็นเอกลักษณ์ของร้าน ARK ตั้งใจให้ต่างจากร้านอื่น เก็บไว้ */
+.ARKHome1,
+.ARKHome2,
+.ARKHome3,
+.ARKHome4,
+.ARKHome5,
+.structuresPageBody,
+.equipmentPageBody,
+.checkoutbody {
+  min-height: 100vh;
   font-family: 'Bebas Neue', sans-serif;
-  background-color: #1e1e20; 
-}
-.ARKHome2 {
-  font-family: 'Bebas Neue', sans-serif;
-  background-color: #1e1e20; 
-}
-.ARKHome3 {
-  font-family: 'Bebas Neue', sans-serif;
-  background-color: #1e1e20; 
-}
-.ARKHome4 {
-  font-family: 'Bebas Neue', sans-serif;
-  background-color: #1e1e20; 
-}
-.ARKHome5 {
-  font-family: 'Bebas Neue', sans-serif;
-  background-color: #1e1e20; 
-}
-.structuresPageBody{
-  font-family: 'Bebas Neue', sans-serif;
-  background-color: #1e1e20; 
-}
-.equipmentPageBody{
-  font-family: 'Bebas Neue', sans-serif;
-  background-color: #1e1e20; 
-}
-.checkoutbody{
-  font-family: 'Bebas Neue', sans-serif;
-  background-color: #1e1e20; 
+  background-color: var(--bg);
+  color: var(--text);
 }
 
 .Header {
