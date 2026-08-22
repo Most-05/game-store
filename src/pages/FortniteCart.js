@@ -41,68 +41,79 @@ const Cart = () => {
     }
 
     return (
-        <section className='py-4 container'>
-            <div className='row justify-content-center'>
-                <div className='col-12'>
-                    <h5>ตะกร้า ({totalUniqueItems}) </h5>
-                    <h5>ราคารวม: {cartTotal} บาท</h5>
-                    <table className='table table-light table-hover m-0'>
-                        <tbody>
-                            {items.map((item, index) => (
-                                <tr key={index}>
-                                    <td>
-                                        <img src={item.img} alt={item.title} style={{ height: '6rem' }} />
-                                    </td>
-                                    <td>{item.title}</td>
-                                    <td>{item.price} บาท</td>
-                                    <td>
-                                        <button className='btn btn-danger ms-2' onClick={() => removeItem(item.id)}>
-                                            ลบ Item
-                                        </button>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                    <div className='mt-3'>
-                        <Button className='btn btn-info d-inline' style={{ marginRight: '10px' }} onClick={CheckOut}>
-                            Check Out
-                        </Button>
-                        <Modal show={showModal} onHide={handleClose} size="lg">
-                            <Modal.Header>
-                                <Modal.Title>Check Out</Modal.Title>
-                            </Modal.Header>
-                            <Modal.Body>
-                                <table className='table table-light table-hover m-0'>
-                                    <tbody>
-                                        {items.map((item, index) => (
-                                            <tr key={index}>
-                                                <td>
-                                                    <img src={item.img} alt={item.title} style={{ height: '6rem' }} />
-                                                </td>
-                                                <td>{item.title}</td>
-                                                <td>{item.price} บาท</td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
-                            </Modal.Body>
-                            <Modal.Footer className='d-flex justify-content-between '>
-                                <div>
-                                    <h5>ราคารวม: {cartTotal} บาท</h5>
-                                    <h5>เงินคงเหลือ: {balance} บาท</h5>
-                                </div>
-                                <div className='d-flex justify-content-start'>
-                                    <Button variant="secondary" onClick={handleClose}> ปิด </Button>
-                                    <Button variant="secondary" style={{ marginLeft: '15px' }} onClick={showAlert}> สั่งซื้อ </Button>
-                                </div>
-                            </Modal.Footer>
-                        </Modal>
-                        <button className='btn btn-warning d-inline' onClick={emptyCart}>ล้างตะกร้า</button>
-                    </div>
+        <div className={styles.page}>
+            <div className={styles.cartPage}>
+                <div className={styles.topbar}>
+                    <Link to="/FortniteHome" className={styles.backLink}>← กลับไปเลือกของ</Link>
+                    <span className={styles.balance}>
+                        จำนวนเงิน : <span className={styles.balanceValue}>{balance}</span> บาท
+                    </span>
                 </div>
+
+                <div className={styles.cartHead}>
+                    <h1 className={styles.cartTitle}>ตะกร้า ({totalUniqueItems})</h1>
+                    <p className={styles.cartTotal}>ราคารวม: {cartTotal} บาท</p>
+                </div>
+
+                {/* เดิมเป็นตารางสี่คอลัมน์ที่ยืดเต็มความกว้างจอ ราคากับปุ่มลบจึงอยู่
+                    ห่างจากชื่อสินค้าเป็นคืบ ตาต้องกวาดข้ามที่ว่างไปหาว่าแถวไหนคู่กับอะไร
+                    เปลี่ยนเป็นรายการแบบแถวการ์ด ของที่เกี่ยวกันอยู่ใกล้กัน และย่อลงจอมือถือได้ */}
+                <ul className={styles.cartList}>
+                    {items.map((item, index) => (
+                        <li className={styles.cartRow} key={index}>
+                            <img className={styles.cartThumb} src={item.img} alt={item.title} />
+                            <div className={styles.cartInfo}>
+                                <p className={styles.cartItemName}>{item.title}</p>
+                                <p className={styles.cartItemPrice}>{item.price} บาท</p>
+                            </div>
+                            <button type="button" className={styles.dangerButton} onClick={() => removeItem(item.id)}>
+                                ลบ Item
+                            </button>
+                        </li>
+                    ))}
+                </ul>
+
+                <div className={styles.cartActions}>
+                    <button type="button" className={styles.primaryButton} onClick={CheckOut}>
+                        Check Out
+                    </button>
+                    <button type="button" className={styles.ghostButton} onClick={emptyCart}>
+                        ล้างตะกร้า
+                    </button>
+                </div>
+
+                <Modal show={showModal} onHide={handleClose} size="lg">
+                    <Modal.Header>
+                        <Modal.Title>Check Out</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <table className='table table-light table-hover m-0'>
+                            <tbody>
+                                {items.map((item, index) => (
+                                    <tr key={index}>
+                                        <td>
+                                            <img src={item.img} alt={item.title} style={{ height: '6rem' }} />
+                                        </td>
+                                        <td>{item.title}</td>
+                                        <td>{item.price} บาท</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </Modal.Body>
+                    <Modal.Footer className='d-flex justify-content-between '>
+                        <div>
+                            <h5>ราคารวม: {cartTotal} บาท</h5>
+                            <h5>เงินคงเหลือ: {balance} บาท</h5>
+                        </div>
+                        <div className='d-flex justify-content-start'>
+                            <Button variant="secondary" onClick={handleClose}> ปิด </Button>
+                            <Button variant="secondary" style={{ marginLeft: '15px' }} onClick={showAlert}> สั่งซื้อ </Button>
+                        </div>
+                    </Modal.Footer>
+                </Modal>
             </div>
-        </section>
+        </div>
     );
 };
 

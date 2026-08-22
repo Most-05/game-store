@@ -374,7 +374,7 @@
   justify-content: space-between;
   gap: 16px;
   flex-wrap: wrap;
-  margin-bottom: 20px;
+  margin: 22px 0 20px;
 }
 
 .cartTitle {
@@ -453,6 +453,12 @@
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
+}
+
+/* ปุ่มหลักถูกตั้งให้เต็มความกว้างไว้ เพราะในการ์ดสินค้ามันอยู่ตัวเดียวในช่อง
+   แต่ในแถวปุ่มของตะกร้ามีปุ่มสองใบเรียงกัน ถ้าเต็มความกว้างจะดันกันจนตกบรรทัด */
+.cartActions .primaryButton {
+  width: auto;
 }
 
 /* ---------- ตะกร้าว่าง ---------- */
