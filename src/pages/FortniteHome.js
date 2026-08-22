@@ -1,13 +1,19 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Itemcard from "./FortniteItemcard";
 import data from "./Fortnitedata";
 import { Modal } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import fortnite from './Fortnitephoto/FortniteLogo.png'
+import { useCart } from 'react-use-cart';
+import { BalanceContext } from '../BalanceContext';
 import styles from './FortniteShop.module.css';
 
 const FortniteHome = () => {
     const [showModal, setShowModal] = useState(false);
+    // ยอดเงินกลางของทั้งเว็บ หน้านี้เดิมมีป้าย "จำนวนเงิน :" ที่ไม่เคยมีตัวเลขตามหลัง
+    const { balance } = useContext(BalanceContext);
+    // จำนวนของในตะกร้า ใช้โชว์บนปุ่มไปตะกร้า จะได้รู้ว่ากดเพิ่มไปแล้วกี่ชิ้น
+    const { totalUniqueItems } = useCart();
     const name = ["Emmy_Gift-01","Emmy_Gift-02","Emmy_Gift-03","Emmy_Gift-04"
         ,"Emmy_Gift-05","Emmy_Gift-06","Emmy_Gift-07","Emmy_Gift-08","Emmy_Gift-09"]
     const handleClose = () => setShowModal(false);
@@ -17,7 +23,9 @@ const FortniteHome = () => {
         <div className={styles.page}>
             <div className={styles.topbar}>
                 <Link to="/Home" className={styles.backLink}>← หน้าหลัก</Link>
-                <span className={styles.balance}>จำนวนเงิน : </span>
+                <span className={styles.balance}>
+                    จำนวนเงิน : <span className={styles.balanceValue}>{balance}</span> บาท
+                </span>
             </div>
 
             <header className={styles.hero}>
@@ -35,6 +43,9 @@ const FortniteHome = () => {
                 <button type="button" className={styles.ghostButton} onClick={handleShow}>
                     รายละเอียดในการสั่งซื้อ
                 </button>
+                <Link to="/Cart" className={styles.cartLink}>
+                    ตะกร้า <span className={styles.cartCount}>{totalUniqueItems}</span>
+                </Link>
             </div>
 
             <Modal show={showModal} onHide={handleClose} size="lg">
