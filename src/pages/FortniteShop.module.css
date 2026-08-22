@@ -1,0 +1,594 @@
+/* สไตล์กลางของร้าน Fortnite ใช้ร่วมกันสามส่วน
+   คือหน้าแรกร้าน การ์ดสินค้า และหน้าตะกร้า
+
+   เดิมสามส่วนนี้ไม่มีไฟล์สไตล์ของตัวเองเลย ใช้คลาสสำเร็จรูปของ Bootstrap
+   ล้วน ๆ (card, btn btn-success, table table-light) ซึ่งเป็นธีมสว่างทั้งชุด
+   สวนทางกับทุกหน้าที่เหลือของเว็บที่เป็นธีมมืด ผู้ใช้กดจากหน้าเลือกเกม
+   เข้ามาแล้วเจอหน้าขาวจ้าตัดกับที่เพิ่งดูอยู่ เหมือนหลุดไปคนละเว็บ
+
+   ไฟล์นี้ใช้ตัวแปรสีกลางจาก src/index.css ทั้งหมด ไม่เขียนค่าสีตรง ๆ
+   เพื่อให้แก้สีจุดเดียวแล้วเปลี่ยนได้ทั้งเว็บเหมือนหน้าอื่น
+
+   หมายเหตุเรื่อง CSS Module ไฟล์นี้ตั้งใจใช้เฉพาะตัวเลือกที่เป็นคลาสเท่านั้น
+   ไม่มี body/html/p/button/input โดด ๆ เพราะตัวเลือกที่ไม่ใช่คลาสจะไม่ถูก
+   เปลี่ยนชื่อ แล้วรั่วออกไปมีผลกับทุกหน้าทั้งเว็บ ซึ่งเคยเกิดมาแล้วสามไฟล์ */
+
+/* ---------- โครงหน้า ---------- */
+
+.page {
+  min-height: 100vh;
+  padding: 24px 24px 72px;
+  background-color: var(--bg);
+  color: var(--text);
+}
+
+/* แถบบนสุด ลิงก์กลับหน้าหลักกับยอดเงิน
+
+   เดิมลิงก์ "หน้าหลัก" ถูกเขียนสไตล์ฝังใน JSX เป็น color #333 พร้อม
+   margin 110px รอบด้าน ซึ่งบนพื้นมืดคือเทาเข้มบนเทาเข้ม แทบมองไม่เห็น
+   และระยะ 110px ก็ดันหัวเรื่องลงไปจนโครงหน้าเบี้ยว */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  max-width: var(--maxw);
+  margin: 0 auto 8px;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 18px;
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  background-color: var(--surface-2);
+  color: var(--text);
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition:
+    border-color 0.2s var(--ease),
+    background-color 0.2s var(--ease);
+}
+
+.backLink:hover {
+  border-color: var(--accent);
+  background-color: var(--surface-3);
+  color: var(--text);
+}
+
+/* ป้ายยอดเงิน ทำให้หน้าตาเหมือนป้ายยอดเงินของร้าน ROV และแถบเมนูหลัก
+   จะได้รู้สึกว่าเป็นของชิ้นเดียวกันทั้งเว็บ */
+.balance {
+  padding: 9px 18px;
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  background-color: var(--surface-2);
+  color: var(--text-dim);
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.balanceValue {
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- ส่วนหัวร้าน ---------- */
+
+.hero {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 28px 0 34px;
+  text-align: center;
+}
+
+/* โลโก้ Fortnite เป็น PNG ตัวอักษรสีดำบนพื้นโปร่ง
+   เดิมวางบนพื้นขาวจึงอ่านออก แต่พอเปลี่ยนเป็นธีมมืดจะกลายเป็น
+   ดำบนเทาเข้ม คือหายไปทั้งอัน กลับสีให้เป็นตัวอักษรขาวแทน */
+.logo {
+  display: block;
+  width: min(320px, 62vw);
+  height: auto;
+  margin: 0 auto 22px;
+  filter: invert(1);
+}
+
+.shopName {
+  margin: 0 0 8px;
+  font-size: clamp(1.5rem, 3.4vw, 2.3rem);
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+/* คำโปรย เดิมเป็น h2 ขนาดเท่าหัวเรื่องรอง ทำให้แข่งความเด่นกับชื่อร้าน
+   ลดขนาดและใช้สีรอง เพื่อให้ลำดับการอ่านชัดว่าชื่อร้านมาก่อน */
+.tagline {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-dim);
+}
+
+/* เส้นเรืองใต้ส่วนหัว คั่นระหว่างหัวร้านกับรายการสินค้า
+   ใช้การไล่สีจางหัวท้าย จะได้ไม่เป็นเส้นตัดแข็ง ๆ กลางหน้า */
+.divider {
+  max-width: var(--maxw);
+  height: 1px;
+  margin: 0 auto 26px;
+  border: 0;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--accent-glow),
+    transparent
+  );
+}
+
+/* ---------- แถบเครื่องมือเหนือรายการสินค้า ---------- */
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  max-width: var(--maxw);
+  margin: 0 auto 22px;
+}
+
+/* ปุ่มรอง ทำเป็นปุ่มโปร่งมีขอบ ไม่ใช้สีแบรนด์เต็มใบ
+   เพราะปุ่มสีแบรนด์ควรสงวนไว้ให้การกระทำหลักคือการซื้อ
+   เดิมปุ่มนี้เป็น btn-primary สีน้ำเงินสด ซึ่งเป็นสีที่ไม่ได้ใช้ที่อื่นในเว็บเลย */
+.ghostButton {
+  padding: 10px 20px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  background-color: var(--surface-2);
+  color: var(--text);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    border-color 0.2s var(--ease),
+    background-color 0.2s var(--ease);
+}
+
+.ghostButton:hover {
+  border-color: var(--accent);
+  background-color: var(--surface-3);
+}
+
+/* ลิงก์ไปตะกร้า เดิมหน้านี้ไม่มีทางไปตะกร้าเลย
+   ผู้ใช้กดเพิ่มของแล้วต้องพิมพ์ /Cart เองถึงจะไปดูได้ */
+.cartLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  background-color: var(--accent-soft);
+  color: var(--accent);
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition:
+    border-color 0.2s var(--ease),
+    background-color 0.2s var(--ease);
+}
+
+.cartLink:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.cartCount {
+  padding: 1px 9px;
+  border-radius: 999px;
+  background-color: var(--accent);
+  color: #06231b;
+  font-size: 0.82rem;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- ตารางสินค้า ---------- */
+
+/* เดิมใช้ระบบคอลัมน์ของ Bootstrap (col-11 col-md-6 col-lg-3) ซึ่งแบ่งเป็น
+   สี่ใบต่อแถวตายตัวที่จอใหญ่ พอสินค้าเหลือเศษไม่ครบสี่ แถวสุดท้ายจะชิดซ้าย
+   grid แบบ auto-fill จัดให้เต็มความกว้างเสมอไม่ว่าจะมีกี่ใบ */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 20px;
+  max-width: var(--maxw);
+  margin: 0 auto;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background-color: var(--surface-2);
+  transition:
+    transform 0.25s var(--ease),
+    border-color 0.25s var(--ease),
+    box-shadow 0.25s var(--ease);
+}
+
+/* ยกตัวนุ่ม ๆ พร้อมเรืองขอบตอนชี้
+   ห้ามเปลี่ยนขนาดตัวอักษรหรือความกว้างตอน hover เพราะจะดันการ์ดข้าง ๆ
+   กระเด็น แบบเดียวกับที่เคยเกิดกับแถบเมนูหน้า ROV */
+.card:hover {
+  transform: translateY(-6px);
+  border-color: var(--accent);
+  box-shadow:
+    0 0 0 1px var(--accent-glow),
+    0 14px 32px rgba(0, 0, 0, 0.5);
+}
+
+/* กรอบรูปสินค้า
+
+   รูปสกินกับรูปไอเทมมาจากคนละแหล่ง สัดส่วนไม่เท่ากันเลย บางใบเป็นภาพตัวละคร
+   แนวตั้ง บางใบเป็นไอเทมบนพื้นขาว ถ้าปล่อยตามขนาดจริง ชื่อกับราคาของการ์ด
+   ในแถวเดียวกันจะอยู่คนละระดับ ตาไล่อ่านยาก จึงบังคับสัดส่วนให้เท่ากันทุกใบ */
+.thumb {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background-color: var(--surface-3);
+}
+
+.thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* รูปสินค้าหลายใบมีพื้นหลังสีขาวติดมาในไฟล์ ซึ่งบนธีมมืดจะกลายเป็นแผ่นขาว
+   ตัดขอบแข็ง ๆ ไล่เงาทับขอบล่างให้กลืนเข้ากับพื้นการ์ด
+   pointer-events: none กันไม่ให้ชั้นนี้ไปบังการกดของที่อยู่ข้างใต้ */
+.thumb::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 38%;
+  pointer-events: none;
+  background: linear-gradient(to bottom, transparent, var(--surface-2));
+}
+
+.cardBody {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 6px;
+  padding: 14px 16px 16px;
+  text-align: center;
+}
+
+.cardTitle {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+/* ราคา แยกสองบรรทัดชัด ๆ ราคาเงินจริงเป็นตัวเด่นสีแบรนด์
+   ส่วน V-Bucks เป็นข้อมูลรอง เดิมเขียนติดกันบรรทัดเดียวขนาดเท่ากัน
+   ทำให้อ่านผ่าน ๆ แล้วแยกไม่ออกว่าจ่ายจริงเท่าไร */
+.price {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.priceSub {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  font-variant-numeric: tabular-nums;
+}
+
+.desc {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+}
+
+/* ดันปุ่มไปชิดล่างของการ์ดเสมอ ปุ่มของทุกใบจึงอยู่ระดับเดียวกัน
+   แม้คำอธิบายจะยาวไม่เท่ากัน */
+.cardAction {
+  margin-top: auto;
+  padding-top: 12px;
+}
+
+/* ---------- ปุ่ม ---------- */
+
+.primaryButton {
+  width: 100%;
+  padding: 10px 18px;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background-color: var(--accent);
+  color: #06231b;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    background-color 0.2s var(--ease),
+    box-shadow 0.2s var(--ease);
+}
+
+.primaryButton:hover {
+  background-color: var(--accent-strong);
+  box-shadow: 0 0 18px var(--accent-glow);
+}
+
+/* ปุ่มที่กดไม่ได้ ต้องบอกด้วยสายตาว่ากดไม่ได้ ไม่ใช่แค่ปิดการทำงานเงียบ ๆ
+   ใช้พื้นผิวจางกับ cursor: not-allowed เพื่อให้รู้ก่อนกด */
+.primaryButton:disabled,
+.primaryButton[disabled] {
+  background-color: var(--surface-3);
+  color: var(--text-dim);
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.dangerButton {
+  padding: 8px 16px;
+  border: 1px solid rgba(255, 107, 107, 0.4);
+  border-radius: var(--radius-sm);
+  background-color: rgba(255, 107, 107, 0.12);
+  color: #ff8f8f;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background-color 0.2s var(--ease),
+    border-color 0.2s var(--ease);
+}
+
+.dangerButton:hover {
+  border-color: #ff8f8f;
+  background-color: rgba(255, 107, 107, 0.2);
+}
+
+/* ---------- หน้าตะกร้า ---------- */
+
+.cartPage {
+  max-width: 920px;
+  margin: 0 auto;
+}
+
+.cartHead {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.cartTitle {
+  margin: 0;
+  font-size: clamp(1.3rem, 2.6vw, 1.8rem);
+  font-weight: 700;
+}
+
+.cartTotal {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
+/* รายการในตะกร้า
+
+   เดิมเป็น <table class="table table-light table-hover"> ซึ่ง table-light
+   บังคับพื้นสว่างมาจาก Bootstrap ทับธีมมืดของเว็บ และตารางสี่คอลัมน์
+   ก็ยืดเต็มความกว้างจอจนราคากับปุ่มลบอยู่ห่างจากชื่อสินค้าเป็นคืบ
+   เปลี่ยนเป็นรายการแบบแถวการ์ด อ่านง่ายกว่าและย่อลงจอมือถือได้ */
+.cartList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+  padding: 0;
+  list-style: none;
+}
+
+.cartRow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background-color: var(--surface-2);
+  transition: border-color 0.2s var(--ease);
+}
+
+.cartRow:hover {
+  border-color: var(--border-strong);
+}
+
+.cartThumb {
+  flex: 0 0 auto;
+  width: 76px;
+  height: 76px;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  background-color: var(--surface-3);
+}
+
+.cartInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.cartItemName {
+  margin: 0 0 4px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.cartItemPrice {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.cartActions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* ---------- ตะกร้าว่าง ---------- */
+
+/* เดิมตะกร้าว่างขึ้นแค่ <h1>ตะกร้าของคุณยังว่าง</h1> กลางหน้าขาว
+   ไม่มีทางไปต่อ ผู้ใช้ต้องกดย้อนกลับเอง */
+.empty {
+  max-width: 460px;
+  margin: 12vh auto 0;
+  padding: 40px 28px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background-color: var(--surface-2);
+  text-align: center;
+}
+
+.emptyIcon {
+  display: block;
+  margin-bottom: 14px;
+  font-size: 2.4rem;
+  line-height: 1;
+}
+
+.emptyTitle {
+  margin: 0 0 8px;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.emptyText {
+  margin: 0 0 24px;
+  font-size: 0.95rem;
+  color: var(--text-dim);
+}
+
+/* ---------- ป๊อปอัพ ---------- */
+
+/* react-bootstrap วาง Modal ไว้นอกต้นไม้ของหน้านี้ คลาสจาก CSS Module
+   จึงไปไม่ถึงถ้าไม่ส่งผ่าน contentClassName ให้โดยตรง
+   ค่าเริ่มต้นของ Bootstrap เป็นกล่องขาวตัวอักษรดำ ซึ่งบนธีมมืดคือแผ่นขาวจ้า
+   เด้งใส่หน้าทั้งที่หน้าข้างหลังมืดสนิท */
+.modal {
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  background-color: var(--surface-2);
+  color: var(--text);
+}
+
+.modalHeader {
+  border-bottom: 1px solid var(--border);
+}
+
+.modalFooter {
+  border-top: 1px solid var(--border);
+}
+
+.modalTitle {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.modalLead {
+  margin: 0 0 12px;
+  font-size: 0.98rem;
+  font-weight: 600;
+}
+
+.nameList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 10px;
+  margin: 0 0 18px;
+  padding: 0;
+  list-style: none;
+}
+
+.nameChip {
+  padding: 9px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background-color: var(--surface);
+  color: var(--text);
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.modalNote {
+  margin: 0 0 8px;
+  font-size: 0.88rem;
+  line-height: 1.7;
+  color: var(--text-dim);
+}
+
+.summaryTotal {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.summaryBalance {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--text-dim);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- จอเล็ก ---------- */
+
+@media (max-width: 560px) {
+  .page {
+    padding: 16px 14px 56px;
+  }
+
+  .cartRow {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .cartActions {
+    width: 100%;
+  }
+}
+
+/* ปิดการเคลื่อนไหวให้คนที่ตั้งค่าระบบว่าไม่ต้องการภาพเคลื่อนไหว */
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .card:hover,
+  .backLink,
+  .ghostButton,
+  .cartLink,
+  .primaryButton,
+  .dangerButton,
+  .cartRow {
+    transform: none;
+    transition: none;
+  }
+}
