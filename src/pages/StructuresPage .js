@@ -1,6 +1,7 @@
-import React, { useRef } from "react";
+import React, { useContext, useRef } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate, useLocation } from "react-router-dom";
+import { BalanceContext } from "../BalanceContext"; // ยอดเงินกลางของทั้งเว็บ
 import styles from "./ARKHome.module.css"; // นำเข้า CSS Module
 
 // รายการสินค้าเก็บเป็นข้อมูลชุดเดียว ราคาที่แสดงกับราคาที่หักเงินจึงมาจากตัวเลขเดียวกัน
@@ -17,6 +18,7 @@ const structures = [
 
 const StructuresPage = () => {
   const navigate = useNavigate();
+  const { balance } = useContext(BalanceContext);
 
   const handlePurchase = (itemName, price) => {
     navigate("/checkout", { state: { itemName, price } });
@@ -36,7 +38,7 @@ const StructuresPage = () => {
         <Link to="/ARKHome">HOME</Link>
         <a href="#header">MENU</a>
         <a href="#store-section">Shop</a>
-        <p>Coin🪙: </p>
+        <p>Coins: {balance} 🪙</p>
       </div>
 
       <div className={styles.container}>
