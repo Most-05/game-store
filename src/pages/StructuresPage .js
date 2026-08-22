@@ -11,8 +11,8 @@ import styles from "./ARKHome.module.css"; // นำเข้า CSS Module
 // เป็นตัวเลขที่ส่งเข้า handlePurchase ทำให้มันหลุดจากกันได้โดยไม่มีอะไรเตือน
 // และมันหลุดไปแล้วจริง ๆ กับสองรายการแรก
 const structures = [
-  { name: "IndustrialForge", label: "Industrial Forge", price: 10000, image: "/image/IndustrialForge.jpg" },
-  { name: "IndustrialCooker", label: "Industrial Cooker", price: 10000, image: "/image/IndustrialCooker.jpg" },
+  { name: "IndustrialForge", label: "Industrial Forge", price: 45000, image: "/image/IndustrialForge.jpg" },
+  { name: "IndustrialCooker", label: "Industrial Cooker", price: 45000, image: "/image/IndustrialCooker.jpg" },
   { name: "Fabricator", label: "Fabricator", price: 60000, image: "/image/Fabricator.jpg" },
   { name: "TekTransmitter", label: "Tek Transmitter", price: 60000, image: "/image/TekTransmitter.jpg" },
 ];
