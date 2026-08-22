@@ -656,3 +656,55 @@
     animation: none;
   }
 }
+
+/* ---------- แถบเมนูบนจอแคบ ---------- */
+
+/* บนมือถือ ชื่อร้าน "ARK Survival Evolved" ยาวเกินกว่าจะอยู่บรรทัดเดียว
+   กับเมนูสามอันและป้ายยอดเงินได้ มันจึงตัดขึ้นบรรทัดใหม่เป็นสามบรรทัด
+   แล้วโดน overflow: hidden ของแถบที่สูง 84px ตายตัวตัดหัวตัดท้ายทิ้ง
+   อ่านได้แค่บางส่วน ซ้ำแบนเนอร์ข้างล่างที่เผื่อระยะไว้ 84px เท่ากัน
+   ก็มุดเข้าไปอยู่ใต้แถบเมนู
+
+   แก้โดยให้ชื่อร้านกินเต็มบรรทัดบนของตัวเอง แล้วเมนูกับยอดเงินลงไปอยู่
+   บรรทัดล่าง เพิ่มความสูงแถบเป็น 96px พร้อมขยับระยะเผื่อของแบนเนอร์ตาม */
+@media (max-width: 700px) {
+  .Header {
+    height: 96px;
+    padding: 8px 14px;
+    gap: 4px 14px;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    font-size: 16px;
+    overflow: visible;
+  }
+
+  .Header h1 {
+    flex: 1 1 100%;
+    font-size: 1.05rem;
+    line-height: 1.2;
+    text-align: center;
+  }
+
+  .Header a {
+    font-size: 17px;
+  }
+
+  .Header p {
+    font-size: 15px;
+  }
+
+  .Ad1,
+  .Ad2 {
+    margin-top: 96px;
+  }
+
+  .Content {
+    padding-top: 96px;
+  }
+
+  /* หน้าชำระเงินไม่มีแถบเมนู ระยะบนจึงไม่ต้องเผื่อ */
+  .checkout {
+    margin-top: 24px;
+  }
+}
