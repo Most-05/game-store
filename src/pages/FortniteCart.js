@@ -1,7 +1,9 @@
 import React, { useContext, useState } from 'react';
 import { useCart } from 'react-use-cart';
 import { Button, Modal } from "react-bootstrap";
+import { Link } from 'react-router-dom';
 import { BalanceContext } from '../BalanceContext'; // ยอดเงินกลางของทั้งเว็บ
+import styles from './FortniteShop.module.css';
 
 const Cart = () => {
     const { isEmpty, totalUniqueItems, items, cartTotal, removeItem, emptyCart } = useCart();
@@ -23,7 +25,20 @@ const Cart = () => {
         }
     };
 
-    if (isEmpty) return <h1 className='text-center'>ตะกร้าของคุณยังว่าง</h1>;
+    // ตะกร้าว่าง เดิมขึ้นแค่หัวเรื่องบรรทัดเดียวกลางหน้าขาว ไม่มีทางไปต่อ
+    // ผู้ใช้ต้องกดปุ่มย้อนกลับของเบราว์เซอร์เอง
+    if (isEmpty) {
+        return (
+            <div className={styles.page}>
+                <div className={styles.empty}>
+                    <span className={styles.emptyIcon} aria-hidden="true">🛒</span>
+                    <h1 className={styles.emptyTitle}>ตะกร้าของคุณยังว่าง</h1>
+                    <p className={styles.emptyText}>ยังไม่ได้เลือกไอเทมไหนเลย ลองกลับไปดูของในร้านก่อน</p>
+                    <Link to="/FortniteHome" className={styles.cartLink}>← กลับไปเลือกของ</Link>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <section className='py-4 container'>
