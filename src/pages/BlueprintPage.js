@@ -19,8 +19,8 @@ const BlueprintPage = () => {
   }, [location]);
 
   // ฟังก์ชันในการ handle การซื้อ
-  const handlePurchase = (itemName, price) => {
-    navigate("/checkout", { state: { itemName, price } });
+  const handlePurchase = (itemName, price, image) => {
+    navigate("/checkout", { state: { itemName, price, image } });
   };
 
   return (
@@ -43,13 +43,13 @@ const BlueprintPage = () => {
       <div className={styles.blueprint}>
         <h1>Blueprint</h1>
         <div className={styles.shopSection3} id="store-section">
-          <div className={styles.ARTItem} {...cardButtonProps(() => handlePurchase("Flak Chestpiece", 10000))}>
+          <div className={styles.ARTItem} {...cardButtonProps(() => handlePurchase("Flak Chestpiece", 10000, "/image/FlakChestpiece.jpg"))}>
             <img src="/image/FlakChestpiece.jpg" alt="Flak Chestpiece" />
             <h3>Blueprint: Flak Chestpiece</h3>
             <p>Price: 10000 Coins</p>
           </div>
 
-          <div className={styles.ARTItem} {...cardButtonProps(() => handlePurchase("Flak Leggings", 25000))}>
+          <div className={styles.ARTItem} {...cardButtonProps(() => handlePurchase("Flak Leggings", 25000, "/image/FlakLeggings.jpg"))}>
             <img src="/image/FlakLeggings.jpg" alt="FlakLeggings" />
             <h3>Blueprint: Flak Leggings</h3>
             <p>Price: 25000 Coins</p>
@@ -57,13 +57,13 @@ const BlueprintPage = () => {
         </div>
 
         <div className={styles.shopSection3}>
-          <div className={styles.ARTItem} {...cardButtonProps(() => handlePurchase("Flak Gauntlets", 60000))}>
+          <div className={styles.ARTItem} {...cardButtonProps(() => handlePurchase("Flak Gauntlets", 60000, "/image/FlakGauntlets.jpg"))}>
             <img src="/image/FlakGauntlets.jpg" alt="FlakGauntlets" />
             <h3>Blueprint: Flak Gauntlets</h3>
             <p>Price: 60000 Coins</p>
           </div>
 
-          <div className={styles.ARTItem} {...cardButtonProps(() => handlePurchase("Flak Boots", 45000))}>
+          <div className={styles.ARTItem} {...cardButtonProps(() => handlePurchase("Flak Boots", 45000, "/image/FlakBoots.jpg"))}>
             <img src="/image/FlakBoots.jpg" alt="FlakBoots" />
             <h3>Blueprint: Flak Boots</h3>
             <p>Price: 45000 Coins</p>

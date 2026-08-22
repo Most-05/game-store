@@ -6,7 +6,7 @@ import styles from './ARKHome.module.css'; // นำเข้า CSS Module
 const CheckoutPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { itemName, price } = location.state || {};
+  const { itemName, price, image } = location.state || {};
   const [isPurchased, setIsPurchased] = useState(false);
   const { balance, decreaseBalance } = useContext(BalanceContext);
 
@@ -39,11 +39,20 @@ const CheckoutPage = () => {
     <div className={styles.checkout}>
       <h1>Checkout</h1>
       <div className={styles.dinoDetails}>
-        <img
-          src={`/image/${itemName.toLowerCase().replace(/\s+/g, "")}.jpg`}
-          alt={itemName}
-         
-        />
+        {/* ที่อยู่ของรูปส่งมากับ state ตอนกดซื้อ
+
+            เดิมบรรทัดนี้เดาชื่อไฟล์เอาเองจากชื่อสินค้า ด้วยการแปลงเป็นตัวพิมพ์เล็ก
+            แล้วตัดช่องว่างออก เช่น "Flak Chestpiece" กลายเป็น flakchestpiece.jpg
+            แต่ไฟล์จริงชื่อ FlakChestpiece.jpg
+
+            บนวินโดวส์ใช้ได้เพราะระบบไฟล์ไม่สนตัวพิมพ์ใหญ่เล็ก แต่เซิร์ฟเวอร์
+            Linux ทุกตัวสน ซึ่งรวมถึง GitHub Pages, Netlify และ Vercel
+            พอเอาขึ้นโฮสต์จริงรูปจะพัง 19 จาก 26 รายการ โดยตอนพัฒนาในเครื่อง
+            ไม่มีวันเห็นอาการเลย
+
+            หน้าหมวดรู้ที่อยู่รูปที่ถูกต้องอยู่แล้วเพราะมันแสดงรูปนั้นอยู่
+            ส่งต่อมาเลยจึงตรงเสมอ ไม่ต้องเดา */}
+        {image ? <img src={image} alt={itemName} /> : null}
         <h3>{itemName}</h3>
         <p>Price: {price} Coins</p>
         <p>ยอดเงินของคุณ: {balance} Coins</p>

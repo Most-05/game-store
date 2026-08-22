@@ -19,8 +19,8 @@ const EquipmentPage = () => {
   }, [location]);
 
   // ฟังก์ชันในการ handle การซื้อ
-  const handlePurchase = (itemName, price) => {
-    navigate("/checkout", { state: { itemName, price } });
+  const handlePurchase = (itemName, price, image) => {
+    navigate("/checkout", { state: { itemName, price, image } });
   };
 
   return (
@@ -44,13 +44,13 @@ const EquipmentPage = () => {
         <h1>Equipment</h1>
         <div className={styles.shopSection4} id="store-section">
   
-          <div className={styles.ARTItem4} {...cardButtonProps(() => handlePurchase("metalpick", 5000))}>
+          <div className={styles.ARTItem4} {...cardButtonProps(() => handlePurchase("metalpick", 5000, "/image/metalpick.jpg"))}>
             <img src="/image/metalpick.jpg" alt="metalpick" />
             <h3>Ascendant metal pick</h3>
             <p>Price: 5000 Coins</p>
           </div>
   
-          <div className={styles.ARTItem4} {...cardButtonProps(() => handlePurchase("actionshotgun", 5000))}>
+          <div className={styles.ARTItem4} {...cardButtonProps(() => handlePurchase("actionshotgun", 5000, "/image/actionshotgun.jpg"))}>
             <img src="/image/actionshotgun.jpg" alt="actionshotgun" />
             <h3>Action Shotgun</h3>
             <p>Price: 5000 Coins</p>
@@ -60,13 +60,13 @@ const EquipmentPage = () => {
   
         <div className={styles.shopSection2}>
   
-          <div className={styles.ARTItem4} {...cardButtonProps(() => handlePurchase("longneckrifle", 60000))}>
+          <div className={styles.ARTItem4} {...cardButtonProps(() => handlePurchase("longneckrifle", 60000, "/image/longneckrifle.jpg"))}>
             <img src="/image/longneckrifle.jpg" alt="longneckrifle" />
             <h3>Ascendant Longneck Rifle</h3>
             <p>Price: 60000 Coins</p>
           </div>
   
-          <div className={styles.ARTItem4} {...cardButtonProps(() => handlePurchase("fabricatedsniperrifle", 45000))}>
+          <div className={styles.ARTItem4} {...cardButtonProps(() => handlePurchase("fabricatedsniperrifle", 45000, "/image/fabricatedsniperrifle.jpg"))}>
             <img src="/image/fabricatedsniperrifle.jpg" alt="fabricatedsniperrifle" />
             <h3>Ascendant Fabricated Sniper Rifle</h3>
             <p>Price: 45000 Coins</p>

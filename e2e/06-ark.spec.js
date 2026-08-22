@@ -61,4 +61,55 @@ test.describe('ร้าน ARK', () => {
       expect(text, `ป้ายยอดเงินในหน้า ${path} ไม่ตรงกับยอดจริง`).toContain('4321');
     });
   }
+
+  // บั๊กที่เคยเกิด หน้าชำระเงินเดาชื่อไฟล์รูปเอาเองจากชื่อสินค้า ด้วยการแปลง
+  // เป็นตัวพิมพ์เล็กแล้วตัดช่องว่าง ซึ่งไม่ตรงกับชื่อไฟล์จริงถึง 19 จาก 26 รายการ
+  // วินโดวส์ไม่สนตัวพิมพ์ใหญ่เล็กจึงไม่เคยเห็นอาการ แต่เซิร์ฟเวอร์ Linux สน
+  test('รูปในหน้าชำระเงินต้องเป็นรูปเดียวกับที่การ์ดแสดง', async ({ page }) => {
+    captureDialogs(page);
+    await seedBalance(page, 999999);
+
+    for (const path of categories) {
+      await visit(page, path);
+      await settle(page);
+
+      const card = page.locator('[class*="Item"]').first();
+      const onCard = await card.locator('img').first().getAttribute('src');
+
+      await card.click();
+      await page.waitForURL(/checkout/i, { timeout: 5000 });
+      await settle(page);
+
+      const onCheckout = await page.locator('img').first().getAttribute('src');
+      expect(onCheckout, `รูปในหน้าชำระเงินของ ${path} ไม่ตรงกับรูปบนการ์ด`).toBe(onCard);
+    }
+  });
+
+  // กันไม่ให้ที่อยู่รูปพิมพ์ตัวใหญ่เล็กไม่ตรงกับไฟล์จริงอีก
+  // อ่านชื่อไฟล์จากดิสก์แล้วเทียบแบบตรงตัวพิมพ์ ไม่ใช่แค่ดูว่าโหลดขึ้นไหม
+  // เพราะบนวินโดวส์มันโหลดขึ้นเสมอถึงตัวพิมพ์จะไม่ตรง
+  test('ที่อยู่รูปทุกใบต้องตรงตัวพิมพ์ใหญ่เล็กกับชื่อไฟล์จริง', async ({ page }) => {
+    const fs = require('fs');
+    const pathMod = require('path');
+    const dir = pathMod.join(__dirname, '..', 'public', 'image');
+    const onDisk = new Set(fs.readdirSync(dir));
+
+    captureDialogs(page);
+    const wrong = [];
+
+    for (const path of ['/ARKHome', ...categories]) {
+      await visit(page, path);
+      await settle(page);
+      const srcs = await page.$$eval('img[src^="/image/"]', (els) => els.map((e) => e.getAttribute('src')));
+      for (const src of [...new Set(srcs)]) {
+        const file = decodeURIComponent(src.replace('/image/', ''));
+        if (!onDisk.has(file)) {
+          const ci = [...onDisk].find((f) => f.toLowerCase() === file.toLowerCase());
+          wrong.push(`${path} ขอ ${file}${ci ? ` แต่ไฟล์จริงชื่อ ${ci}` : ' แต่ไม่มีไฟล์นี้'}`);
+        }
+      }
+    }
+
+    expect(wrong, `ที่อยู่รูปไม่ตรงกับไฟล์จริง จะพังเมื่อขึ้นโฮสต์ Linux:\n${wrong.join('\n')}`).toEqual([]);
+  });
 });

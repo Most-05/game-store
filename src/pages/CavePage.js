@@ -19,8 +19,8 @@ const CavePage = () => {
   }, [location]);
 
   // ฟังก์ชันในการ handle การซื้อ
-  const handlePurchase = (itemName, price) => {
-    navigate("/checkout", { state: { itemName, price } });
+  const handlePurchase = (itemName, price, image) => {
+    navigate("/checkout", { state: { itemName, price, image } });
   };
 
   return (
@@ -47,7 +47,7 @@ const CavePage = () => {
         <div className={styles.shopSection2} id="store-section">
           {[{ name: "Pearl Cave", price: 10000, image: "/image/Pearlcave.jpg" }, { name: "Ice Cave", price: 25000, image: "/image/Icecave.jpg" }]
             .map((item) => (
-              <div key={item.name} className={styles.dinoItem1} {...cardButtonProps(() => handlePurchase(item.name, item.price))}>
+              <div key={item.name} className={styles.dinoItem1} {...cardButtonProps(() => handlePurchase(item.name, item.price, item.image))}>
                 <img src={item.image} alt={item.name} />
                 <h3>{item.name}</h3>
                 <p>Price: {item.price} Coins</p>
@@ -59,7 +59,7 @@ const CavePage = () => {
         <div className={styles.shopSection2}>
           {[{ name: "Luna Cave", price: 60000, image: "/image/Lunacave.jpg" }, { name: "Church Cave", price: 45000, image: "/image/Churchcave.jpg" }]
             .map((item) => (
-              <div key={item.name} className={styles.dinoItem1} {...cardButtonProps(() => handlePurchase(item.name, item.price))}>
+              <div key={item.name} className={styles.dinoItem1} {...cardButtonProps(() => handlePurchase(item.name, item.price, item.image))}>
                 <img src={item.image} alt={item.name} />
                 <h3>{item.name}</h3>
                 <p>Price: {item.price} Coins</p>

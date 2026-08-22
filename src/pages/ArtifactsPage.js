@@ -16,8 +16,8 @@ const ArtifactsPage = () => {
   const navigate = useNavigate();
   const { balance } = useContext(BalanceContext);
 
-  const handlePurchase = (itemName, price) => {
-    navigate("/checkout", { state: { itemName, price } });
+  const handlePurchase = (itemName, price, image) => {
+    navigate("/checkout", { state: { itemName, price, image } });
   };
   const ad1Ref = useRef(null); // สร้าง ref สำหรับ Ad1
 
@@ -47,7 +47,7 @@ const ArtifactsPage = () => {
 
         <div className={styles.shopSection6} id="store-section">
           {artifacts.slice(0, 2).map((item) => (
-            <div key={item.name} className={styles.ARTItem6} {...cardButtonProps(() => handlePurchase(item.name, item.price))}>
+            <div key={item.name} className={styles.ARTItem6} {...cardButtonProps(() => handlePurchase(item.name, item.price, item.image))}>
               <img src={item.image} alt={item.label} />
               <h3>{item.label}</h3>
               <p>Price: {item.price} Coins</p>
@@ -57,7 +57,7 @@ const ArtifactsPage = () => {
 
         <div className={styles.shopSection6}>
           {artifacts.slice(2).map((item) => (
-            <div key={item.name} className={styles.ARTItem6} {...cardButtonProps(() => handlePurchase(item.name, item.price))}>
+            <div key={item.name} className={styles.ARTItem6} {...cardButtonProps(() => handlePurchase(item.name, item.price, item.image))}>
               <img src={item.image} alt={item.label} />
               <h3>{item.label}</h3>
               <p>Price: {item.price} Coins</p>
