@@ -410,18 +410,26 @@
 
 
 
+/* กล่องหน้าชำระเงิน
+
+   เดิมกว้างสูงสุด 500px แต่รูปสินค้าข้างในถูกตั้งความกว้างไว้ 400px ตายตัว
+   พอบวก padding 20px สองข้างเข้าไปแล้วเกือบเต็มกล่องพอดี ไม่เหลือที่หายใจ
+   และบนจอมือถือกว้าง 360px รูปจะล้นออกนอกกล่องจนหน้าเลื่อนซ้ายขวาได้ */
 .checkout {
-  background-color:#121214;
-  padding: 20px;
-  border-radius: 10px;
-  max-width: 500px;
-  margin: 20px auto;
-  box-shadow: 0 4px 10px rgba(230, 230, 230, 0.1);
+  max-width: 520px;
+  margin: 48px auto;
+  padding: 24px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background-color: var(--surface-2);
 }
 
 .checkout h1 {
-  color: white;
-  font-family: 'Bebas Neue', sans-serif !important;
+  margin: 0 0 18px;
+  color: var(--text);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  text-align: center;
 }
 
 .dinoDetails {
@@ -429,24 +437,27 @@
   margin-bottom: 20px;
 }
 
+/* เดิมล็อกรูปไว้ 400x350px ซึ่งล้นกล่องบนจอแคบ
+   เปลี่ยนเป็นเต็มความกว้างที่มีจริงแล้วล็อกแค่สัดส่วน */
 .dinoDetails img {
-  border-radius: 8px;
-  width: 400px;
-  height: 350px;
+  width: 100%;
+  aspect-ratio: 8 / 7;
   object-fit: cover;
   object-position: center;
-  transition: transform 0.3s ease;
+  border-radius: var(--radius);
+  background-color: var(--surface-3);
+  transition: transform 0.3s var(--ease);
 }
 
 .dinoDetails img:hover {
-  transform: scale(1.05);
+  transform: scale(1.02);
 }
 
 .dinoDetails h3 {
-  color: white;
-  margin-top: 10px;
+  color: var(--text);
+  margin-top: 14px;
   font-size: 1.5rem;
-  font-family: 'Bebas Neue', sans-serif !important;
+  font-family: 'Bebas Neue', sans-serif;
 }
 
 /* เดิมกฎนี้เขียนเป็น p { } เปล่า ๆ ซึ่งเป็นตัวเลือกระดับแท็ก
@@ -455,7 +466,11 @@
    ข้อความในย่อหน้าทุกหน้าจึงกลายเป็นฟอนต์ Bebas Neue ตัวพิมพ์ใหญ่ล้วน
 
    จำกัดขอบเขตให้อยู่แค่ในหน้าของร้าน ARK ซึ่งเป็นที่ที่ตั้งใจให้ใช้จริง
-   พอจำกัดขอบเขตแล้วความเฉพาะเจาะจงก็สูงพอ ไม่ต้องพึ่ง !important อีก */
+   พอจำกัดขอบเขตแล้วความเฉพาะเจาะจงก็สูงพอ ไม่ต้องพึ่ง !important อีก
+
+   ไม่ตั้งสีไว้ตรงนี้แล้ว เพราะกฎนี้มีน้ำหนักเท่ากับกฎราคาของการ์ดสินค้า
+   แต่อยู่ทีหลังในไฟล์ จึงไปทับสีแบรนด์ของราคาจนกลายเป็นขาวหมด
+   สีตัวอักษรปกติได้มาจากกล่องนอกสุดของหน้าอยู่แล้ว */
 .ARKHome1 p,
 .ARKHome2 p,
 .ARKHome3 p,
@@ -465,7 +480,6 @@
 .equipmentPageBody p,
 .checkoutbody p,
 .checkout p {
-  color: white;
   font-size: 1.125rem;
   font-family: 'Bebas Neue', sans-serif;
 }
@@ -476,56 +490,68 @@
   justify-content: space-between;
   gap: 10px;
   margin-top: 20px;
-  font-family: 'Bebas Neue', sans-serif !important;
+  font-family: 'Bebas Neue', sans-serif;
 }
 
-/* ปุ่ม Buy Now */
+/* ปุ่มยืนยันการซื้อ
+
+   เดิมเป็นเขียว #10b981 ซึ่งเป็นเขียวคนละตัวกับเขียวมิ้นต์ของแบรนด์
+   ใช้สีแบรนด์แทน ให้เป็นปุ่มหลักหน้าตาเดียวกับปุ่มซื้อของร้านอื่น */
 .purchaseBtn {
-  background-color: #10b981; /* สีเขียว */
-  font-family: 'Bebas Neue', sans-serif;
-  padding: 12px 24px;
-  font-size: 1.125rem;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
   flex: 1;
-  font-family: 'Bebas Neue', sans-serif !important;
+  padding: 12px 24px;
+  border: none;
+  border-radius: var(--radius-sm);
+  background-color: var(--accent);
+  color: #06231b;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.125rem;
+  cursor: pointer;
+  transition:
+    background-color 0.2s var(--ease),
+    box-shadow 0.2s var(--ease);
 }
 
 .purchaseBtn:hover {
-  background-color: #059669;
+  background-color: var(--accent-strong);
+  box-shadow: 0 0 18px var(--accent-glow);
 }
 
-.purchaseBtn:focus {
-  outline: none;
-}
+/* ปุ่มย้อนกลับ
 
-/* ปุ่ม BACK สีแดง */
-.backBtn{
-  background-color: #ef4444; /* สีแดง */
-  font-family: 'Bebas Neue', sans-serif;
-  padding: 12px 24px;
-  font-size: 1.125rem;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+   เดิมเป็นแดงเต็มใบ #ef4444 เท่ากับปุ่มซื้อทุกอย่าง ทั้งขนาดและน้ำหนักสี
+   ทำให้ปุ่มยกเลิกดูสำคัญเท่าปุ่มจ่ายเงิน และสีแดงในหน้าเว็บทั่วไปสื่อถึง
+   การลบหรืออันตราย ทั้งที่นี่คือแค่การกลับไปหน้าก่อน
+   ลดเป็นปุ่มรองแบบมีขอบ */
+.backBtn {
   flex: 1;
+  padding: 12px 24px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  background-color: var(--surface-3);
+  color: var(--text);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.125rem;
+  cursor: pointer;
+  transition:
+    background-color 0.2s var(--ease),
+    border-color 0.2s var(--ease);
 }
 
 .backBtn:hover {
-  background-color: #dc2626;
+  border-color: var(--text-dim);
+  background-color: var(--surface-2);
 }
 
-.backBtn:focus {
-  outline: none;
-}
+/* หมายเหตุ เดิมมีกฎ .purchaseBtn:focus และ .backBtn:focus ที่สั่ง
+   outline: none ซึ่งลบกรอบโฟกัสของเบราว์เซอร์ทิ้ง คนที่ไล่หน้าด้วยปุ่ม Tab
+   จะมองไม่เห็นเลยว่าตอนนี้อยู่ที่ปุ่มไหน และปุ่มพวกนี้คือปุ่มจ่ายเงิน
+   เอากฎนั้นออก ปล่อยให้กรอบโฟกัสกลางของเว็บใน index.css ทำงานตามปกติ */
 
 /* ✅ แก้ปุ่มให้เรียงแนวตั้งในหน้าจอเล็ก */
 @media (max-width: 600px) {
   .checkout {
-    padding: 15px;
+    padding: 16px;
   }
 
   .buttonGroup{
@@ -545,24 +571,34 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 1100;
 }
 
+/* กล่องแจ้งว่าซื้อสำเร็จ
+
+   เดิมพื้นขาว ซึ่งเด้งขึ้นมาคลุมหน้าที่มืดสนิททั้งหน้า แสบตามาก
+   และตัวอักษรข้างในไม่ได้ตั้งสีไว้ จึงอาศัยสีดำที่เป็นค่าเริ่มต้นของเบราว์เซอร์
+   พอเปลี่ยนพื้นเป็นสีเข้มจึงต้องตั้งสีตัวอักษรให้ชัดเจนด้วย */
 .modalContent {
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
+  padding: 28px 36px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  background: var(--surface-2);
+  color: var(--text);
   text-align: center;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.6);
   animation: fadeIn 0.3s ease-in-out;
 }
 
+/* เดิมเป็น green ซึ่งเป็นเขียวเข้มของ CSS (#008000) บนพื้นเข้มจะจมหายไป */
 .checkmark {
   font-size: 50px;
-  color: green;
+  color: var(--accent);
   margin-bottom: 10px;
 }
 
@@ -578,3 +614,45 @@
   }
 }
 
+/* คนที่ตั้งค่าระบบว่าไม่ต้องการภาพเคลื่อนไหว */
+@media (prefers-reduced-motion: reduce) {
+  .shopItem1,
+  .shopItem2,
+  .shopItem3,
+  .shopItem4,
+  .shopItem5,
+  .shopItem6,
+  .dinoItem1,
+  .structItem1,
+  .ARTItem,
+  .ARTItem6,
+  .ARTItem4,
+  .Ad1 img,
+  .Ad2 img,
+  .dinoDetails img,
+  .purchaseBtn,
+  .backBtn {
+    transition: none;
+  }
+
+  .shopItem1:hover,
+  .shopItem2:hover,
+  .shopItem3:hover,
+  .shopItem4:hover,
+  .shopItem5:hover,
+  .shopItem6:hover,
+  .dinoItem1:hover,
+  .structItem1:hover,
+  .ARTItem:hover,
+  .ARTItem6:hover,
+  .ARTItem4:hover,
+  .Ad1 img:hover,
+  .Ad2 img:hover,
+  .dinoDetails img:hover {
+    transform: none;
+  }
+
+  .modalContent {
+    animation: none;
+  }
+}
