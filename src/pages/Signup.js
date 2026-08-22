@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Row, Button } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
-import styles from './singup.module.css';  // นำเข้าไฟล์ CSS Module
+import styles from './signup.module.css';  // นำเข้าไฟล์ CSS Module
 
 export default function SignUp() {
     const [validated, setValidated] = useState(false);
