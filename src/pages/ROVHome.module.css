@@ -47,7 +47,10 @@
 .header1 {
   position: relative;
   background-color: var(--bg);
-  background-image: url("https://cdnb.artstation.com/p/assets/images/images/040/905/881/original/danny-li-.gif?1630222941");
+  /* รูปพื้นหลังวางไว้ใน src/ ไม่ใช่ public/ เพราะ CSS Module อ้าง public ตรง ๆ ไม่ได้
+     webpack จะพยายามหาไฟล์ตามพาธนั้นในโปรเจกต์แล้ว build ล้ม
+     พอวางใน src แล้วอ้างแบบสัมพัทธ์ webpack จะรวมไฟล์ให้เองพร้อมใส่ hash กันแคชค้าง */
+  background-image: url("./rov-home-bg.jpg");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;

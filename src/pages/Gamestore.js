@@ -11,19 +11,19 @@ function Game({ balance }) {
         {
             name: 'Fortnite',
             description: 'เกม Battle Royale ที่มีการสร้างสิ่งก่อสร้างและต่อสู้กันจนเหลือผู้ชนะคนสุดท้าย',
-            imageUrl: 'https://www.yudiz.com/codepen/expandable-animated-card-slider/fortnite.jpg',
+            imageUrl: '/image/games/fortnite.jpg',
             link : '/FortniteHome',
         },
         {
             name: 'ARK: Survival Evolved',
             description: 'เกมเอาชีวิตรอดที่ผู้เล่นจะต้องสร้างที่หลบภัยและเชื่องไดโนเสาร์ในโลกที่เต็มไปด้วยอันตราย',
-            imageUrl: 'https://cdn2.unrealengine.com/egs-arkultimatesurvivoredition-studiowildcard-bundles-s1-2560x1440-ab6e094c452b.jpg',
+            imageUrl: '/image/games/ark.jpg',
             link: '/ARKHome',
         },
         {
             name: 'ROV (Arena of Valor)',
             description: 'เกม MOBA ที่มีตัวละครหลากหลายและการแข่งขันที่ตื่นเต้น',
-            imageUrl: 'https://s.isanook.com/ga/0/ud/212/1062009/image-rov-04.jpg?ip/crop/w1200h700/q80/webp',
+            imageUrl: '/image/games/rov.jpg',
             link : '/ROVHome'
         },
     ];
