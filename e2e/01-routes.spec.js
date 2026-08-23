@@ -16,7 +16,7 @@ const routes = [
   { path: '/cave', mustSee: 'ARK Survival Evolved' },
   { path: '/structures', mustSee: 'ARK Survival Evolved' },
   { path: '/ROVHome', mustSee: 'Legendary ROV Shop' },
-  { path: '/ROVShop', mustSee: 'All Skins' },
+  { path: '/ROVShop', mustSee: 'สกินทั้งหมด' },
   { path: '/FortniteHome', mustSee: 'Emmy Gift Shop' },
   { path: '/Cart', mustSee: 'ตะกร้า' },
 ];

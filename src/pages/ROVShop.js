@@ -162,8 +162,8 @@ function ROVShop() {
         <Link to="/" onClick={() => setMenuOpen(false)}>Login</Link>
       </div>
 
-      <h1>We've gathered together some of the coolest Skins for you.</h1>
-      <h2>All Skins</h2>
+      <h1>คัดสกินเด็ด ๆ มารวมไว้ให้คุณแล้ว</h1>
+      <h2>สกินทั้งหมด</h2>
 
       {/* ตารางสินค้า */}
       <div className={styles.productGrid}>
