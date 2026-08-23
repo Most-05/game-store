@@ -62,7 +62,7 @@ Without the backend running, signup and login fail with
 ## Testing
 
 ```bash
-npm run test:e2e          # run the Playwright suite (73 tests)
+npm run test:e2e          # run the Playwright suite (81 tests)
 npm run test:e2e:report   # open the HTML report
 ```
 
@@ -147,7 +147,7 @@ npm start          # เว็บพร้อม backend จำลอง ที�
 ### วิธีรันเทส
 
 ```bash
-npm run test:e2e          # รันเทส Playwright ทั้ง 73 ตัว
+npm run test:e2e          # รันเทส Playwright ทั้ง 81 ตัว
 npm run test:e2e:report   # เปิดรายงานผลแบบ HTML
 ```
 

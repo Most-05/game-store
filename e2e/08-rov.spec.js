@@ -101,4 +101,144 @@ test.describe('ร้าน ROV', () => {
       'กดพื้นหลังแล้วป๊อปอัพไม่ปิด'
     ).toHaveCount(0);
   });
+
+  // ---------- การจัดการโฟกัสของกล่องที่เด้งคลุมหน้าจอ ----------
+
+  // เดิมกดเปิดกล่องแล้วโฟกัสยังค้างอยู่ที่การ์ดข้างหลัง คนที่ใช้คีย์บอร์ด
+  // กด Tab ต่อจึงไล่ไปการ์ดใบอื่นที่อยู่หลังฉากคลุม แทนที่จะวนอยู่ในกล่อง
+  test('เปิดกล่องยืนยันแล้วโฟกัสต้องย้ายเข้าไปในกล่อง', async ({ page }) => {
+    captureDialogs(page);
+    await visit(page, '/ROVShop');
+    await settle(page);
+
+    await page.locator('[class*="productCard"]').first().click();
+    await expect(page.locator('[class*="popupBox"]')).toBeVisible();
+
+    const insideDialog = await page.evaluate(() => {
+      const box = document.querySelector('[class*="popupBox"]');
+      return Boolean(box && document.activeElement && box.contains(document.activeElement));
+    });
+    expect(insideDialog, 'เปิดกล่องแล้วโฟกัสยังอยู่นอกกล่อง').toBe(true);
+  });
+
+  test('กด Tab ในกล่องต้องวนอยู่ในกล่อง ไม่หลุดไปการ์ดข้างหลัง', async ({ page }) => {
+    captureDialogs(page);
+    await visit(page, '/ROVShop');
+    await settle(page);
+
+    await page.locator('[class*="productCard"]').first().click();
+    await expect(page.locator('[class*="popupBox"]')).toBeVisible();
+
+    // กดวนหลายครั้งให้เกินจำนวนปุ่มในกล่อง ถ้าไม่มีการขังไว้จะหลุดออกไปแล้ว
+    for (let i = 0; i < 6; i++) {
+      await page.keyboard.press('Tab');
+    }
+
+    const stillInside = await page.evaluate(() => {
+      const box = document.querySelector('[class*="popupBox"]');
+      return Boolean(box && document.activeElement && box.contains(document.activeElement));
+    });
+    expect(stillInside, 'กด Tab แล้วโฟกัสหลุดออกไปนอกกล่อง').toBe(true);
+  });
+
+  test('ปิดกล่องแล้วโฟกัสต้องกลับไปที่การ์ดที่กดมา', async ({ page }) => {
+    captureDialogs(page);
+    await visit(page, '/ROVShop');
+    await settle(page);
+
+    const card = page.locator('[class*="productCard"]').first();
+    await card.focus();
+    await page.keyboard.press('Enter');
+    await expect(page.locator('[class*="popupBox"]')).toBeVisible();
+
+    await page.keyboard.press('Escape');
+    await expect(page.locator('[class*="popupBox"]')).toHaveCount(0);
+    await expect(card, 'ปิดกล่องแล้วโฟกัสไม่กลับไปที่การ์ดเดิม').toBeFocused();
+  });
+
+  // ---------- แจ้งผลการซื้อในหน้าเว็บ ----------
+
+  test('ซื้อสำเร็จต้องแจ้งผลในกล่อง ไม่ใช่ alert ของเบราว์เซอร์', async ({ page }) => {
+    const dialogs = captureDialogs(page);
+    await seedBalance(page, 50000);
+    await visit(page, '/ROVShop');
+    await settle(page);
+
+    await page.locator('[class*="productCard"]').first().click();
+    await page.click('button:has-text("ยืนยัน")');
+
+    await expect(page.getByText('ซื้อสำเร็จ')).toBeVisible({ timeout: 10000 });
+    expect(dialogs, `ยังเด้ง alert อยู่: ${dialogs.join(' | ')}`).toEqual([]);
+  });
+
+  test('เงินไม่พอต้องบอกในกล่องพร้อมทางไปเติมเงิน', async ({ page }) => {
+    captureDialogs(page);
+    await seedBalance(page, 10);
+    await visit(page, '/ROVShop');
+    await settle(page);
+
+    await page.locator('[class*="productCard"]').first().click();
+    await page.click('button:has-text("ยืนยัน")');
+
+    await expect(page.getByText('Coins ไม่เพียงพอ')).toBeVisible({ timeout: 10000 });
+    const topUp = page.locator('a[href="/add-funds"]');
+    await expect(topUp, 'บอกว่าเงินไม่พอแต่ไม่มีทางไปเติมเงิน').toBeVisible();
+
+    const stored = await page.evaluate(() => localStorage.getItem('balance'));
+    expect(Number(stored), 'ซื้อไม่สำเร็จแต่เงินถูกหัก').toBe(10);
+  });
+
+  // ---------- เนื้อหาและชุดสี ----------
+
+  test('ชื่อสกินต้องไม่ซ้ำกัน', async ({ page }) => {
+    captureDialogs(page);
+    await visit(page, '/ROVShop');
+    await settle(page);
+
+    const names = await page.$$eval('[class*="productName"]', (els) =>
+      els.map((e) => e.textContent.trim())
+    );
+    const seen = new Set();
+    const duplicated = names.filter((n) => (seen.has(n) ? true : (seen.add(n), false)));
+    expect(duplicated, `ชื่อที่ซ้ำกัน: ${duplicated.join(' , ')}`).toEqual([]);
+  });
+
+  test('หัวข้อหน้าร้านต้องเป็นภาษาไทยเหมือนหน้าอื่นของเว็บ', async ({ page }) => {
+    captureDialogs(page);
+    await visit(page, '/ROVShop');
+    await settle(page);
+
+    const heading = await page.locator('h1').first().innerText();
+    expect(heading, `หัวข้อยังเป็นภาษาอังกฤษ: ${heading}`).toMatch(/[\u0E00-\u0E7F]/);
+  });
+
+  // เมนูสไลด์เคยใช้ชุดสีของธีมเก่าที่ไม่อยู่ในชุดสีของเว็บเลย
+  // คือน้ำเงินเทา #2c3e50 ตัวอักษร #ecf0f1 และไฮไลต์สีทอง #ffd700
+  // เทียบกับค่าจริงของตัวแปรกลาง ไม่ได้เทียบกับเลขสีที่พิมพ์ไว้ในเทส
+  // เพราะถ้าวันหลังเปลี่ยนสีของธีม เทสนี้จะยังถูกต้องอยู่
+  test('เมนูสไลด์ต้องใช้สีจากชุดสีกลางของเว็บ', async ({ page }) => {
+    captureDialogs(page);
+    await visit(page, '/ROVShop');
+    await settle(page);
+
+    const result = await page.evaluate(() => {
+      const toRgb = (value) => {
+        const probe = document.createElement('span');
+        probe.style.color = value.trim();
+        document.body.appendChild(probe);
+        const rgb = getComputedStyle(probe).color;
+        probe.remove();
+        return rgb;
+      };
+      const token = getComputedStyle(document.documentElement).getPropertyValue('--surface-2');
+      const sidebar = document.querySelector('[class*="sidebar"]');
+      return {
+        expected: toRgb(token),
+        actual: getComputedStyle(sidebar).backgroundColor,
+      };
+    });
+
+    expect(result.actual, `เมนูสไลด์ใช้สี ${result.actual} แทนที่จะเป็น --surface-2 (${result.expected})`)
+      .toBe(result.expected);
+  });
 });
