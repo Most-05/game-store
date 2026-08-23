@@ -20,9 +20,12 @@ import styles from "./ROVShop.module.css"; // ใช้ CSS Modules
 //   2. ตอนหักเงินต้องแกะข้อความกลับเป็นตัวเลขด้วย regex ทุกครั้ง
 //      ถ้าวันหลังมีคนใส่รูปแบบใหม่ที่ regex ไม่รองรับ ราคาจะเพี้ยนเงียบ ๆ
 // ตอนนี้เก็บตัวเลขไว้อย่างเดียว แล้วค่อยจัดรูปแบบตอนแสดงผลที่เดียว
+//
+// สกินของ Airi มีสองใบ เดิมทั้งคู่ชื่อ "Airi" เหมือนกันเป๊ะ ต่างกันแค่ราคา
+// ผู้ใช้จึงแยกไม่ออกว่าใบไหนคือใบไหน เติมชื่อชุดต่อท้ายตามรูปจริงของแต่ละใบ
 const products = [
   { id: 1, name: "Violet", price: 9900, image: "/image/rov/violet.jpg" },
-  { id: 2, name: "Airi", price: 1000, image: "/image/rov/airi.jpg" },
+  { id: 2, name: "Airi ชุดนักเรียน", price: 1000, image: "/image/rov/airi.jpg" },
   { id: 3, name: "Lauriel", price: 5300, image: "/image/rov/lauriel.jpg" },
   { id: 4, name: "Yorn", price: 3400, image: "/image/rov/yorn.jpg" },
   { id: 5, name: "Veres", price: 1500, image: "/image/rov/veres.jpg" },
@@ -32,7 +35,7 @@ const products = [
   { id: 9, name: "Bright", price: 1909, image: "/image/rov/bright.jpg" },
   { id: 11, name: "Ryoma", price: 2100, image: "/image/rov/ryoma.jpg" },
   { id: 14, name: "Kahlii", price: 2400, image: "/image/rov/kahlii.jpg" },
-  { id: 15, name: "Airi", price: 7900, image: "/image/rov/airi-classic.jpg" },
+  { id: 15, name: "Airi กิโมโนซากุระ", price: 7900, image: "/image/rov/airi-classic.jpg" },
   { id: 16, name: "Liliana", price: 2000, image: "/image/rov/liliana.jpg" },
 ];
 
