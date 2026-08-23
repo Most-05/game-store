@@ -228,30 +228,43 @@
 
 /* ---------------------------------------------------------------
    เมนูสไลด์ด้านข้าง
-   สี่คลาสข้างล่างนี้ถูกเรียกใช้ใน ROVShop.js มาตั้งแต่แรก
-   แต่ไม่เคยมีนิยามอยู่ในไฟล์นี้ ทำให้ style.sidebar และเพื่อน ๆ
-   เป็น undefined เมนูจึงไม่มีหน้าตาและกดใช้งานไม่ได้เลย
+
+   สี่คลาสข้างล่างนี้ถูกเรียกใช้ใน ROVShop.js มาตั้งแต่แรก แต่ไม่เคยมีนิยาม
+   อยู่ในไฟล์นี้ ทำให้ style.sidebar และเพื่อน ๆ เป็น undefined
+   เมนูจึงไม่มีหน้าตาและกดใช้งานไม่ได้เลย ตอนเขียนนิยามเพิ่มเข้ามาครั้งแรก
+   ใช้ชุดสีของธีมเก่าที่ติดมากับโค้ดตั้งต้น คือน้ำเงินเทา #2c3e50
+   ตัวอักษร #ecf0f1 และไฮไลต์สีทอง #ffd700
+
+   ชุดสีนั้นไม่อยู่ในชุดสีของเว็บเลยสักสีเดียว พอเปิดเมนูขึ้นมาบนหน้าร้าน
+   ที่พื้นเกือบดำสนิท จะเห็นเป็นแผ่นน้ำเงินเทาแปะอยู่คนละโทนกับทุกอย่างรอบตัว
+   ตอนนี้เปลี่ยนมาใช้ตัวแปรกลางทั้งหมดแล้ว
    --------------------------------------------------------------- */
 
-/* ปุ่ม ☰ มุมซ้ายบน */
+/* ปุ่ม ☰ มุมซ้ายบน ทำให้หน้าตาเหมือนป้ายยอดเงินที่อยู่มุมขวาบน
+   จะได้รู้สึกว่าเป็นของคู่กันที่ลอยอยู่เหนือเนื้อหาเหมือนกัน */
 .menuicon {
   position: absolute;
-  top: 10px;
-  left: 20px;
-  font-size: 28px;
+  top: 14px;
+  left: 24px;
+  font-size: 24px;
   line-height: 1;
   cursor: pointer;
   user-select: none;
-  background: #2c3e50;
-  color: #fff;
-  padding: 6px 14px;
-  border-radius: 10px;
-  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+  padding: 7px 16px;
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  background-color: rgba(31, 31, 38, 0.9);
+  backdrop-filter: blur(10px);
+  color: var(--text);
   z-index: 20;
+  transition:
+    border-color 0.2s var(--ease),
+    background-color 0.2s var(--ease);
 }
 
 .menuicon:hover {
-  background: #1a252f;
+  border-color: var(--accent);
+  background-color: var(--surface-3);
 }
 
 /* ตัวเมนู ปกติซ่อนไว้นอกจอด้านซ้าย */
@@ -261,14 +274,15 @@
   left: 0;
   width: 240px;
   height: 100%;
-  background: #2c3e50;
+  background-color: var(--surface-2);
+  border-right: 1px solid var(--border);
   display: flex;
   flex-direction: column;
   gap: 18px;
   padding: 60px 24px 24px;
-  box-shadow: 4px 0 12px rgba(0, 0, 0, 0.25);
+  box-shadow: 4px 0 24px rgba(0, 0, 0, 0.5);
   transform: translateX(-100%);
-  transition: transform 0.3s ease;
+  transition: transform 0.3s var(--ease);
   z-index: 30;
 }
 
@@ -278,29 +292,43 @@
 }
 
 .sidebar a {
-  color: #ecf0f1;
-  font-size: 1.1rem;
+  color: var(--text-dim);
+  font-size: 1.05rem;
+  font-weight: 600;
   text-decoration: none;
   padding: 8px 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  border-bottom: 1px solid var(--border);
+  transition: color 0.2s var(--ease);
 }
 
 .sidebar a:hover {
-  color: #ffd700;
+  color: var(--accent);
 }
 
-/* ปุ่ม ✖ ปิดเมนู */
+/* ปุ่มปิดเมนู */
 .close-btn {
   position: absolute;
   top: 12px;
   right: 12px;
   background: transparent;
   border: none;
-  color: #ecf0f1;
+  color: var(--text-dim);
   font-size: 20px;
+  line-height: 1;
   cursor: pointer;
+  transition: color 0.2s var(--ease);
 }
 
 .close-btn:hover {
-  color: #ffd700;
+  color: var(--accent);
+}
+
+/* คนที่ตั้งค่าระบบว่าไม่ต้องการภาพเคลื่อนไหว ให้เมนูปรากฏทันทีแทนการเลื่อน */
+@media (prefers-reduced-motion: reduce) {
+  .sidebar,
+  .menuicon,
+  .close-btn,
+  .sidebar a {
+    transition: none;
+  }
 }
