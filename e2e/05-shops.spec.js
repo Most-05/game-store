@@ -135,7 +135,7 @@ test.describe('ร้าน ROV', () => {
   });
 
 
-  test('ปุ่ม ☰ ต้องเปิดเมนูสไลด์ได้ และปุ่ม ✖ ต้องปิดได้', async ({ page }) => {
+  test('ปุ่ม ☰ ต้องเปิดเมนูสไลด์ได้ และปุ่มปิดต้องปิดได้', async ({ page }) => {
     captureDialogs(page);
     await visit(page, '/ROVShop');
     await settle(page);
@@ -149,7 +149,7 @@ test.describe('ร้าน ROV', () => {
     await page.locator('[class*="menuicon"]').first().click();
     await expect(homeLink, 'กดปุ่ม ☰ แล้วเมนูไม่เลื่อนเข้ามา').toBeInViewport({ timeout: 5000 });
 
-    await sidebar.getByText('✖').click();
-    await expect(homeLink, 'กดปุ่ม ✖ แล้วเมนูไม่ยอมปิด').not.toBeInViewport({ timeout: 5000 });
+    await sidebar.getByText('✕').click();
+    await expect(homeLink, 'กดปุ่มปิดแล้วเมนูไม่ยอมปิด').not.toBeInViewport({ timeout: 5000 });
   });
 });

@@ -113,7 +113,7 @@ function ROVShop() {
 
       {/* เมนู Sidebar */}
       <div className={`${style.sidebar} ${menuOpen ? style.open : ""}`}>
-        <button className={style['close-btn']} onClick={() => setMenuOpen(false)}>✖</button>
+        <button className={style['close-btn']} onClick={() => setMenuOpen(false)} aria-label="ปิดเมนู">✕</button>
         <Link to="/Home" onClick={() => setMenuOpen(false)}>Home</Link>
         <Link to="/ROVShop" onClick={() => setMenuOpen(false)}>Shop</Link>
         <Link to="/" onClick={() => setMenuOpen(false)}>Login</Link>
