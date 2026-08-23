@@ -102,7 +102,7 @@ test.describe('ร้าน ROV', () => {
     await settle(page);
 
     const before = await visibleText(page);
-    await page.locator('[class*="product-card"]').first().click();
+    await page.locator('[class*="productCard"]').first().click();
     await page.click('button:has-text("ยืนยัน")');
     await expect.poll(() => dialogs.join(' '), { timeout: 10000 }).toContain('เรียบร้อยแล้ว');
 
@@ -126,7 +126,7 @@ test.describe('ร้าน ROV', () => {
     await settle(page);
     const before = await visibleText(page);
 
-    await page.locator('[class*="product-card"]').first().click();
+    await page.locator('[class*="productCard"]').first().click();
     await page.click('button:has-text("ยกเลิก")');
     await page.waitForTimeout(300);
 
@@ -146,7 +146,7 @@ test.describe('ร้าน ROV', () => {
     // ตอนแรกเมนูต้องซ่อนอยู่นอกจอ
     await expect(homeLink).not.toBeInViewport();
 
-    await page.locator('[class*="menuicon"]').first().click();
+    await page.locator('[class*="menuIcon"]').first().click();
     await expect(homeLink, 'กดปุ่ม ☰ แล้วเมนูไม่เลื่อนเข้ามา').toBeInViewport({ timeout: 5000 });
 
     await sidebar.getByText('✕').click();

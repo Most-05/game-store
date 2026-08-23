@@ -12,7 +12,7 @@ test.describe('ร้าน ROV', () => {
     await visit(page, '/ROVShop');
     await settle(page);
 
-    const prices = await page.$$eval('[class*="product-price"]', (els) =>
+    const prices = await page.$$eval('[class*="productPrice"]', (els) =>
       els.map((e) => e.textContent.trim())
     );
     expect(prices.length, 'ไม่เจอราคาบนหน้าร้านเลย').toBeGreaterThan(0);
@@ -27,12 +27,12 @@ test.describe('ร้าน ROV', () => {
     await visit(page, '/ROVShop');
     await settle(page);
 
-    const card = page.locator('[class*="product-card"]').first();
-    const onCard = (await card.locator('[class*="product-price"]').innerText()).trim();
+    const card = page.locator('[class*="productCard"]').first();
+    const onCard = (await card.locator('[class*="productPrice"]').innerText()).trim();
 
     await card.click();
-    await expect(page.locator('[class*="popup-box"]')).toBeVisible();
-    const popup = await page.locator('[class*="popup-box"]').innerText();
+    await expect(page.locator('[class*="popupBox"]')).toBeVisible();
+    const popup = await page.locator('[class*="popupBox"]').innerText();
     expect(popup, `การ์ดบอกราคา ${onCard} แต่ป๊อปอัพบอกคนละราคา`).toContain(onCard);
   });
 
@@ -42,13 +42,13 @@ test.describe('ร้าน ROV', () => {
     await visit(page, '/ROVShop');
     await settle(page);
 
-    const card = page.locator('[class*="product-card"]').first();
+    const card = page.locator('[class*="productCard"]').first();
     await card.focus();
     await expect(card, 'การ์ดสกินไล่ด้วยปุ่ม Tab ไปไม่ถึง').toBeFocused();
 
     await page.keyboard.press('Enter');
     await expect(
-      page.locator('[class*="popup-box"]'),
+      page.locator('[class*="popupBox"]'),
       'กด Enter ที่การ์ดแล้วป๊อปอัพยืนยันไม่เปิด'
     ).toBeVisible();
   });
@@ -60,12 +60,12 @@ test.describe('ร้าน ROV', () => {
     await settle(page);
 
     const before = await visibleText(page);
-    await page.locator('[class*="product-card"]').first().click();
-    await expect(page.locator('[class*="popup-box"]')).toBeVisible();
+    await page.locator('[class*="productCard"]').first().click();
+    await expect(page.locator('[class*="popupBox"]')).toBeVisible();
 
     await page.keyboard.press('Escape');
     await expect(
-      page.locator('[class*="popup-box"]'),
+      page.locator('[class*="popupBox"]'),
       'กด Esc แล้วป๊อปอัพไม่ปิด'
     ).toHaveCount(0);
 
@@ -79,7 +79,7 @@ test.describe('ร้าน ROV', () => {
     await settle(page);
 
     const homeLink = page.locator('[class*="sidebar"]').first().getByText('Home', { exact: true });
-    await page.locator('[class*="menuicon"]').first().click();
+    await page.locator('[class*="menuIcon"]').first().click();
     await expect(homeLink).toBeInViewport({ timeout: 5000 });
 
     await page.keyboard.press('Escape');
@@ -91,13 +91,13 @@ test.describe('ร้าน ROV', () => {
     await visit(page, '/ROVShop');
     await settle(page);
 
-    await page.locator('[class*="product-card"]').first().click();
-    await expect(page.locator('[class*="popup-box"]')).toBeVisible();
+    await page.locator('[class*="productCard"]').first().click();
+    await expect(page.locator('[class*="popupBox"]')).toBeVisible();
 
     // กดที่มุมบนซ้ายของฉากคลุม ซึ่งอยู่นอกกล่องเนื้อหาแน่นอน
-    await page.locator('[class*="popup-overlay"]').click({ position: { x: 5, y: 5 } });
+    await page.locator('[class*="popupOverlay"]').click({ position: { x: 5, y: 5 } });
     await expect(
-      page.locator('[class*="popup-box"]'),
+      page.locator('[class*="popupBox"]'),
       'กดพื้นหลังแล้วป๊อปอัพไม่ปิด'
     ).toHaveCount(0);
   });

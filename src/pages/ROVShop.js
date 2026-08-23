@@ -4,7 +4,7 @@ import { BalanceContext } from "../BalanceContext"; // ยอดเงินก�
 // ตัวช่วยทำให้กล่องที่กดได้ทำตัวเป็นปุ่มจริง ไฟล์นี้ตั้งชื่อตามร้าน ARK
 // เพราะเขียนขึ้นตอนแก้ร้านนั้นก่อน แต่เนื้อในไม่ผูกกับร้านไหนเลย ใช้ร่วมกันได้
 import { cardButtonProps } from "./arkCardProps";
-import style from "./ROVShop.module.css"; // ใช้ CSS Modules
+import styles from "./ROVShop.module.css"; // ใช้ CSS Modules
 
 // รายการสินค้า
 //
@@ -95,15 +95,15 @@ function ROVShop() {
   }
 
   return (
-    <div className={style['shop-container']}>
+    <div className={styles.shopContainer}>
       {/* แสดง Coins ที่มุมขวาบน */}
-      <div className={style['coins-display']}>
+      <div className={styles.coinsDisplay}>
         💰 Coins: {balance.toLocaleString()}
       </div>
 
       {/* ปุ่ม ☰ ที่มุมซ้าย */}
       <div
-        className={style['menuicon']}
+        className={styles.menuIcon}
         aria-label="เปิดเมนู"
         aria-expanded={menuOpen}
         {...cardButtonProps(() => setMenuOpen((open) => !open))}
@@ -112,8 +112,8 @@ function ROVShop() {
       </div>
 
       {/* เมนู Sidebar */}
-      <div className={`${style.sidebar} ${menuOpen ? style.open : ""}`}>
-        <button className={style['close-btn']} onClick={() => setMenuOpen(false)} aria-label="ปิดเมนู">✕</button>
+      <div className={`${styles.sidebar} ${menuOpen ? styles.open : ""}`}>
+        <button className={styles.closeButton} onClick={() => setMenuOpen(false)} aria-label="ปิดเมนู">✕</button>
         <Link to="/Home" onClick={() => setMenuOpen(false)}>Home</Link>
         <Link to="/ROVShop" onClick={() => setMenuOpen(false)}>Shop</Link>
         <Link to="/" onClick={() => setMenuOpen(false)}>Login</Link>
@@ -123,10 +123,10 @@ function ROVShop() {
       <h2>All Skins</h2>
 
       {/* ตารางสินค้า */}
-      <div className={style['product-grid']}>
+      <div className={styles.productGrid}>
         {products.map((product) => (
           <div
-            className={style['product-card']}
+            className={styles.productCard}
             key={product.id}
             {...cardButtonProps(() => confirmPurchase(product))}
           >
@@ -135,7 +135,7 @@ function ROVShop() {
                 ตอนนี้รูปอยู่ในโปรเจกต์แล้วจึงแทบไม่มีทางเกิด แต่เก็บไว้เป็นตาข่ายรอง
                 เผื่อวันหลังมีคนลบไฟล์รูปออกไปโดยไม่ได้แก้รายการสินค้าตาม */}
             {brokenImages[product.id] ? (
-              <div className={style['image-fallback']}>ไม่มีรูปตัวอย่าง</div>
+              <div className={styles.imageFallback}>ไม่มีรูปตัวอย่าง</div>
             ) : (
               <img
                 src={product.image}
@@ -145,22 +145,22 @@ function ROVShop() {
                 }
               />
             )}
-            <h3 className={style['product-name']}>{product.name}</h3>
-            <p className={style['product-price']}>{formatPrice(product.price)}</p>
+            <h3 className={styles.productName}>{product.name}</h3>
+            <p className={styles.productPrice}>{formatPrice(product.price)}</p>
           </div>
         ))}
       </div>
 
       {/* Popup ยืนยันการซื้อ */}
       {selectedProduct && (
-        <div className={style['popup-overlay']} onClick={closePopup}>
+        <div className={styles.popupOverlay} onClick={closePopup}>
           {/* กันไม่ให้การกดในกล่องทะลุไปโดนพื้นหลังแล้วปิดป๊อปอัพไปด้วย */}
-          <div className={style['popup-box']} onClick={(e) => e.stopPropagation()}>
+          <div className={styles.popupBox} onClick={(e) => e.stopPropagation()}>
             <h2>ยืนยันการซื้อ</h2>
             <p>คุณต้องการซื้อ <strong>{selectedProduct.name}</strong> ในราคา {formatPrice(selectedProduct.price)} หรือไม่?</p>
-            <div className={style['popup-buttons']}>
-              <button className={style['confirm-btn']} onClick={handleConfirm}>✅ ยืนยัน</button>
-              <button className={style['cancel-btn']} onClick={closePopup}>❌ ยกเลิก</button>
+            <div className={styles.popupButtons}>
+              <button className={styles.confirmButton} onClick={handleConfirm}>✅ ยืนยัน</button>
+              <button className={styles.cancelButton} onClick={closePopup}>❌ ยกเลิก</button>
             </div>
           </div>
         </div>
