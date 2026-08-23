@@ -36,47 +36,71 @@ const products = [
   { id: 16, name: "Liliana", price: 2000, image: "/image/rov/liliana.jpg" },
 ];
 
-// จัดรูปแบบราคาไว้ที่เดียว ทุกที่ที่แสดงราคาจึงหน้าตาเหมือนกันเสมอ
+// จัดรูปแบบตัวเลขไว้ที่เดียว ทุกที่ที่แสดงราคาหรือยอดเงินจึงหน้าตาเหมือนกันเสมอ
+function formatCoins(amount) {
+  return amount.toLocaleString("th-TH");
+}
+
 function formatPrice(amount) {
-  return `฿${amount.toLocaleString("th-TH")}`;
+  return `฿${formatCoins(amount)}`;
 }
 
 function ROVShop() {
   const [menuOpen, setMenuOpen] = useState(false);
+  // สินค้าที่กำลังถามยืนยัน ถ้าเป็น null แปลว่ายังไม่ได้กดอะไร
   const [selectedProduct, setSelectedProduct] = useState(null);
+  // ผลของการกดยืนยันไปแล้ว { product, ok } ใช้แสดงในกล่องเดิมแทน alert
+  const [purchaseResult, setPurchaseResult] = useState(null);
   // เก็บ id ของสินค้าที่รูปโหลดไม่ขึ้น เพื่อสลับไปแสดงกล่องแทนที่
   const [brokenImages, setBrokenImages] = useState({});
   // ใช้ยอดเงินกลางร่วมกับทั้งเว็บ แทนการถือ Coins ของตัวเองแยกต่างหาก
   const { balance, decreaseBalance } = useContext(BalanceContext);
-
-  // การซ่อนและแสดงเมนูจัดการด้วยคลาส open ใน CSS แล้ว
-  // ไม่ต้องไปสั่ง display ทับผ่าน ref อีก
 
   // จำว่าก่อนเปิดกล่องผู้ใช้โฟกัสอยู่ที่อะไร จะได้คืนโฟกัสกลับที่เดิมตอนปิด
   const lastFocusedRef = useRef(null);
   const dialogRef = useRef(null);
   const primaryButtonRef = useRef(null);
 
-  // ย้ายโฟกัสเข้าไปในกล่องทันทีที่เปิด
+  const dialogOpen = Boolean(selectedProduct || purchaseResult);
+
+  // ย้ายโฟกัสเข้าไปในกล่องทันทีที่เปิด และทุกครั้งที่เนื้อในกล่องเปลี่ยน
   //
   // เดิมกดเปิดกล่องแล้วโฟกัสยังค้างอยู่ที่การ์ดสินค้าข้างหลัง คนที่ใช้คีย์บอร์ด
   // กด Tab ต่อจึงไล่ไปการ์ดใบอื่นที่อยู่หลังฉากคลุม แทนที่จะวนอยู่ในปุ่มของกล่อง
   // และโปรแกรมอ่านหน้าจอก็ไม่ประกาศว่ามีกล่องเด้งขึ้นมา
   useEffect(() => {
-    if (selectedProduct) primaryButtonRef.current?.focus();
-  }, [selectedProduct]);
+    if (dialogOpen) primaryButtonRef.current?.focus();
+  }, [dialogOpen, purchaseResult]);
 
-  // เปิด Popup ยืนยันการซื้อ
-  function confirmPurchase(product) {
+  function openConfirm(product) {
     lastFocusedRef.current = document.activeElement;
     setSelectedProduct(product);
   }
 
-  // ปิด Popup แล้วคืนโฟกัสกลับไปที่การ์ดที่ผู้ใช้กดมา
-  function closePopup() {
+  // ปิดกล่องทุกแบบ แล้วคืนโฟกัสกลับไปที่การ์ดที่ผู้ใช้กดมา
+  function closeDialog() {
     setSelectedProduct(null);
+    setPurchaseResult(null);
     lastFocusedRef.current?.focus();
   }
+
+  // ปิดกล่องและเมนูสไลด์ด้วยปุ่ม Esc
+  //
+  // เป็นสิ่งที่ผู้ใช้คาดหวังจากทุกกล่องที่เด้งคลุมหน้าจอ และจำเป็นจริง ๆ
+  // สำหรับคนที่ใช้คีย์บอร์ดอย่างเดียว เพราะเดิมทางปิดมีแค่กดปุ่มด้วยเมาส์
+  useEffect(() => {
+    function onKeyDown(event) {
+      if (event.key !== "Escape") return;
+      setSelectedProduct(null);
+      setPurchaseResult(null);
+      setMenuOpen(false);
+      lastFocusedRef.current?.focus();
+    }
+    window.addEventListener("keydown", onKeyDown);
+    // ต้องถอดตัวรับออกตอนคอมโพเนนต์ถูกถอด ไม่งั้นมันค้างอยู่แล้วทำงานซ้อนกัน
+    // ทุกครั้งที่ผู้ใช้เข้าออกหน้านี้
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, []);
 
   // ขังปุ่ม Tab ไว้ในกล่อง ไม่ให้หลุดออกไปโดนของที่อยู่หลังฉากคลุม
   function trapTab(event) {
@@ -97,44 +121,24 @@ function ROVShop() {
     }
   }
 
-  // ปิดป๊อปอัพและเมนูสไลด์ด้วยปุ่ม Esc
-  //
-  // เป็นสิ่งที่ผู้ใช้คาดหวังจากทุกกล่องที่เด้งคลุมหน้าจอ และจำเป็นจริง ๆ
-  // สำหรับคนที่ใช้คีย์บอร์ดอย่างเดียว เพราะเดิมทางปิดมีแค่กดปุ่มด้วยเมาส์
-  useEffect(() => {
-    function onKeyDown(event) {
-      if (event.key !== "Escape") return;
-      setSelectedProduct(null);
-      setMenuOpen(false);
-      lastFocusedRef.current?.focus();
-    }
-    window.addEventListener("keydown", onKeyDown);
-    // ต้องถอดตัวรับออกตอนคอมโพเนนต์ถูกถอด ไม่งั้นมันค้างอยู่แล้วทำงานซ้อนกัน
-    // ทุกครั้งที่ผู้ใช้เข้าออกหน้านี้
-    return () => window.removeEventListener("keydown", onKeyDown);
-  }, []);
-
   // เมื่อกดยืนยันซื้อสินค้า
+  //
+  // เดิมแจ้งผลด้วย alert ของเบราว์เซอร์ ซึ่งหน้าตาดิบและขัดกับกล่องยืนยัน
+  // ที่เพิ่งกดไปเมื่อครู่ ซ้ำยังต้องใช้ setTimeout หน่วง 100 มิลลิวินาที
+  // เพื่อหลบจังหวะ render ซึ่งเป็นการแก้แบบเดา ตอนนี้แสดงผลในกล่องเดิมแทน
   function handleConfirm() {
     if (!selectedProduct) return;
 
-    if (decreaseBalance(selectedProduct.price)) {
-      setSelectedProduct(null);
-      setTimeout(() => {
-        alert(`คุณได้ซื้อ ${selectedProduct.name} เรียบร้อยแล้ว!`);
-      }, 100);
-    } else {
-      alert(
-        `Coins ไม่เพียงพอ\nราคา ${selectedProduct.price} แต่คุณมีอยู่ ${balance}`
-      );
-    }
+    const ok = decreaseBalance(selectedProduct.price);
+    setPurchaseResult({ product: selectedProduct, ok });
+    setSelectedProduct(null);
   }
 
   return (
     <div className={styles.shopContainer}>
       {/* แสดง Coins ที่มุมขวาบน */}
       <div className={styles.coinsDisplay}>
-        💰 Coins: {balance.toLocaleString()}
+        💰 Coins: {formatCoins(balance)}
       </div>
 
       {/* ปุ่ม ☰ ที่มุมซ้าย */}
@@ -164,7 +168,7 @@ function ROVShop() {
           <div
             className={styles.productCard}
             key={product.id}
-            {...cardButtonProps(() => confirmPurchase(product))}
+            {...cardButtonProps(() => openConfirm(product))}
           >
             {/* ถ้ารูปไหนโหลดไม่ขึ้นให้แสดงกล่องแทนพร้อมข้อความบอก
                 ไม่ปล่อยให้เป็นช่องว่างเปล่าที่ดูเหมือนเว็บพัง
@@ -187,10 +191,10 @@ function ROVShop() {
         ))}
       </div>
 
-      {/* Popup ยืนยันการซื้อ */}
-      {selectedProduct && (
-        <div className={styles.popupOverlay} onClick={closePopup}>
-          {/* กันไม่ให้การกดในกล่องทะลุไปโดนพื้นหลังแล้วปิดป๊อปอัพไปด้วย */}
+      {/* กล่องยืนยันการซื้อกับกล่องแจ้งผล ใช้โครงเดียวกัน สลับแค่เนื้อใน */}
+      {dialogOpen && (
+        <div className={styles.popupOverlay} onClick={closeDialog}>
+          {/* stopPropagation กันไม่ให้การกดในกล่องทะลุไปโดนฉากคลุมแล้วปิดกล่องไปด้วย */}
           <div
             className={styles.popupBox}
             ref={dialogRef}
@@ -200,12 +204,58 @@ function ROVShop() {
             onClick={(event) => event.stopPropagation()}
             onKeyDown={trapTab}
           >
-            <h2 id="rov-dialog-title">ยืนยันการซื้อ</h2>
-            <p>คุณต้องการซื้อ <strong>{selectedProduct.name}</strong> ในราคา {formatPrice(selectedProduct.price)} หรือไม่?</p>
-            <div className={styles.popupButtons}>
-              <button className={styles.confirmButton} onClick={handleConfirm} ref={primaryButtonRef}>✅ ยืนยัน</button>
-              <button className={styles.cancelButton} onClick={closePopup}>❌ ยกเลิก</button>
-            </div>
+            {selectedProduct && (
+              <>
+                <h2 id="rov-dialog-title">ยืนยันการซื้อ</h2>
+                <p>
+                  คุณต้องการซื้อ <strong>{selectedProduct.name}</strong> ในราคา{" "}
+                  {formatPrice(selectedProduct.price)} หรือไม่?
+                </p>
+                <div className={styles.popupButtons}>
+                  <button className={styles.confirmButton} onClick={handleConfirm} ref={primaryButtonRef}>
+                    ✅ ยืนยัน
+                  </button>
+                  <button className={styles.cancelButton} onClick={closeDialog}>
+                    ❌ ยกเลิก
+                  </button>
+                </div>
+              </>
+            )}
+
+            {purchaseResult && purchaseResult.ok && (
+              <>
+                <h2 id="rov-dialog-title">✅ ซื้อสำเร็จ</h2>
+                <p>
+                  คุณได้ซื้อ <strong>{purchaseResult.product.name}</strong> เรียบร้อยแล้ว
+                </p>
+                <p>เหลือ {formatCoins(balance)} Coins</p>
+                <div className={styles.popupButtons}>
+                  <button className={styles.confirmButton} onClick={closeDialog} ref={primaryButtonRef}>
+                    เลือกสกินต่อ
+                  </button>
+                </div>
+              </>
+            )}
+
+            {purchaseResult && !purchaseResult.ok && (
+              <>
+                <h2 id="rov-dialog-title">Coins ไม่เพียงพอ</h2>
+                <p>
+                  <strong>{purchaseResult.product.name}</strong> ราคา{" "}
+                  {formatPrice(purchaseResult.product.price)} แต่คุณมีอยู่{" "}
+                  {formatCoins(balance)} Coins
+                </p>
+                <div className={styles.popupButtons}>
+                  {/* เดิมบอกแค่ว่าเงินไม่พอแล้วจบ ผู้ใช้ต้องหาทางไปเติมเงินเอง */}
+                  <Link to="/add-funds" className={styles.confirmButton} ref={primaryButtonRef}>
+                    ไปเติมเงิน
+                  </Link>
+                  <button className={styles.cancelButton} onClick={closeDialog}>
+                    ปิด
+                  </button>
+                </div>
+              </>
+            )}
           </div>
         </div>
       )}

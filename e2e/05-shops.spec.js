@@ -94,7 +94,7 @@ test.describe('ร้าน Fortnite', () => {
 
 test.describe('ร้าน ROV', () => {
   test('ซื้อสกินแล้ว Coins ที่แสดงต้องลดลง', async ({ page }) => {
-    const dialogs = captureDialogs(page);
+    captureDialogs(page);
     // ต้องเติมเงินให้ก่อน เพราะร้าน ROV ใช้ยอดเงินจริงของผู้ใช้แล้ว
     // ไม่ได้แจก Coins ฟรี 50,000 ทุกครั้งที่เปิดหน้าเหมือนเดิม
     await seedBalance(page, 50000);
@@ -104,7 +104,8 @@ test.describe('ร้าน ROV', () => {
     const before = await visibleText(page);
     await page.locator('[class*="productCard"]').first().click();
     await page.click('button:has-text("ยืนยัน")');
-    await expect.poll(() => dialogs.join(' '), { timeout: 10000 }).toContain('เรียบร้อยแล้ว');
+    // ผลการซื้อแสดงในกล่องเดิมแล้ว ไม่ได้เด้ง alert ของเบราว์เซอร์เหมือนเดิม
+    await expect(page.getByText('ซื้อสำเร็จ')).toBeVisible({ timeout: 10000 });
 
     const after = await visibleText(page);
     expect(after, 'ซื้อสกินแล้วยอด Coins ไม่เปลี่ยน').not.toBe(before);
