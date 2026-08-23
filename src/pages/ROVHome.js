@@ -1,8 +1,13 @@
 import React from 'react';
-import styles from "./ROVHome.module.css"; 
 import { Link } from "react-router-dom";
+import styles from "./ROVHome.module.css";
 
-function Home() {
+// หน้าแรกของร้าน ROV
+//
+// เดิมคอมโพเนนต์นี้ชื่อ Home เฉย ๆ ซึ่งชนกับ src/pages/Home.js ที่เป็น
+// หน้าแรกของทั้งเว็บ เวลาไล่โค้ดแล้วเห็นคำว่า Home จึงแยกไม่ออกว่าหมายถึงตัวไหน
+// ตั้งชื่อให้ตรงกับชื่อไฟล์และ route ที่ประกาศไว้ใน App.js
+function ROVHome() {
   return (
     <>
       <nav className={styles.navbar2}>
@@ -21,4 +26,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default ROVHome;
