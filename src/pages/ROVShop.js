@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { BalanceContext } from "../BalanceContext"; // ยอดเงินกลางของทั้งเว็บ
 // ตัวช่วยทำให้กล่องที่กดได้ทำตัวเป็นปุ่มจริง ไฟล์นี้ตั้งชื่อตามร้าน ARK
@@ -52,14 +52,49 @@ function ROVShop() {
   // การซ่อนและแสดงเมนูจัดการด้วยคลาส open ใน CSS แล้ว
   // ไม่ต้องไปสั่ง display ทับผ่าน ref อีก
 
+  // จำว่าก่อนเปิดกล่องผู้ใช้โฟกัสอยู่ที่อะไร จะได้คืนโฟกัสกลับที่เดิมตอนปิด
+  const lastFocusedRef = useRef(null);
+  const dialogRef = useRef(null);
+  const primaryButtonRef = useRef(null);
+
+  // ย้ายโฟกัสเข้าไปในกล่องทันทีที่เปิด
+  //
+  // เดิมกดเปิดกล่องแล้วโฟกัสยังค้างอยู่ที่การ์ดสินค้าข้างหลัง คนที่ใช้คีย์บอร์ด
+  // กด Tab ต่อจึงไล่ไปการ์ดใบอื่นที่อยู่หลังฉากคลุม แทนที่จะวนอยู่ในปุ่มของกล่อง
+  // และโปรแกรมอ่านหน้าจอก็ไม่ประกาศว่ามีกล่องเด้งขึ้นมา
+  useEffect(() => {
+    if (selectedProduct) primaryButtonRef.current?.focus();
+  }, [selectedProduct]);
+
   // เปิด Popup ยืนยันการซื้อ
   function confirmPurchase(product) {
+    lastFocusedRef.current = document.activeElement;
     setSelectedProduct(product);
   }
 
-  // ปิด Popup
+  // ปิด Popup แล้วคืนโฟกัสกลับไปที่การ์ดที่ผู้ใช้กดมา
   function closePopup() {
     setSelectedProduct(null);
+    lastFocusedRef.current?.focus();
+  }
+
+  // ขังปุ่ม Tab ไว้ในกล่อง ไม่ให้หลุดออกไปโดนของที่อยู่หลังฉากคลุม
+  function trapTab(event) {
+    if (event.key !== "Tab") return;
+
+    const focusables = dialogRef.current?.querySelectorAll("button, a[href]");
+    if (!focusables || focusables.length === 0) return;
+
+    const first = focusables[0];
+    const last = focusables[focusables.length - 1];
+
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
   }
 
   // ปิดป๊อปอัพและเมนูสไลด์ด้วยปุ่ม Esc
@@ -71,6 +106,7 @@ function ROVShop() {
       if (event.key !== "Escape") return;
       setSelectedProduct(null);
       setMenuOpen(false);
+      lastFocusedRef.current?.focus();
     }
     window.addEventListener("keydown", onKeyDown);
     // ต้องถอดตัวรับออกตอนคอมโพเนนต์ถูกถอด ไม่งั้นมันค้างอยู่แล้วทำงานซ้อนกัน
@@ -155,11 +191,19 @@ function ROVShop() {
       {selectedProduct && (
         <div className={styles.popupOverlay} onClick={closePopup}>
           {/* กันไม่ให้การกดในกล่องทะลุไปโดนพื้นหลังแล้วปิดป๊อปอัพไปด้วย */}
-          <div className={styles.popupBox} onClick={(e) => e.stopPropagation()}>
-            <h2>ยืนยันการซื้อ</h2>
+          <div
+            className={styles.popupBox}
+            ref={dialogRef}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="rov-dialog-title"
+            onClick={(event) => event.stopPropagation()}
+            onKeyDown={trapTab}
+          >
+            <h2 id="rov-dialog-title">ยืนยันการซื้อ</h2>
             <p>คุณต้องการซื้อ <strong>{selectedProduct.name}</strong> ในราคา {formatPrice(selectedProduct.price)} หรือไม่?</p>
             <div className={styles.popupButtons}>
-              <button className={styles.confirmButton} onClick={handleConfirm}>✅ ยืนยัน</button>
+              <button className={styles.confirmButton} onClick={handleConfirm} ref={primaryButtonRef}>✅ ยืนยัน</button>
               <button className={styles.cancelButton} onClick={closePopup}>❌ ยกเลิก</button>
             </div>
           </div>
