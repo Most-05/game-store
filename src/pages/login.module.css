@@ -65,30 +65,31 @@
 
 /* ช่องกรอก เดิมเป็นพื้นเทาอ่อน #e0dede ทรงแคปซูล ซึ่งสว่างตัดกับพื้นมืด
    และตอนโฟกัสเรืองแสงสีม่วงที่ไม่เกี่ยวกับสีแบรนด์ */
-.loginInput,
-.loginFormControl {
+input.loginInput,
+input.loginFormControl {
     width: 100%;
     padding: 12px 14px;
     margin: 0 0 16px;
     font-size: 1rem;
-    color: var(--text);
-    background-color: var(--surface);
-    border: 1px solid var(--border-strong);
+    color: var(--text) !important;
+    background-color: var(--surface) !important;
+    border: 1px solid var(--border-strong) !important;
     border-radius: var(--radius-sm);
     outline: none;
     transition: border-color 0.2s var(--ease), background-color 0.2s var(--ease);
 }
 
-.loginInput::placeholder,
-.loginFormControl::placeholder {
-    color: var(--text-dim);
+input.loginInput::placeholder,
+input.loginFormControl::placeholder {
+    color: var(--text-dim) !important;
 }
 
-.loginInput:focus,
-.loginFormControl:focus {
-    border-color: var(--accent);
-    background-color: var(--surface-3);
-    box-shadow: 0 0 0 3px var(--accent-soft);
+input.loginInput:focus,
+input.loginFormControl:focus {
+    color: var(--text) !important;
+    border-color: var(--accent) !important;
+    background-color: var(--surface-3) !important;
+    box-shadow: 0 0 0 3px var(--accent-soft) !important;
 }
 
 .loginButton {
