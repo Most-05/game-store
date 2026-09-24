@@ -3,8 +3,7 @@
 A React storefront for in-game items, bringing three game shops together in one
 app with a shared account, wallet and checkout flow.
 
-Built as a personal portfolio project (Feb–Mar 2025), restored and repaired in
-August 2026 — see [Restoration notes](#restoration-notes-august-2026).
+Originally started as a **5-member team project** (Feb–Mar 2025) with primary ownership over the **RoV storefront**, later independently restored, refactored, and expanded in August–September 2026 — see [Restoration notes](#restoration-notes-august-2026).
 
 ---
 
@@ -100,18 +99,12 @@ e2e/                    # Playwright tests
 that are no longer wired up — the live versions are the files directly under
 `src/pages/`, as the imports in `App.js` show.
 
-## Restoration notes (August 2026)
+## Restoration notes (August–September 2026)
 
-The original backend (`my-app-server/server.js`, Express + MySQL) was lost; only
-its `package.json` and a users table dump survived. `mock-server/` replaces it
-with a dependency-free Node server so the app runs end to end again.
-
-Writing the Playwright suite surfaced a number of defects that were then fixed —
-among them a missing `CartProvider` that made the Fortnite cart throw
-`addItem is not a function`, a checkout that never deducted the balance, a ROV
-menu whose CSS classes were never defined, and a route typo
-(`/FortnightHome` vs `/FortniteHome`) that left the Fortnite page blank.
-The commit history covers each one individually.
+The original backend (`my-app-server/server.js`, Express + MySQL) was lost; only its `package.json` and a users table dump survived. The project was revived as an independent solo effort to address major legacy challenges:
+- **Backend reconstruction:** Created `mock-server/` with a lightweight, dependency-free Node server so authentication, wallet, and checkout flows run end to end again.
+- **Cross-store bug fixes:** Resolved architectural defects across all three stores (ARK, RoV, Fortnite), including missing `CartProvider`, unstyled ROV slide-out menus, balance deduction errors, and route typos.
+- **Comprehensive testing:** Implemented end-to-end tests (81 Playwright tests) and unit test suites (Jest) covering routing, context state, and critical UI components.
 
 ## Notes
 
@@ -126,8 +119,12 @@ it stores passwords as MD5 hashes and does not verify the tokens it issues.
 เว็บร้านขายไอเทมเกม เขียนด้วย React รวม 3 ร้านไว้ในเว็บเดียว — **ARK, RoV และ Fortnite**
 ใช้ระบบล็อกอิน ยอดเงิน ตะกร้า และหน้าชำระเงินร่วมกัน
 
-ทำเป็นโปรเจกต์ส่วนตัวช่วง กุมภาพันธ์–มีนาคม 2568
-แล้วนำกลับมากู้คืนและซ่อมบั๊กในเดือนสิงหาคม 2569
+เดิมทีโปรเจกต์นี้เริ่มต้นจากการทำงานร่วมกันใน **ทีม 5 คน (กุมภาพันธ์–มีนาคม 2568)** โดยผมรับหน้าที่พัฒนาในส่วนของหน้าร้าน **RoV**
+
+ต่อมาเนื่องจากโค้ดเดิมบางส่วนสูญหายและระบบยังไม่สมบูรณ์ จึงได้นำโปรเจกต์กลับมากู้คืน (Restore), ซ่อมแซมบั๊กทั่วทั้งระบบ และพัฒนาต่อยอดคนเดียวอย่างเต็มรูปแบบ (สิงหาคม–กันยายน 2569) โดยเน้นแก้ปัญหาใหญ่:
+- **กู้คืนโครงสร้างระบบและสร้าง Mock Backend:** จำลองเซิร์ฟเวอร์ Node.js ทดแทนโค้ดหลังบ้านเดิมที่สูญหาย ให้ระบบล็อกอินและซื้อขายทำงานได้ครบวงจร
+- **ซ่อมแซมบั๊กของทั้ง 3 ร้าน (ARK, RoV, Fortnite):** แก้ปัญหาการแสดงผล CSS, แก้ไขรูปภาพสินค้า, ระบบตะกร้า และ Flow การชำระเงิน/หักยอดเงินจริง
+- **เขียนชุดทดสอบครอบคลุม:** เพิ่มการทดสอบทั้ง E2E (Playwright 81 เทส) และ Unit Test (Jest) ครอบคลุมการทำงานทั้งระบบ
 
 ### วิธีรัน
 
